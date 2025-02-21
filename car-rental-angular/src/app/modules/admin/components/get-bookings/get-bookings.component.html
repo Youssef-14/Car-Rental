@@ -1,0 +1,28 @@
+<nz-spin [nzSpinning]="isSpinning">
+  <div *ngFor="let booking of bookings">
+    <div style="margin-top: 10px;" class="child">
+      <div nz-row style="background-color: #ccc; padding: 24px;">
+        <div nz-col nzSpan="20">
+          <h2 style="cursor: pointer; color: #108ee9;">Booking Status: {{booking.bookCarStatus}}</h2>
+          <h5>Customer Name: <b>{{booking.username}}</b> - Customer email: <b>{{booking.email}}</b> - Customer Id: <b>{{booking.userId}}</b></h5>
+          <h5>Booking Id: <b>{{booking.id}}</b> - car id: <b>{{booking.carId}}</b> </h5>
+          <h5>From Date: <b>{{booking.fromDate | date: 'dd-MM-yyyy'}}</b> - To Date: <b>{{booking.toDate | date: 'dd-MM-yyyy'}}</b> - No of Days: <b>{{booking.days}}</b></h5>
+          <h5></h5>
+          <h5>Total Price: <b>{{booking.price}} $</b></h5>
+        </div>
+        <div *ngIf="booking.bookCarStatus == 'PENDING'">
+          <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary"
+            (click)="changeBookingStatus(booking.id, 'Approve')">
+            Approve
+          </button>
+    
+          <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary" nzDanger
+            (click)="changeBookingStatus(booking.id, 'Reject')">
+            Reject
+          </button>
+        </div>
+        </div>
+      </div>
+  </div>
+      
+</nz-spin>

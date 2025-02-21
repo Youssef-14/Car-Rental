@@ -1,0 +1,35 @@
+<div style="background-color: #ccc; padding: 24px;" *ngIf="car">
+  <div style="padding-top: 10px;"></div>
+
+  <div style="margin-top: 10px;" class="child">
+    <div style="background-color: #fff;  padding: 24px;">
+      <div>
+        <img class="profile w-1/2 m-auto" style="height: 230px; border-radius: 10px; object-fit: cover;"
+          [src]="car.processedImage" alt="profile">
+      </div>
+
+      <div style="padding-top: 24px;">
+        <h2 style="cursor: pointer; color: #108ee9;">{{car.brand}} - {{car.name}}</h2>
+
+        <p>{{car.description}}</p>
+
+        <h5>Price: <b>${{car.price}}</b> - Color : <b>{{car.color}}</b> - Transmission : <b>{{car.transmission}}</b> -
+          Type : <b>{{car.type}}</b> - Year : <b>{{car.year}}</b>
+        </h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-center pt-6">
+    <form (ngSubmit)="onSubmit()">
+      <input type="date" id="from_date" name="from_date" [(ngModel)]="date_from" placeholder="from_date">
+      <input type="date" id="to_date" name="to_date" [(ngModel)]="date_to" placeholder="to_date">
+      <input type="number" id="days" name="days" [(ngModel)]="days" placeholder="no of days">
+      <button type="submit" style="min-width: 100px;" nzSize="small" nz-button nzType="primary">
+        Book
+      </button>
+    </form>
+
+    
+  </div>
+</div>

@@ -1,0 +1,33 @@
+spring:
+  devtools:
+    restart:
+      poll-interval: 60s
+
+  # data source configuration
+  datasource:
+    url: jdbc:postgresql://localhost:5432/car_rental
+    username: postgres
+    password: "0000"
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+
+#logging:
+#  threshold:
+#    console: warn
+server:
+  port: 8080
+
+JWT_KEY: 236933f933ee59b9343317d06bc85f02ee94bd6790b66f6b1304346cf6aa27b2
+debug: false
+
+application:
+  security:
+    jwt:
+      secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      expiration: 86400000 # a day
+      refresh-token:
+        expiration: 604800000 # 7 days
