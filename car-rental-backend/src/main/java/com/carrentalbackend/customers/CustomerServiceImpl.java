@@ -11,6 +11,9 @@ import com.carrentalbackend.users.User;
 import com.carrentalbackend.users.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -67,5 +70,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<BookACarDto> getBookingsByUserId(Long userId) {
         return bookACarRepository.findAllByUserId(userId).stream().map(BookACar::getBookACarDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BookACarDto> getCarDisponibility(Long carId) {
+        // Get all bookings for the car for the next three months
+        return bookACarRepository.findAllByCarId(carId).stream().map(BookACar::getBookACarDto).toList().stream().filter(bookACarDto -> bookACarDto.getToDate().after(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()))).collect(Collectors.toList());
     }
 }

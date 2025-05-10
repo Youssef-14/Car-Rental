@@ -1,0 +1,32 @@
+<nz-spin [nzSpinning]="isSpinning">
+    <nz-table
+            [nzData]="bookings"
+            [nzBordered]="true"
+            [nzSize]="'middle'"
+            [nzScroll]="{ x: '1000px' }"
+            [nzPageSize]= 5
+    >
+        <thead>
+        <tr>
+            <th>Status</th>
+            <th>Booking ID</th>
+            <th>Car ID</th>
+            <th>From</th>
+            <th>To</th>
+            <th>No. of Days</th>
+            <th>Total Price ($)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let booking of bookings">
+            <td><span style="color: #108ee9; cursor: pointer;">{{ booking.bookCarStatus }}</span></td>
+            <td>{{ booking.id }}</td>
+            <td>{{ booking.carId }}</td>
+            <td>{{ booking.fromDate | date: 'dd-MM-yyyy' }}</td>
+            <td>{{ booking.toDate | date: 'dd-MM-yyyy' }}</td>
+            <td>{{ booking.days }}</td>
+            <td>{{ booking.price }}</td>
+        </tr>
+        </tbody>
+    </nz-table>
+</nz-spin>

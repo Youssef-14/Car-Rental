@@ -1,0 +1,35 @@
+<nz-spin [nzSpinning]="isSpinning">
+  <nz-table #sortTable [nzData]="bookings" nzTableLayout="fixed">
+    <thead>
+    </thead>
+    <tbody>
+      @for (data of sortTable.data; track data) {
+        <div style="margin-top: 10px;" class="child">
+          <div nz-row style="background-color: #ccc; padding: 24px;">
+            <div nz-col nzSpan="20">
+              <h2 style="cursor: pointer; color: #108ee9;">Booking Status: {{data.bookCarStatus}}</h2>
+              <h5>Customer Name: <b>{{data.username}}</b></h5>
+              <h5>Customer email: <b>{{data.email}}</b></h5>
+              <h5>Booking Id: <b>{{data.id}}</b> - car id: <b>{{data.carId}}</b> </h5>
+              <h5>From Date: <b>{{data.fromDate | date: 'dd-MM-yyyy'}}</b> - To Date: <b>{{data.toDate | date: 'dd-MM-yyyy'}}</b> - No of Days: <b>{{data.days}}</b></h5>
+              <h5></h5>
+              <h5>Total Price: <b>{{data.price}} $</b></h5>
+            </div>
+            <div *ngIf="data.bookCarStatus == 'PENDING'">
+              <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary"
+                      (click)="changeBookingStatus(data.id, 'Approve')">
+                Approve
+              </button>
+
+              <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary" nzDanger
+                      (click)="changeBookingStatus(data.id, 'Reject')">
+                Reject
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </tbody>
+  </nz-table>
+
+</nz-spin>

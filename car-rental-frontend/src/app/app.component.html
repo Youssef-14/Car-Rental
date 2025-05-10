@@ -1,0 +1,88 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar"
+    nzCollapsible
+    nzWidth="256px"
+    nzBreakpoint="md"
+    [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null"
+  >
+    <div class="sidebar-logo">
+      <a href="https://ng.ant.design/" target="_blank">
+        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
+        <h1>Car Rental</h1>
+      </a>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <!--<li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/welcome">Welcome</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a>Monitor</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a>Workplace</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a>Basic Form</a>
+          </li>
+        </ul>
+      </li>-->
+      <li *ngIf="isAdminLoggedIn" nz-menu-item nzMatchRouter>
+        <a  routerLink="/admin/dashboard" routerLinkActive="active"  > Dashboard </a>
+      </li>
+      <li *ngIf="isAdminLoggedIn" nz-menu-item nzMatchRouter>
+        <a  routerLink="/admin/car" routerLinkActive="active"  > Post Car </a>
+      </li>
+      <li *ngIf="isAdminLoggedIn" nz-menu-item nzMatchRouter>
+        <a  routerLink="/admin/bookings" routerLinkActive="active"  > Bookings </a>
+      </li>
+      <li *ngIf="isAdminLoggedIn" nz-menu-item nzMatchRouter>
+        <a  routerLink="/admin/search" routerLinkActive="active"  > Search </a>
+      </li>
+
+      <li *ngIf="isCustomerLoggedIn" nz-menu-item nzMatchRouter>
+        <a  routerLink="/customer/dashboard" routerLinkActive="active"  > Dashboard </a>
+      </li>
+      <li *ngIf="isCustomerLoggedIn" nz-menu-item nzMatchRouter>
+        <a  routerLink="/customer/my-bookings" routerLinkActive="active"  > Bookings </a>
+      </li>
+
+      <li *ngIf="isAdminLoggedIn || isCustomerLoggedIn" nz-menu-item nzMatchRouter>
+        <a routerLink="#" routerLinkActive="active" (click)="logout()" > Logout </a>
+      </li>
+    </ul>
+    <div *ngIf="!isAdminLoggedIn && !isCustomerLoggedIn">
+      <div class="custom-navbar">
+        <div class="navbar-title">
+          <a routerLink="/login">Car Rental Service</a>
+        </div>
+
+        <div class="nav-links">
+          <a routerLink="/register"> Sign Up </a>
+
+          <a routerLink="/login"> Login </a>
+        </div>
+      </div>
+    </div>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+          <nz-icon class="trigger" [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" />
+        </span>
+      </div>
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

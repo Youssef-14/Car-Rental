@@ -1,0 +1,60 @@
+import {Component, OnInit} from '@angular/core'
+import { AdminService } from '../../services/admin.service'
+import { NzMessageService } from 'ng-zorro-antd/message'
+
+type BookingStatus = 'pending' | 'approved' | 'rejected'
+type Booking = {
+  id: number
+  carId: number
+  userId: number
+  username: string
+  email: string
+  price: number
+  days: number
+  fromDate: string
+  toDate: string
+  bookCarStatus: string
+}
+
+@Component({
+    selector: 'app-get-bookings',
+    templateUrl: './get-bookings.component.html',
+    styleUrl: './get-bookings.component.scss',
+    standalone: false
+})
+export class GetBookingsComponent implements OnInit {
+  constructor(
+    private adminService: AdminService,
+    private message: NzMessageService
+  ) {}
+
+  bookings: Booking[] = []
+  isSpinning = false
+
+  ngOnInit() {
+    this.getBookings()
+  }
+
+  changeBookingStatus(bookingId: number, status: string) {
+    this.adminService.changeBookingStatus(bookingId, status).subscribe(
+      () => {
+        this.getBookings()
+
+        this.message.success('Booking status changed successfully')
+      },
+      error => {
+        this.message.error('Error changing booking status')
+      }
+    )
+  }
+
+  private getBookings() {
+    this.isSpinning = true
+
+    this.adminService.getCarBookings().subscribe(bookings => {
+      this.bookings = bookings
+      console.log(bookings);
+      this.isSpinning = false
+    })
+  }
+}

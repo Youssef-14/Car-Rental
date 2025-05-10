@@ -14,4 +14,6 @@ public interface CustomerService {
     CarDto getCarById(Long id);
 
     List<BookACarDto> getBookingsByUserId(Long id);
+
+    List<BookACarDto> getCarDisponibility(Long carId);
 }

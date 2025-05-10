@@ -21,7 +21,7 @@ public class BookACar {
     private BookCarStatus bookCarStatus;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore // @JsonIgnore is used to ignore the user field when serializing the object to JSON.
