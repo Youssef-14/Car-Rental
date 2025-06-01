@@ -15,8 +15,21 @@ public class CarDto {
     private Integer year;
     private MultipartFile image;
     private byte[] returnedImage;
+    private Boolean available;
 
     public CarDto() {
+    }
+
+    public CarDto(Long id, String name, String brand, String color, String description, Long price, String transmission, String type, Integer year) {
+        this.id = id;
+        this.name = name;
+        this.brand = brand;
+        this.color = color;
+        this.description = description;
+        this.price = price;
+        this.transmission = transmission;
+        this.type = type;
+        this.year = year;
     }
 
     public Long getId() {
@@ -57,6 +70,10 @@ public class CarDto {
 
     public MultipartFile getImage() {
         return this.image;
+    }
+
+    public Boolean getAvailable() {
+        return this.available;
     }
 
     public byte[] getReturnedImage() {
@@ -107,6 +124,10 @@ public class CarDto {
         this.returnedImage = returnedImage;
     }
 
+    public void setAvailable(Boolean available) {
+        this.available = available;
+    }
+
     public boolean equals(final Object o) {
         if (o == this) return true;
         if (!(o instanceof CarDto)) return false;
@@ -145,6 +166,9 @@ public class CarDto {
         final Object other$image = other.getImage();
         if (this$image == null ? other$image != null : !this$image.equals(other$image)) return false;
         if (!java.util.Arrays.equals(this.getReturnedImage(), other.getReturnedImage())) return false;
+        final Object this$available = this.getAvailable();
+        final Object other$available = other.getAvailable();
+        if (this$available == null ? other$available != null : !this$available.equals(other$available)) return false;
         return true;
     }
 
@@ -176,6 +200,8 @@ public class CarDto {
         final Object $image = this.getImage();
         result = result * PRIME + ($image == null ? 43 : $image.hashCode());
         result = result * PRIME + java.util.Arrays.hashCode(this.getReturnedImage());
+        final Object $available = this.getAvailable();
+        result = result * PRIME + ($available == null ? 43 : $available.hashCode());
         return result;
     }
 

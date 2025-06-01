@@ -1,5 +1,6 @@
 package com.carrentalbackend.customers;
 
+import com.carrentalbackend.booking.AddBookACarDto;
 import com.carrentalbackend.booking.BookACarDto;
 import com.carrentalbackend.cars.CarDto;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class CustomerController {
     }
 
     @PostMapping("/car/book")
-    public ResponseEntity<Void> bookACar(@RequestBody BookACarDto bookACarDto) {
+    public ResponseEntity<Void> bookACar(@RequestBody AddBookACarDto bookACarDto) {
         boolean isSuccessful = customerService.bookACar(bookACarDto);
 
         if (isSuccessful) {

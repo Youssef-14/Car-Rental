@@ -6,22 +6,16 @@ import com.carrentalbackend.users.dto.UserDto;
 
 import java.util.Date;
 
-public class BookACarDto {
-    private Long id;
+public class AddBookACarDto {
     private Date fromDate;
     private Date toDate;
     private Long days;
     private Long price;
-    private BookCarStatus bookCarStatus;
-    private CarDto car;
-    private UserDto user;
+    private Long carId;
+    private Long userId;
     private Date reservationDate;
 
-    public BookACarDto() {
-    }
-
-    public Long getId() {
-        return this.id;
+    public AddBookACarDto() {
     }
 
     public Date getFromDate() {
@@ -40,47 +34,24 @@ public class BookACarDto {
         return this.price;
     }
 
-    public BookCarStatus getBookCarStatus() {
-        return this.bookCarStatus;
-    }
-
-    public CarDto getCar() {
-        return this.car;
-    }
-    public UserDto getUser() {
-        return this.user;
-    }
-
     public Long getCarId() {
-        return this.car != null ? this.car.getId() : null;
+        return this.carId;
     }
 
     public Long getUserId() {
-        return this.user != null ? this.user.getId() : null;
-    }
-
-    public String getUsername() {
-        return this.user != null ? this.user.getFirstname() + " " + this.user.getLastname() : null;
-    }
-
-    public String getEmail() {
-        return this.user != null ? this.user.getEmail() : null;
-    }
-
-    public void setCar(CarDto car) {
-        this.car = car;
+        return this.userId;
     }
 
     public Date getReservationDate() {
         return this.reservationDate;
     }
 
-    public void setUser(UserDto user) {
-        this.user = user;
+    public void setCarId(Long carId) {
+        this.carId = carId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public void setFromDate(Date fromDate) {
@@ -98,11 +69,6 @@ public class BookACarDto {
     public void setPrice(Long price) {
         this.price = price;
     }
-
-    public void setBookCarStatus(BookCarStatus bookCarStatus) {
-        this.bookCarStatus = bookCarStatus;
-    }
-
     public void setReservationDate(Date reservationDate) {
         this.reservationDate = reservationDate;
     }
@@ -112,9 +78,6 @@ public class BookACarDto {
         if (!(o instanceof BookACarDto)) return false;
         final BookACarDto other = (BookACarDto) o;
         if (!other.canEqual((Object) this)) return false;
-        final Object this$id = this.getId();
-        final Object other$id = other.getId();
-        if (this$id == null ? other$id != null : !this$id.equals(other$id)) return false;
         final Object this$fromDate = this.getFromDate();
         final Object other$fromDate = other.getFromDate();
         if (this$fromDate == null ? other$fromDate != null : !this$fromDate.equals(other$fromDate)) return false;
@@ -127,16 +90,6 @@ public class BookACarDto {
         final Object this$price = this.getPrice();
         final Object other$price = other.getPrice();
         if (this$price == null ? other$price != null : !this$price.equals(other$price)) return false;
-        final Object this$bookCarStatus = this.getBookCarStatus();
-        final Object other$bookCarStatus = other.getBookCarStatus();
-        if (this$bookCarStatus == null ? other$bookCarStatus != null : !this$bookCarStatus.equals(other$bookCarStatus))
-            return false;
-        final Object this$car = this.getCar();
-        final Object other$car = other.getCar();
-        if (this$car == null ? other$car != null : !this$car.equals(other$car)) return false;
-        final Object this$user = this.getUser();
-        final Object other$user = other.getUser();
-        if (this$user == null ? other$user != null : !this$user.equals(other$user)) return false;
         return true;
     }
 
@@ -147,8 +100,6 @@ public class BookACarDto {
     public int hashCode() {
         final int PRIME = 59;
         int result = 1;
-        final Object $id = this.getId();
-        result = result * PRIME + ($id == null ? 43 : $id.hashCode());
         final Object $fromDate = this.getFromDate();
         result = result * PRIME + ($fromDate == null ? 43 : $fromDate.hashCode());
         final Object $toDate = this.getToDate();
@@ -157,16 +108,10 @@ public class BookACarDto {
         result = result * PRIME + ($days == null ? 43 : $days.hashCode());
         final Object $price = this.getPrice();
         result = result * PRIME + ($price == null ? 43 : $price.hashCode());
-        final Object $bookCarStatus = this.getBookCarStatus();
-        result = result * PRIME + ($bookCarStatus == null ? 43 : $bookCarStatus.hashCode());
-        final Object $car = this.getCar();
-        result = result * PRIME + ($car == null ? 43 : $car.hashCode());
-        final Object $user = this.getUser();
-        result = result * PRIME + ($user == null ? 43 : $user.hashCode());
         return result;
     }
 
     public String toString() {
-        return "BookACarDto(id=" + this.getId() + ", fromDate=" + this.getFromDate() + ", toDate=" + this.getToDate() + ", days=" + this.getDays() + ", price=" + this.getPrice() + ", bookCarStatus=" + this.getBookCarStatus() + ", carId=" + this.getCarId() + ", userId=" + this.getUserId() + ", username=" + this.getUsername() + ", email=" + this.getEmail() + ")";
+        return "BookACarDto(id=" + ", fromDate=" + this.getFromDate() + ", toDate=" + this.getToDate() + ", days=" + this.getDays() + ", price=" + this.getPrice() +  ", carId=" + this.getCarId() + ", userId=" + this.getUserId() + ")";
     }
 }

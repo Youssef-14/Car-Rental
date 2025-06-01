@@ -1,1 +1,25 @@
-Dashboard
+<div class="dashboard">
+  <h1>Tableau de Bord Admin</h1>
+
+  <div class="cards">
+    <div class="card">
+      <h2>Chiffre d'affaires</h2>
+      <p>{{ stats.revenue | number:'1.0-0' }} €</p>
+    </div>
+
+    <div class="card">
+      <h2>Nombre d'utilisateurs</h2>
+      <p>{{ stats.users }}</p>
+    </div>
+
+    <div class="card">
+      <h2>Reservations cette semaines</h2>
+      <p>{{ stats.activeSessions }}</p>
+    </div>
+
+    <div class="card">
+      <h2>Reservations en cours</h2>
+      <p>{{ stats.newSubscriptions }}</p>
+    </div>
+  </div>
+</div>

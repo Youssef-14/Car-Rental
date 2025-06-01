@@ -1,10 +1,14 @@
 package com.carrentalbackend.cars;
 
+import java.util.Date;
+
 public class SearchCarDto {
     private String brand;
     private String type;
     private String transmission;
     private String color;
+    private Date startDate;
+    private Date endDate;
 
     public SearchCarDto() {
     }
@@ -25,6 +29,14 @@ public class SearchCarDto {
         return this.color;
     }
 
+    public Date getStartDate() {
+        return this.startDate;
+    }
+
+    public Date getEndDate() {
+        return this.endDate;
+    }
+
     public void setBrand(String brand) {
         this.brand = brand;
     }
@@ -39,6 +51,14 @@ public class SearchCarDto {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public boolean equals(final Object o) {
@@ -59,6 +79,14 @@ public class SearchCarDto {
         final Object this$color = this.getColor();
         final Object other$color = other.getColor();
         if (this$color == null ? other$color != null : !this$color.equals(other$color)) return false;
+
+        final Object this$startDate = this.getStartDate();
+        final Object other$startDate = other.getStartDate();
+        if (this$startDate == null ? other$startDate != null : !this$startDate.equals(other$startDate)) return false;
+
+        final Object this$endDate = this.getEndDate();
+        final Object other$endDate = other.getEndDate();
+        if (this$endDate == null ? other$endDate != null : !this$endDate.equals(other$endDate)) return false;
         return true;
     }
 
@@ -77,6 +105,10 @@ public class SearchCarDto {
         result = result * PRIME + ($transmission == null ? 43 : $transmission.hashCode());
         final Object $color = this.getColor();
         result = result * PRIME + ($color == null ? 43 : $color.hashCode());
+        final Object $startDate = this.getStartDate();
+        result = result * PRIME + ($startDate == null ? 43 : $startDate.hashCode());
+        final Object $endDate = this.getEndDate();
+        result = result * PRIME + ($endDate == null ? 43 : $endDate.hashCode());
         return result;
     }
 

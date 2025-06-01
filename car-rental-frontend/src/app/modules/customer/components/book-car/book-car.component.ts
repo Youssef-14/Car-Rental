@@ -33,7 +33,7 @@ export class BookCarComponent {
   ngOnInit() {
 
 
-    this.carId = this.activeRoute.snapshot.params['id']
+    this.carId = Number(this.activeRoute.snapshot.params['id'])
     this.getCarById()
   }
 
@@ -54,6 +54,25 @@ export class BookCarComponent {
       userId: StorageService.getUserId(),
       carId: this.carId
     }
+
+    // Validate the form data
+
+    // si fromDate > toDate, afficher un message d'erreur
+    if (new Date(this.date_from) > new Date(this.date_to)) {
+      this.isSpinning = false
+      this.message.error('La date de début ne peut pas être postérieure à la date de fin')
+      return
+    }
+
+    if (!bookACarDto.fromDate || !bookACarDto.toDate ) {
+      this.isSpinning = false
+      this.message.error('Remplissez tous les champs requis')
+      return
+    }
+
+    bookACarDto.days = Math.ceil((new Date(this.date_to).getTime() - new Date(this.date_from).getTime()) / (1000 * 3600 * 24))
+
+    console.log(bookACarDto)
 
     this.service.bookACar(bookACarDto).subscribe(
       res => {

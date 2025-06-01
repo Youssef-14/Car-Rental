@@ -3,12 +3,16 @@ package com.carrentalbackend.users;
 
 import com.carrentalbackend.authentification.Token;
 import com.carrentalbackend.authentification.enums.Role;
+import com.carrentalbackend.users.dto.UserDto;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -23,6 +27,12 @@ public class User implements UserDetails {
   private String email;
   private String password;
   private String number;
+  @CreationTimestamp
+  @Column(name = "created_at", updatable = false)
+  private Date createdAt;
+  @UpdateTimestamp
+  @Column(name = "updated_at")
+  private Date updatedAt;
 
   @Enumerated(EnumType.STRING)
   private Role role;
@@ -30,7 +40,7 @@ public class User implements UserDetails {
   @OneToMany(mappedBy = "user")
   private List<Token> tokens;
 
-  public User(Long id, String firstname, String lastname, String email, String password, String number, Role role, List<Token> tokens) {
+  public User(Long id, String firstname, String lastname, String email, String password, String number, Role role, List<Token> tokens, Date createdAt, Date updatedAt) {
     this.id = id;
     this.firstname = firstname;
     this.lastname = lastname;
@@ -39,10 +49,25 @@ public class User implements UserDetails {
     this.number = number;
     this.role = role;
     this.tokens = tokens;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 
   public User() {
   }
+
+  // getdto
+    public UserDto getUserDto() {
+        UserDto userDto = new UserDto();
+        userDto.setId(id);
+        userDto.setFirstname(firstname);
+        userDto.setLastname(lastname);
+        userDto.setEmail(email);
+        userDto.setNumber(number);
+        userDto.setCreatedAt(createdAt);
+        userDto.setUpdatedAt(updatedAt);
+        return userDto;
+    }
 
   public static UserBuilder builder() {
     return new UserBuilder();
@@ -93,8 +118,16 @@ public class User implements UserDetails {
     return email;
   }
 
-  String getNumber() {
+  public String getNumber() {
     return number;
+  }
+
+  public Date getCreatedAt() {
+    return createdAt;
+  }
+
+  public Date getUpdatedAt() {
+    return updatedAt;
   }
 
   @Override
@@ -155,6 +188,14 @@ public class User implements UserDetails {
 
   public void setTokens(List<Token> tokens) {
     this.tokens = tokens;
+  }
+
+  public void setCreatedAt(Date createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public void setUpdatedAt(Date updatedAt) {
+    this.updatedAt = updatedAt;
   }
 
   public boolean equals(final Object o) {
@@ -224,6 +265,8 @@ public class User implements UserDetails {
     private String number;
     private Role role;
     private List<Token> tokens;
+    private Date createdAt;
+    private Date updatedAt;
 
     UserBuilder() {
     }
@@ -268,8 +311,18 @@ public class User implements UserDetails {
       return this;
     }
 
+    public UserBuilder createdAt(Date createdAt) {
+      this.createdAt = createdAt;
+      return this;
+    }
+
+    public UserBuilder updatedAt(Date updatedAt) {
+      this.updatedAt = updatedAt;
+      return this;
+    }
+
     public User build() {
-      return new User(this.id, this.firstname, this.lastname, this.email, this.password, this.number, this.role, this.tokens);
+      return new User(this.id, this.firstname, this.lastname, this.email, this.password, this.number, this.role, this.tokens, this.createdAt, this.updatedAt);
     }
 
     public String toString() {

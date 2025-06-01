@@ -20,13 +20,6 @@ public class UserController {
         this.service = service;
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<?> getAllUsers() {
-        Iterable<User> all = service.getAllUsers();
-        System.out.println(all);
-        return ResponseEntity.ok("all");
-    }
-
     @CrossOrigin(origins = "*")
     @GetMapping("/verifyid/{id}")
     public CompletableFuture<ResponseEntity<?>> getUserById(@PathVariable("id") Long id) {

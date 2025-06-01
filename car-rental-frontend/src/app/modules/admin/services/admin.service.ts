@@ -24,6 +24,18 @@ export class AdminService {
     })
   }
 
+  getAllUser(): Observable<any> {
+    return this.http.get(`${BASIC_URL}/admin/users`, {
+      headers: this.createAuthorizationHeader()
+    })
+  }
+
+  getTotalCustomersCount(): Observable<number> {
+    return this.http.get<number>(`${BASIC_URL}/admin/customers/count`, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
   deleteCar(id: number): Observable<any> {
     return this.http.delete(`${BASIC_URL}/admin/car/${id}`, {
       headers: this.createAuthorizationHeader()
@@ -44,6 +56,18 @@ export class AdminService {
 
   getCarBookings(): Observable<any> {
     return this.http.get(`${BASIC_URL}/admin/car/bookings`, {
+      headers: this.createAuthorizationHeader()
+    })
+  }
+
+  getCarBookingsByStatus(status:String):Observable<any> {
+    return this.http.get(`${BASIC_URL}/admin/car/bookings/status/${status}`, {
+      headers: this.createAuthorizationHeader()
+    })
+  }
+
+  getCarBookingsByCar(id:number):Observable<any> {
+    return this.http.get(`${BASIC_URL}/admin/car/bookings/car/${id}`, {
       headers: this.createAuthorizationHeader()
     })
   }
@@ -70,5 +94,11 @@ export class AdminService {
       'Authorization',
       `Bearer ${StorageService.getToken()}`
     )
+  }
+
+  hideShowCar(carId: number): Observable<any> {
+    return this.http.put(`${BASIC_URL}/admin/car/hide/${carId}`, {}, {
+      headers: this.createAuthorizationHeader()
+    })
   }
 }

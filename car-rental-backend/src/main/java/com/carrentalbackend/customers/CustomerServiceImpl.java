@@ -1,9 +1,6 @@
 package com.carrentalbackend.customers;
 
-import com.carrentalbackend.booking.BookACar;
-import com.carrentalbackend.booking.BookACarDto;
-import com.carrentalbackend.booking.BookACarRepository;
-import com.carrentalbackend.booking.BookCarStatus;
+import com.carrentalbackend.booking.*;
 import com.carrentalbackend.cars.Car;
 import com.carrentalbackend.cars.CarDto;
 import com.carrentalbackend.cars.CarRepository;
@@ -32,11 +29,15 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<CarDto> getAllCars() {
-        return carRepository.findAll().stream().map(Car::getCarDto).collect(Collectors.toList());
+        // get cars where isAvailable is true
+        return carRepository.findAll().stream()
+                .filter(Car::getAvailable)
+                .map(Car::getCarDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public boolean bookACar(BookACarDto bookACarDto) {
+    public boolean bookACar(AddBookACarDto bookACarDto) {
         Optional<Car> optionalCar = carRepository.findById(bookACarDto.getCarId());
         Optional<User> optionalUser = userRepository.findById(bookACarDto.getUserId());
 

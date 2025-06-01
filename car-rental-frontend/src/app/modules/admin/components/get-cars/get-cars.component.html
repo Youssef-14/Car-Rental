@@ -1,6 +1,6 @@
 <div style="background-color: #f8f8f8; min-height: 91vh; padding: 24px;">
     <div style="padding-top: 10px;"></div>
-
+    <button nzSize="large" nz-button nzType="primary" routerLink="/admin/car/add">Add New Car</button>
     <div style="margin-top: 10px;" class="child" *ngFor="let car of cars">
         <div nz-row style="background-color: #ccc; padding: 24px;">
             <div nz-col nzSpan="8">
@@ -10,21 +10,29 @@
 
             <div nz-col nzSpan="16">
                 <h2 style="cursor: pointer; color: #108ee9;">{{car.brand}} - {{car.name}}</h2>
+                <br/>
 
                 <p>{{car.description}}</p>
 
                 <hr>
 
-                <h5>Price: <b>${{car.price}}</b> - Color : <b>{{car.color}}</b> - Transmission : <b>{{car.transmission}}</b> -
-                    Type : <b>{{car.type}}</b> - Year : <b>{{car.year}}</b>
+                <h5>Prix ParJour: <b>${{car.price}}</b> - Couleur : <b>{{car.color}}</b> - Transmission : <b>{{car.transmission}}</b> -
+                    Type : <b>{{car.type}}</b> - Année : <b>{{car.year}}</b>
                 </h5>
+                <br/>
+              <div style="float: left;">
+                <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary"
+                        routerLink="/admin/car/bookings/{{car.id}}">Liste de Reservations</button>
+              </div>
 
                 <div style="float: right;">
                     <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary"
-                            routerLink="/admin/car/{{car.id}}">Update</button>
+                            routerLink="/admin/car/update/{{car.id}}">Modifier</button>
+                    <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary" nzGhost
+                            (click)="hideShowCar(car.id)">{{car.available ? 'Afficher' : 'Cacher'}}</button>
 
                     <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary" nzDanger
-                            (click)="deleteCar(car.id)">Delete</button>
+                            (click)="deleteCar(car.id)">Supprimer</button>
                 </div>
             </div>
         </div>

@@ -1,6 +1,10 @@
 package com.carrentalbackend.cars;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.util.Date;
 
 
 @Entity
@@ -17,6 +21,13 @@ public class Car {
     private String description;
     private Long price;
     private Integer year;
+    private Boolean available;
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private Date createdAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Date updatedAt;
 
     @Column(columnDefinition = "bytea")
     private byte[] image;
@@ -36,6 +47,7 @@ public class Car {
         carDto.setTransmission(transmission);
         carDto.setYear(year);
         carDto.setReturnedImage(image);
+        carDto.setAvailable(available);
         return carDto;
     }
 
@@ -79,6 +91,10 @@ public class Car {
         return this.image;
     }
 
+    public Boolean getAvailable() {
+        return this.available;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -119,6 +135,10 @@ public class Car {
         this.image = image;
     }
 
+    public void setAvailable(Boolean available) {
+        this.available = available;
+    }
+
     public boolean equals(final Object o) {
         if (o == this) return true;
         if (!(o instanceof Car)) return false;
@@ -154,6 +174,10 @@ public class Car {
         final Object other$year = other.getYear();
         if (this$year == null ? other$year != null : !this$year.equals(other$year)) return false;
         if (!java.util.Arrays.equals(this.getImage(), other.getImage())) return false;
+
+        final Object this$available = this.getAvailable();
+        final Object other$available = other.getAvailable();
+        if (this$available == null ? other$available != null : !this$available.equals(other$available)) return false;
         return true;
     }
 
@@ -183,6 +207,8 @@ public class Car {
         final Object $year = this.getYear();
         result = result * PRIME + ($year == null ? 43 : $year.hashCode());
         result = result * PRIME + java.util.Arrays.hashCode(this.getImage());
+        final Object $available = this.getAvailable();
+        result = result * PRIME + ($available == null ? 43 : $available.hashCode());
         return result;
     }
 

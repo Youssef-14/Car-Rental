@@ -1,29 +1,25 @@
-<div style="background-color: #f8f8f8; min-height: 91vh; padding: 24px;">
-  <div style="padding-top: 10px;"></div>
+<div class="dashboard">
+  <h1>Tableau de Bord Admin</h1>
 
-  <div style="margin-top: 10px;" class="child" *ngFor="let car of cars">
-    <div nz-row style="background-color: #ccc; padding: 24px;">
-      <div nz-col nzSpan="8">
-        <img class="profile" style="height: 130px; border-radius: 10px; object-fit: cover;" [src]="car.processedImage"
-          alt="profile">
-      </div>
+  <div class="cards">
+    <div class="card">
+      <h2>Chiffre d'affaires</h2>
+      <p>{{ stats.revenue | number:'1.0-0' }} €</p>
+    </div>
 
-      <div nz-col nzSpan="16">
-        <h2 style="cursor: pointer; color: #108ee9;">{{car.brand}} - {{car.name}}</h2>
+    <div class="card">
+      <h2>Nombre d'utilisateurs</h2>
+      <p>{{ stats.users }}</p>
+    </div>
 
-        <p>{{car.description}}</p>
+    <div class="card">
+      <h2>Sessions actives</h2>
+      <p>{{ stats.activeSessions }}</p>
+    </div>
 
-        <hr>
-
-        <h5>Price: <b>${{car.price}}</b> - Color : <b>{{car.color}}</b> - Transmission : <b>{{car.transmission}}</b> -
-          Type : <b>{{car.type}}</b> - Year : <b>{{car.year}}</b>
-        </h5>
-
-        <div style="float: right;">
-          <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary"
-            routerLink="/customer/book/{{car.id}}">Book</button>
-        </div>
-      </div>
+    <div class="card">
+      <h2>Nouvelles souscriptions</h2>
+      <p>{{ stats.newSubscriptions }}</p>
     </div>
   </div>
 </div>

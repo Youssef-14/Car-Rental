@@ -1,11 +1,15 @@
 package com.carrentalbackend.booking;
 
 import com.carrentalbackend.cars.Car;
+import com.carrentalbackend.cars.CarDto;
 import com.carrentalbackend.users.User;
+import com.carrentalbackend.users.dto.UserDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
 
@@ -14,6 +18,9 @@ public class BookACar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @CreationTimestamp
+    @Column(name = "reservation_date", updatable = false)
+    private Date reservationDate;
     private Date fromDate;
     private Date toDate;
     private Long days;
@@ -27,7 +34,7 @@ public class BookACar {
     @JsonIgnore // @JsonIgnore is used to ignore the user field when serializing the object to JSON.
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "car_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
@@ -38,16 +45,15 @@ public class BookACar {
 
     public BookACarDto getBookACarDto() {
         BookACarDto bookACarDto = new BookACarDto();
-        bookACarDto.setId(this.id);
-        bookACarDto.setDays(this.days);
-        bookACarDto.setBookCarStatus(this.bookCarStatus);
-        bookACarDto.setPrice(this.price);
-        bookACarDto.setToDate(this.toDate);
-        bookACarDto.setFromDate(this.fromDate);
-        bookACarDto.setEmail(this.user.getEmail());
-        bookACarDto.setUsername(this.user.getName());
-        bookACarDto.setUserId(this.user.getId());
-        bookACarDto.setCarId(this.car.getId());
+        bookACarDto.setId(id);
+        bookACarDto.setFromDate(fromDate);
+        bookACarDto.setToDate(toDate);
+        bookACarDto.setDays(days);
+        bookACarDto.setPrice(price);
+        bookACarDto.setBookCarStatus(bookCarStatus);
+        bookACarDto.setCar(car.getCarDto());
+        bookACarDto.setUser(user.getUserDto());
+        bookACarDto.setReservationDate(reservationDate);
         return bookACarDto;
     }
 
@@ -83,6 +89,10 @@ public class BookACar {
         return this.car;
     }
 
+    public Date getReservationDate() {
+        return this.reservationDate;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -107,12 +117,14 @@ public class BookACar {
         this.bookCarStatus = bookCarStatus;
     }
 
-    @JsonIgnore
+    public void setReservationDate(Date reservationDate) {
+        this.reservationDate = reservationDate;
+    }
+
     public void setUser(User user) {
         this.user = user;
     }
 
-    @JsonIgnore
     public void setCar(Car car) {
         this.car = car;
     }

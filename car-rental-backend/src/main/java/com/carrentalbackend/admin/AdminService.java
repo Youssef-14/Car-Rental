@@ -5,6 +5,7 @@ import com.carrentalbackend.booking.BookACarDto;
 import com.carrentalbackend.cars.CarDto;
 import com.carrentalbackend.cars.CarDtoListDto;
 import com.carrentalbackend.cars.SearchCarDto;
+import com.carrentalbackend.users.dto.UserDto;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,6 +15,10 @@ public interface AdminService {
 
     List<CarDto> getAllCars();
 
+    List<UserDto> getAllUsers();
+
+    int getTotalCustomersCount();
+
     void deleteCar(Long id);
 
     CarDto getCarById(Long id);
@@ -22,8 +27,26 @@ public interface AdminService {
 
     List<BookACarDto> getBookings();
 
+    List<BookACarDto> getBookingsByUserId(Long userId);
+
+    List<BookACarDto> getBookingsByCarId(Long carId);
+
+    List<BookACarDto> getBookingsByStatus(String status);
+
+    BookACarDto getBookingById(Long id);
+
+    int getTotalBookingsCount();
+
+    int getTotalBookingsCountByUserId(Long userId);
+
+    int getTotalBookingsCountByCarId(Long carId);
+
+    int getTotalBookingsCountByStatus(String status);
+
 
     boolean changeBookingStatus(Long id, String status);
 
     CarDtoListDto searchCar(SearchCarDto searchCarDto);
+
+    void hideShowCar(Long id) throws IOException;
 }

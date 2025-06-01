@@ -11,4 +11,7 @@ public interface BookACarRepository extends JpaRepository<BookACar, Long> {
     List<BookACar> findAllByUserId(Long userId);
 
     List<BookACar> findAllByCarId(Long carId);
+
+    List<BookACar> findAllByBookCarStatus(BookCarStatus status);
+
 }

@@ -6,14 +6,18 @@ import { UpdateCarComponent } from './components/update-car/update-car.component
 import { GetBookingsComponent } from './components/get-bookings/get-bookings.component'
 import { SearchCarComponent } from './components/search-car/search-car.component'
 import {GetCarsComponent} from "./components/get-cars/get-cars.component";
+import {GetUsersComponent} from './components/get-users/get-users.component';
+import {GetCarBookingsComponent} from './components/get-car-bookings/get-car-bookings.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: AdminDashboardComponent },
-  { path: 'cars', component: GetCarsComponent },
-  { path: 'car', component: PostCarComponent },
-  { path: 'car/:id', component: UpdateCarComponent },
+  { path: 'car', component: GetCarsComponent },
+  { path: 'car/add', component: PostCarComponent },
+  { path: 'car/search', component: SearchCarComponent },
+  { path: 'car/update/:id', component: UpdateCarComponent },
+  { path: 'car/bookings/:id', component: GetCarBookingsComponent},
   { path: 'bookings', component: GetBookingsComponent },
-  { path: 'search', component: SearchCarComponent },
+  { path: 'users', component: GetUsersComponent },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: 'dashboard' } // Wildcard route for a 404 page
 ]

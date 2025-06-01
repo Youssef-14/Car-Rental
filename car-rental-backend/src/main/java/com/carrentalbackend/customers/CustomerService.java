@@ -1,6 +1,7 @@
 package com.carrentalbackend.customers;
 
 
+import com.carrentalbackend.booking.AddBookACarDto;
 import com.carrentalbackend.booking.BookACarDto;
 import com.carrentalbackend.cars.CarDto;
 
@@ -9,7 +10,7 @@ import java.util.List;
 public interface CustomerService {
     List<CarDto> getAllCars();
 
-    boolean bookACar(BookACarDto bookACarDto);
+    boolean bookACar(AddBookACarDto bookACarDto);
 
     CarDto getCarById(Long id);
 

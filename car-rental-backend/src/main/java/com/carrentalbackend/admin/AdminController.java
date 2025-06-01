@@ -37,6 +37,17 @@ public class AdminController {
         return ResponseEntity.ok(adminService.getAllCars());
     }
 
+    @GetMapping("/users")
+    public ResponseEntity<?> getAllUsers() {
+        return ResponseEntity.ok(adminService.getAllUsers());
+    }
+
+    @GetMapping("/customers/count")
+    public ResponseEntity<Integer> getTotalCustomersCount() {
+        int totalCustomersCount = adminService.getTotalCustomersCount();
+        return ResponseEntity.ok(totalCustomersCount);
+    }
+
     @DeleteMapping("/car/{id}")
     public ResponseEntity<Void> deleteCar(@PathVariable Long id) {
         adminService.deleteCar(id);
@@ -63,6 +74,16 @@ public class AdminController {
         }
     }
 
+    @PutMapping("/car/hide/{id}")
+    public ResponseEntity<Void> hideShowCar(@PathVariable Long id) throws IOException {
+        try {
+            adminService.hideShowCar(id);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
     @GetMapping("/car/bookings")
     public ResponseEntity<List<BookACarDto>> getBookings() {
         return ResponseEntity.ok(adminService.getBookings());
@@ -83,4 +104,59 @@ public class AdminController {
     public ResponseEntity<?> searchCar(@RequestBody SearchCarDto searchCarDto) {
         return ResponseEntity.ok(adminService.searchCar(searchCarDto));
     }
+
+    @GetMapping("/car/bookings/user/{userId}")
+    public ResponseEntity<List<BookACarDto>> getBookingsByUserId(@PathVariable Long userId) {
+        return ResponseEntity.ok(adminService.getBookingsByUserId(userId));
+    }
+
+    @GetMapping("/car/bookings/car/{carId}")
+    public ResponseEntity<List<BookACarDto>> getBookingsByCarId(@PathVariable Long carId) {
+        return ResponseEntity.ok(adminService.getBookingsByCarId(carId));
+    }
+
+    @GetMapping("/car/bookings/status/{status}")
+    public ResponseEntity<List<BookACarDto>> getBookingsByStatus(@PathVariable String status) {
+        return ResponseEntity.ok(adminService.getBookingsByStatus(status));
+    }
+
+    @GetMapping("/car/booking/{id}")
+    public ResponseEntity<BookACarDto> getBookingById(@PathVariable Long id) {
+        BookACarDto booking = adminService.getBookingById(id);
+        if (booking != null) {
+            return ResponseEntity.ok(booking);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @GetMapping("/car/bookings/count")
+    public ResponseEntity<Integer> getTotalBookingsCount() {
+        return ResponseEntity.ok(adminService.getTotalBookingsCount());
+    }
+
+    @GetMapping("/car/bookings/count/user/{userId}")
+    public ResponseEntity<Integer> getTotalBookingsCountByUserId(@PathVariable Long userId) {
+        return ResponseEntity.ok(adminService.getTotalBookingsCountByUserId(userId));
+    }
+
+    @GetMapping("/car/bookings/count/car/{carId}")
+    public ResponseEntity<Integer> getTotalBookingsCountByCarId(@PathVariable Long carId) {
+        return ResponseEntity.ok(adminService.getTotalBookingsCountByCarId(carId));
+    }
+
+    @GetMapping("/car/bookings/count/status/{status}")
+    public ResponseEntity<Integer> getTotalBookingsCountByStatus(@PathVariable String status) {
+        return ResponseEntity.ok(adminService.getTotalBookingsCountByStatus(status));
+    }
+
+    @GetMapping("/car/bookings/count/user")
+    public ResponseEntity<Integer> getTotalBookingsCountByUser(@RequestParam Long userId) {
+        return ResponseEntity.ok(adminService.getTotalBookingsCountByUserId(userId));
+    }
+
+    @GetMapping("/car/bookings/count/car")
+    public ResponseEntity<Integer> getTotalBookingsCountByCar(@RequestParam Long carId) {
+        return ResponseEntity.ok(adminService.getTotalBookingsCountByCarId(carId));
+    }
+
 }

@@ -33,43 +33,52 @@
           </li>
         </ul>
       </li>-->
+
+      <!-- Admin Menu Items -->
       <li *ngIf="isAdminLoggedIn" nz-menu-item nzMatchRouter>
-        <a  routerLink="/admin/dashboard" routerLinkActive="active"  > Dashboard </a>
+        <a  routerLink="/admin/dashboard" routerLinkActive="active"  > Tableau de bord </a>
       </li>
       <li *ngIf="isAdminLoggedIn" nz-menu-item nzMatchRouter>
-        <a  routerLink="/admin/car" routerLinkActive="active"  > Post Car </a>
+        <a  routerLink="/admin/car" routerLinkActive="active"  > Gestion des voitures </a>
       </li>
       <li *ngIf="isAdminLoggedIn" nz-menu-item nzMatchRouter>
-        <a  routerLink="/admin/bookings" routerLinkActive="active"  > Bookings </a>
+        <a  routerLink="/admin/users" routerLinkActive="active"  > Gestion des Utilisateurs </a>
       </li>
       <li *ngIf="isAdminLoggedIn" nz-menu-item nzMatchRouter>
-        <a  routerLink="/admin/search" routerLinkActive="active"  > Search </a>
+        <a  routerLink="/admin/bookings" routerLinkActive="active"  > Demandes des Reservations </a>
       </li>
 
+      <!-- Customer Menu Items -->
       <li *ngIf="isCustomerLoggedIn" nz-menu-item nzMatchRouter>
-        <a  routerLink="/customer/dashboard" routerLinkActive="active"  > Dashboard </a>
+        <a  routerLink="/customer/dashboard" routerLinkActive="active"  > Tableau de bord </a>
       </li>
       <li *ngIf="isCustomerLoggedIn" nz-menu-item nzMatchRouter>
-        <a  routerLink="/customer/my-bookings" routerLinkActive="active"  > Bookings </a>
+        <a  routerLink="/customer/cars" routerLinkActive="active"  > Liste des Voitures </a>
+      </li>
+      <li *ngIf="isCustomerLoggedIn" nz-menu-item nzMatchRouter>
+        <a  routerLink="/customer/my-bookings" routerLinkActive="active"  > Mes Reservations </a>
+      </li>
+      <li *ngIf="isCustomerLoggedIn" nz-menu-item nzMatchRouter>
+        <a  routerLink="/customer/profile" routerLinkActive="active"  > Mon Profile </a>
       </li>
 
       <li *ngIf="isAdminLoggedIn || isCustomerLoggedIn" nz-menu-item nzMatchRouter>
-        <a routerLink="#" routerLinkActive="active" (click)="logout()" > Logout </a>
+        <a routerLink="#" routerLinkActive="active" (click)="logout()" > Se déconnecter </a>
       </li>
     </ul>
-    <div *ngIf="!isAdminLoggedIn && !isCustomerLoggedIn">
+    <!--<div *ngIf="!isAdminLoggedIn && !isCustomerLoggedIn">
       <div class="custom-navbar">
         <div class="navbar-title">
           <a routerLink="/login">Car Rental Service</a>
         </div>
 
         <div class="nav-links">
-          <a routerLink="/register"> Sign Up </a>
+          <a routerLink="/register"> S'inscrire </a>
 
-          <a routerLink="/login"> Login </a>
+          <a routerLink="/login"> Se connecter </a>
         </div>
       </div>
-    </div>
+    </div>-->
   </nz-sider>
   <nz-layout>
     <nz-header>

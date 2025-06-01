@@ -1,11 +1,15 @@
 package com.carrentalbackend.admin;
 
 
+import com.carrentalbackend.authentification.enums.Role;
 import com.carrentalbackend.booking.BookACar;
 import com.carrentalbackend.booking.BookACarDto;
 import com.carrentalbackend.booking.BookACarRepository;
 import com.carrentalbackend.booking.BookCarStatus;
 import com.carrentalbackend.cars.*;
+import com.carrentalbackend.users.User;
+import com.carrentalbackend.users.UserRepository;
+import com.carrentalbackend.users.dto.UserDto;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
@@ -20,10 +24,12 @@ import java.util.stream.Collectors;
 public class AdminServiceImpl implements AdminService {
     private final CarRepository carRepository;
     private final BookACarRepository bookACarRepository;
+    private final UserRepository userRepository;
 
-    public AdminServiceImpl(CarRepository carRepository, BookACarRepository bookACarRepository) {
+    public AdminServiceImpl(CarRepository carRepository, BookACarRepository bookACarRepository, UserRepository userRepository) {
         this.carRepository = carRepository;
         this.bookACarRepository = bookACarRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -52,9 +58,25 @@ public class AdminServiceImpl implements AdminService {
         return isSuccessful;
     }
 
+
+
     @Override
     public List<CarDto> getAllCars() {
         return carRepository.findAll().stream().map(Car::getCarDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserDto> getAllUsers() {
+        //get ALL customers
+        return userRepository.findAll().stream()
+                .filter(user -> user.getRole() == Role.CUSTOMER) // Filter to get only customers
+                .map(User::getUserDto) // Convert User to UserDto
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public int getTotalCustomersCount() {
+        return userRepository.countByRole(Role.CUSTOMER); // Count the total number of customers
     }
 
     @Override
@@ -101,6 +123,70 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public List<BookACarDto> getBookingsByUserId(Long userId) {
+        return bookACarRepository.findAllByUserId(userId).stream()
+                .map(BookACar::getBookACarDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BookACarDto> getBookingsByCarId(Long carId) {
+        return bookACarRepository.findAllByCarId(carId).stream()
+                .map(BookACar::getBookACarDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BookACarDto> getBookingsByStatus(String status) {
+        BookCarStatus bookCarStatus;
+
+        try {
+            bookCarStatus = BookCarStatus.valueOf(status.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return List.of(); // Return an empty list if the status is invalid
+        }
+
+        return bookACarRepository.findAllByBookCarStatus(bookCarStatus).stream()
+                .map(BookACar::getBookACarDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public BookACarDto getBookingById(Long id) {
+        return bookACarRepository.findById(id)
+                .map(BookACar::getBookACarDto)
+                .orElse(null); // Return null if the booking is not found
+    }
+
+    @Override
+    public int getTotalBookingsCount() {
+        return (int) bookACarRepository.count(); // Count the total number of bookings
+    }
+
+    @Override
+    public int getTotalBookingsCountByUserId(Long userId) {
+        return bookACarRepository.findAllByUserId(userId).size(); // Count bookings by user ID
+    }
+
+    @Override
+    public int getTotalBookingsCountByCarId(Long carId) {
+        return bookACarRepository.findAllByCarId(carId).size(); // Count bookings by car ID
+    }
+
+    @Override
+    public int getTotalBookingsCountByStatus(String status) {
+        BookCarStatus bookCarStatus;
+
+        try {
+            bookCarStatus = BookCarStatus.valueOf(status.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return 0; // Return 0 if the status is invalid
+        }
+
+        return bookACarRepository.findAllByBookCarStatus(bookCarStatus).size(); // Count bookings by status
+    }
+
+    @Override
     public boolean changeBookingStatus(Long id, String status) {
         Optional<BookACar> optionalBookACar = bookACarRepository.findById(id);
 
@@ -139,5 +225,18 @@ public class AdminServiceImpl implements AdminService {
         carDtoListDto.setCarDtoList(carList.stream().map(Car::getCarDto).collect(Collectors.toList()));
 
         return carDtoListDto;
+    }
+
+    @Override
+    public void hideShowCar(Long id) throws IOException {
+        Optional<Car> optionalCar = carRepository.findById(id);
+
+        if (optionalCar.isPresent()) {
+            Car car = optionalCar.get();
+            car.setAvailable(!car.getAvailable()); // Toggle the hidden status
+            carRepository.save(car);
+        } else {
+            throw new IOException("Car not found with id: " + id);
+        }
     }
 }

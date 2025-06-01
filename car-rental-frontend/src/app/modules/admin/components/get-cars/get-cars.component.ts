@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AdminService} from "../../services/admin.service";
 import {NzMessageService} from "ng-zorro-antd/message";
+import {Car} from '../../../../models/car';
 
 @Component({
   selector: 'app-get-cars',
   standalone: false,
-  
+
   templateUrl: './get-cars.component.html',
   styleUrl: './get-cars.component.scss'
 })
-export class GetCarsComponent {
-  cars: any[] = []
+export class GetCarsComponent implements OnInit {
+  cars: Car[] = []
 
   constructor(
       private adminService: AdminService,
@@ -35,6 +36,16 @@ export class GetCarsComponent {
       this.cars = this.cars.filter(car => car.id !== id)
 
       this.message.success('Car deleted successfully', { nzDuration: 3000 })
+    })
+  }
+
+  hideShowCar(id: number) {
+    this.adminService.hideShowCar(id).subscribe(res => {
+      const car = this.cars.find(car => car.id === id);
+      if (car) {
+        car.available = !car.available;
+        this.message.success(`Voiture ${car.available ? 'cachée' : 'visible'} avec succès`, { nzDuration: 3000 });
+      }
     })
   }
 }

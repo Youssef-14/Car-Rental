@@ -1,5 +1,4 @@
 import { Component } from '@angular/core'
-import { CustomerService } from '../../services/customer.service'
 
 @Component({
     selector: 'app-customer-dashboard',
@@ -8,20 +7,14 @@ import { CustomerService } from '../../services/customer.service'
     standalone: false
 })
 export class CustomerDashboardComponent {
-  constructor(private service: CustomerService) {}
+  stats = {
+    revenue: 245000, // CA
+    users: 1225, // N° users
+    activeSessions: 328,
+    newSubscriptions: 56
+  };
 
-  cars: any[] = []
+  constructor() {}
 
-  ngOnInit() {
-    this.getAllCars()
-  }
-
-  getAllCars() {
-    this.service.getAllCars().subscribe(res => {
-      res.forEach((car: any) => {
-        car.processedImage = `data:image/jpeg;base64,${car.returnedImage}`
-        this.cars.push(car)
-      })
-    })
-  }
+  ngOnInit(): void {}
 }
