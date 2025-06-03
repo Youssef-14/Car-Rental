@@ -24,6 +24,12 @@ export class AdminService {
     })
   }
 
+  getTotalCarsCount(): Observable<number> {
+    return this.http.get<number>(`${BASIC_URL}/admin/cars/count`, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
   getAllUser(): Observable<any> {
     return this.http.get(`${BASIC_URL}/admin/users`, {
       headers: this.createAuthorizationHeader()
@@ -32,6 +38,18 @@ export class AdminService {
 
   getTotalCustomersCount(): Observable<number> {
     return this.http.get<number>(`${BASIC_URL}/admin/customers/count`, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
+  getTotalBookingsCountByStatus(status: string): Observable<number> {
+    return this.http.get<number>(`${BASIC_URL}/admin/bookings/count/status/${status}`, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
+  getTotalBookingsCountThisMonth(): Observable<number> {
+    return this.http.get<number>(`${BASIC_URL}/admin/bookings/count/this_month`, {
       headers: this.createAuthorizationHeader()
     });
   }

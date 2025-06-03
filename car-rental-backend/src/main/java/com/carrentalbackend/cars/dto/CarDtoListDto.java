@@ -1,4 +1,6 @@
-package com.carrentalbackend.cars;
+package com.carrentalbackend.cars.dto;
+
+import com.carrentalbackend.cars.CarDto;
 
 import java.util.List;
 import java.util.Objects;

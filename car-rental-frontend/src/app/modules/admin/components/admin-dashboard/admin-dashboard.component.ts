@@ -9,7 +9,6 @@ import {AdminService} from '../../services/admin.service';
 })
 export class AdminDashboardComponent implements OnInit {
   stats = {
-    revenue: 0, // CA
     users: 0,// N° users
     cars: 0, // N° cars
     bookings_this_week: 0, // N° bookings this week
@@ -23,6 +22,15 @@ export class AdminDashboardComponent implements OnInit {
   ngOnInit(): void {
     // Fetch the number of customers when the component initializes
     this.stats.users = this.getCustomersCount();
+
+    // Fetch the number of bookings when the component initializes
+    this.stats.pending_bookings = this.getBookingsCount();
+
+    // get number of cars
+    this.stats.cars = this.getCarsCount();
+
+    // get number of bookings this month
+    this.stats.bookings_this_week = this.getTotalBookingsCountThisMonth();
   }
 
   // get customers count
@@ -34,6 +42,44 @@ export class AdminDashboardComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching customer count:', error);
+      }
+    );
+  }
+
+  // get bookings count
+  getBookingsCount(): any {
+    this.adminService.getTotalBookingsCountByStatus("PENDING").subscribe(
+      (response: number) => {
+        this.stats.bookings_this_week = response;
+        console.log('Bookings count:', this.stats.bookings_this_week);
+      },
+      (error) => {
+        console.error('Error fetching bookings count:', error);
+      }
+    );
+  }
+
+  // get cars count
+  getCarsCount(): any {
+    this.adminService.getTotalCarsCount().subscribe(
+      (response: number) => {
+        this.stats.cars = response;
+        console.log('Car count:', this.stats.cars);
+      },
+      (error) => {
+        console.error('Error fetching car count:', error);
+      }
+    );
+  }
+
+  getTotalBookingsCountThisMonth(): any {
+    this.adminService.getTotalBookingsCountThisMonth().subscribe(
+      (response: number) => {
+        this.stats.pending_bookings = response;
+        console.log('Pending bookings count:', this.stats.pending_bookings);
+      },
+      (error) => {
+        console.error('Error fetching pending bookings count:', error);
       }
     );
   }

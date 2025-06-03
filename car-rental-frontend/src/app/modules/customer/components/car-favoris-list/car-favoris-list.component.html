@@ -1,8 +1,6 @@
 <div style="background-color: #f8f8f8; min-height: 91vh; padding: 24px;">
   <div style="padding-top: 10px;"></div>
 
-  <button nzSize="large" nz-button nzType="primary" routerLink="/customer/cars/favoris">Vehicle Favoris</button>
-
   <div style="margin-top: 10px;" class="child" *ngFor="let car of cars">
     <div nz-row style="background-color: #ccc; padding: 24px;">
       <div nz-col nzSpan="8">
@@ -13,8 +11,6 @@
       <div nz-col nzSpan="16">
         <h2 style="cursor: pointer; color: #108ee9;">{{car.brand}} - {{car.name}}</h2>
 
-        <br>
-
         <p>{{car.description}}</p>
 
         <hr>
@@ -23,21 +19,10 @@
           Type : <b>{{car.type}}</b> - Year : <b>{{car.year}}</b>
         </h5>
 
-        <br/>
-
         <div style="float: right;">
           <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary"
                   routerLink="/customer/book/{{car.id}}">Book</button>
         </div>
-
-        <div style="float: left;">
-          <!-- add an  add or delete to favoris icon -->
-          <button nzSize="small" nz-button nzType="default" (click)="toggleFavoris(car)">
-            <i class="anticon" [ngClass]="car.isFavoris ? 'anticon-heart' : 'anticon-heart-o'"></i>
-            {{ car.isFavoris ? 'Remove from Favoris' : 'Add to Favoris' }}
-          </button>
-        </div>
-
       </div>
     </div>
   </div>

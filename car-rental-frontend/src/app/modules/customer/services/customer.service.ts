@@ -23,6 +23,16 @@ export class CustomerService {
     })
   }
 
+  getCarsFavoris(): Observable<any> {
+    const userId = StorageService.getUserId()
+      ? Number(StorageService.getUserId())
+      : 0
+
+    return this.http.get(`${BASIC_URL}/customer/cars/favoris/${userId}`, {
+      headers: this.createAuthorizationHeader()
+    })
+  }
+
   bookACar(bookACar: any): Observable<any> {
     return this.http.post(`${BASIC_URL}/customer/car/book`, bookACar, {
       headers: this.createAuthorizationHeader()
@@ -35,6 +45,43 @@ export class CustomerService {
       : 0
 
     return this.http.get(`${BASIC_URL}/customer/car/bookings/${userId}`, {
+      headers: this.createAuthorizationHeader()
+    })
+  }
+
+  getBookingsCountByUserIdAndStatus(status: string): Observable<any> {
+    const userId = StorageService.getUserId()
+      ? Number(StorageService.getUserId())
+      : 0
+
+    return this.http.get(
+      `${BASIC_URL}/customer/car/bookings/count/${userId}/${status}`,
+      {
+        headers: this.createAuthorizationHeader()
+      }
+    )
+  }
+
+  addCarToFavoris(carId: number): Observable<any> {
+    const userId = StorageService.getUserId()
+      ? Number(StorageService.getUserId())
+      : 0
+
+    return this.http.post(
+      `${BASIC_URL}/customer/car/favoris`,
+      { userId, carId },
+      {
+        headers: this.createAuthorizationHeader()
+      }
+    )
+  }
+
+  getCarFavorisByUserId(): Observable<any> {
+    const userId = StorageService.getUserId()
+      ? Number(StorageService.getUserId())
+      : 0
+
+    return this.http.get(`${BASIC_URL}/customer/car/favoris/${userId}`, {
       headers: this.createAuthorizationHeader()
     })
   }

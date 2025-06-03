@@ -1,4 +1,4 @@
-package com.carrentalbackend.cars;
+package com.carrentalbackend.cars.dto;
 
 import java.util.Date;
 

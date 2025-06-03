@@ -71,4 +71,50 @@ export class StorageService {
     localStorage.removeItem(TOKEN)
     localStorage.removeItem(USER)
   }
+
+  static addFavorites(carIds: number[]) {
+    const favorites = this.getFavorites()
+    carIds.forEach(carId => {
+      if (!favorites.includes(carId)) {
+        favorites.push(carId)
+      }
+    })
+    localStorage.setItem(
+      `${PREFIX_TOKEN_KEY}.favorites`,
+      JSON.stringify(favorites)
+    )
+  }
+
+  // liste des favoris
+  static addFavorite(carId: number) {
+    const favorites = this.getFavorites()
+    if (!favorites.includes(carId)) {
+      favorites.push(carId)
+      localStorage.setItem(
+        `${PREFIX_TOKEN_KEY}.favorites`,
+        JSON.stringify(favorites)
+      )
+      return true;
+    }
+    return false;
+  }
+
+  static removeFavorite(carId: number) {
+    const favorites = this.getFavorites()
+    const index = favorites.indexOf(carId)
+    if (index > -1) {
+      favorites.splice(index, 1)
+      localStorage.setItem(
+        `${PREFIX_TOKEN_KEY}.favorites`,
+        JSON.stringify(favorites)
+      )
+      return true;
+    }
+    return false;
+  }
+
+  static getFavorites(): number[] {
+    const favorites = localStorage.getItem(`${PREFIX_TOKEN_KEY}.favorites`)
+    return favorites ? JSON.parse(favorites) : []
+  }
 }

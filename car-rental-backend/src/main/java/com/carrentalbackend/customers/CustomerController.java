@@ -2,6 +2,7 @@ package com.carrentalbackend.customers;
 
 import com.carrentalbackend.booking.AddBookACarDto;
 import com.carrentalbackend.booking.BookACarDto;
+import com.carrentalbackend.carfavoris.AddCarFavorisDto;
 import com.carrentalbackend.cars.CarDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,8 +51,26 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.getBookingsByUserId(userId));
     }
 
+    @GetMapping("/car/bookings/count/{userId}/{status}")
+    public ResponseEntity<Integer> getBookingsCountByUserIdAndStatus(@PathVariable Long userId, @PathVariable String status) {
+        int count = customerService.getBookingsCountByUserIdAndStatus(userId, status);
+        return ResponseEntity.ok(count);
+    }
+
     @GetMapping("/car/car_disponibility/{carId}")
     public ResponseEntity<List<BookACarDto>> getCarDisponibility(@PathVariable Long carId) {
         return ResponseEntity.ok(customerService.getCarDisponibility(carId));
+    }
+
+    @PostMapping("/car/favoris")
+    public ResponseEntity<Void> addCarToFavoris(@RequestBody AddCarFavorisDto addCarFavorisDto) {
+        customerService.addCarToFavoris(addCarFavorisDto);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping("/car/favoris/{userId}")
+    public ResponseEntity<List<CarDto>> getCarFavorisByUserId(@PathVariable Long userId) {
+        List<CarDto> favoris = customerService.getCarFavorisByUserId(userId);
+        return ResponseEntity.ok(favoris);
     }
 }

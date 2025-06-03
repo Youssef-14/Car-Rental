@@ -1,6 +1,9 @@
 package com.carrentalbackend.customers;
 
 import com.carrentalbackend.booking.*;
+import com.carrentalbackend.carfavoris.AddCarFavorisDto;
+import com.carrentalbackend.carfavoris.CarFavoris;
+import com.carrentalbackend.carfavoris.CarFavorisRepository;
 import com.carrentalbackend.cars.Car;
 import com.carrentalbackend.cars.CarDto;
 import com.carrentalbackend.cars.CarRepository;
@@ -20,11 +23,13 @@ public class CustomerServiceImpl implements CustomerService {
     private final CarRepository carRepository;
     private final UserRepository userRepository;
     private final BookACarRepository bookACarRepository;
+    private final CarFavorisRepository carFavorisRepository;
 
-    public CustomerServiceImpl(CarRepository carRepository, UserRepository userRepository, BookACarRepository bookACarRepository) {
+    public CustomerServiceImpl(CarRepository carRepository, UserRepository userRepository, BookACarRepository bookACarRepository, CarFavorisRepository carFavorisRepository) {
         this.carRepository = carRepository;
         this.userRepository = userRepository;
         this.bookACarRepository = bookACarRepository;
+        this.carFavorisRepository = carFavorisRepository;
     }
 
     @Override
@@ -74,8 +79,56 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public int getBookingsCountByUserIdAndStatus(Long userId, String status) {
+        BookCarStatus bookCarStatus = BookCarStatus.valueOf(status.toUpperCase());
+        List<BookACar> bookACars = bookACarRepository.findAllByUserId(userId);
+        return (int) bookACars.stream()
+                .filter(bookACar -> bookACar.getBookCarStatus() == bookCarStatus)
+                .count();
+    }
+
+    @Override
     public List<BookACarDto> getCarDisponibility(Long carId) {
         // Get all bookings for the car for the next three months
         return bookACarRepository.findAllByCarId(carId).stream().map(BookACar::getBookACarDto).toList().stream().filter(bookACarDto -> bookACarDto.getToDate().after(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()))).collect(Collectors.toList());
+    }
+
+    @Override
+    public void addCarToFavoris(AddCarFavorisDto addCarFavorisDto) {
+        Optional<User> optionalUser = userRepository.findById(addCarFavorisDto.getUserId());
+        Optional<Car> optionalCar = carRepository.findById(addCarFavorisDto.getCarId());
+
+        if (optionalUser.isPresent() && optionalCar.isPresent()) {
+            User user = optionalUser.get();
+            Car car = optionalCar.get();
+
+            // Check if the car is already in favoris else delete it
+            Optional<CarFavoris> existingFavoris = carFavorisRepository.findByUserIdAndCarId(user.getId(), car.getId());
+            if (existingFavoris.isPresent()) {
+                carFavorisRepository.delete(existingFavoris.get());
+            } else {
+                CarFavoris carFavoris = new CarFavoris();
+                carFavoris.setUser(user);
+                carFavoris.setCar(car);
+                carFavorisRepository.save(carFavoris);
+            }
+
+        } else {
+            throw new IllegalArgumentException("User or Car not found");
+        }
+    }
+
+    @Override
+    public List<CarDto> getCarFavorisByUserId(Long userId) {
+        List<CarFavoris> carFavorisList = carFavorisRepository.findFavorisByUserId(userId);
+
+        if (carFavorisList.isEmpty()) {
+            return List.of(); // Return an empty list if no favoris found
+        }
+
+        return carFavorisList.stream()
+                .map(CarFavoris::getCar)
+                .map(Car::getCarDto)
+                .collect(Collectors.toList());
     }
 }

@@ -3,8 +3,8 @@
 
   <div class="cards">
     <div class="card">
-      <h2>Chiffre d'affaires</h2>
-      <p>{{ stats.revenue | number:'1.0-0' }} €</p>
+      <h2>Nombre de voitures</h2>
+      <p>{{ stats.cars }}</p>
     </div>
 
     <div class="card">
@@ -13,13 +13,13 @@
     </div>
 
     <div class="card">
-      <h2>Reservations cette semaines</h2>
-      <p>{{ stats.activeSessions }}</p>
+      <h2>Reservations cette mois</h2>
+      <p>{{ stats.bookings_this_week }}</p>
     </div>
 
     <div class="card">
-      <h2>Reservations en cours</h2>
-      <p>{{ stats.newSubscriptions }}</p>
+      <h2>Demandes de reservation en attente</h2>
+      <p>{{ stats.pending_bookings }}</p>
     </div>
   </div>
 </div>

@@ -7,6 +7,8 @@ import com.carrentalbackend.booking.BookACarDto;
 import com.carrentalbackend.booking.BookACarRepository;
 import com.carrentalbackend.booking.BookCarStatus;
 import com.carrentalbackend.cars.*;
+import com.carrentalbackend.cars.dto.CarDtoListDto;
+import com.carrentalbackend.cars.dto.SearchCarDto;
 import com.carrentalbackend.users.User;
 import com.carrentalbackend.users.UserRepository;
 import com.carrentalbackend.users.dto.UserDto;
@@ -90,6 +92,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public int getTotalCarsCount() {
+        return (int) carRepository.count(); // Count the total number of cars
+    }
+
+    @Override
     public boolean updateCar(Long id, CarDto carDto) throws IOException {
         Optional<Car> optionalCar = carRepository.findById(id);
 
@@ -161,6 +168,11 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public int getTotalBookingsCount() {
         return (int) bookACarRepository.count(); // Count the total number of bookings
+    }
+
+    @Override
+    public int getTotalBookingsCountThisMonth() {
+        return bookACarRepository.countBookingsThisMonth(BookCarStatus.APPROVED); // Count bookings for the current month
     }
 
     @Override

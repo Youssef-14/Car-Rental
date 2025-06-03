@@ -2,7 +2,7 @@ package com.carrentalbackend.admin;
 
 import com.carrentalbackend.booking.BookACarDto;
 import com.carrentalbackend.cars.CarDto;
-import com.carrentalbackend.cars.SearchCarDto;
+import com.carrentalbackend.cars.dto.SearchCarDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -72,6 +72,13 @@ public class AdminController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+    }
+
+    // number of cars
+    @GetMapping("/cars/count")
+    public ResponseEntity<Integer> getTotalCarsCount() {
+        int totalCarsCount = adminService.getTotalCarsCount();
+        return ResponseEntity.ok(totalCarsCount);
     }
 
     @PutMapping("/car/hide/{id}")
@@ -144,7 +151,7 @@ public class AdminController {
         return ResponseEntity.ok(adminService.getTotalBookingsCountByCarId(carId));
     }
 
-    @GetMapping("/car/bookings/count/status/{status}")
+    @GetMapping("/bookings/count/status/{status}")
     public ResponseEntity<Integer> getTotalBookingsCountByStatus(@PathVariable String status) {
         return ResponseEntity.ok(adminService.getTotalBookingsCountByStatus(status));
     }
@@ -154,9 +161,14 @@ public class AdminController {
         return ResponseEntity.ok(adminService.getTotalBookingsCountByUserId(userId));
     }
 
-    @GetMapping("/car/bookings/count/car")
+    @GetMapping("/bookings/count/car")
     public ResponseEntity<Integer> getTotalBookingsCountByCar(@RequestParam Long carId) {
         return ResponseEntity.ok(adminService.getTotalBookingsCountByCarId(carId));
+    }
+
+    @GetMapping("/bookings/count/this_month")
+    public ResponseEntity<Integer> getTotalBookingsCountThisMonth() {
+        return ResponseEntity.ok(adminService.getTotalBookingsCountThisMonth());
     }
 
 }

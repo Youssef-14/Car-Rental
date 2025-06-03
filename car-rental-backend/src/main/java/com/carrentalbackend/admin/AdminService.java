@@ -3,8 +3,8 @@ package com.carrentalbackend.admin;
 
 import com.carrentalbackend.booking.BookACarDto;
 import com.carrentalbackend.cars.CarDto;
-import com.carrentalbackend.cars.CarDtoListDto;
-import com.carrentalbackend.cars.SearchCarDto;
+import com.carrentalbackend.cars.dto.CarDtoListDto;
+import com.carrentalbackend.cars.dto.SearchCarDto;
 import com.carrentalbackend.users.dto.UserDto;
 
 import java.io.IOException;
@@ -49,4 +49,8 @@ public interface AdminService {
     CarDtoListDto searchCar(SearchCarDto searchCarDto);
 
     void hideShowCar(Long id) throws IOException;
+
+    int getTotalCarsCount();
+
+    int getTotalBookingsCountThisMonth();
 }
