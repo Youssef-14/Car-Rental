@@ -49,6 +49,7 @@ public class AdminServiceImpl implements AdminService {
             car.setType(carDto.getType());
             car.setYear(carDto.getYear());
             car.setImage(carDto.getImage().getBytes());
+            car.setAvailable(true); // Set the car as available by default
 
             carRepository.save(car);
 
