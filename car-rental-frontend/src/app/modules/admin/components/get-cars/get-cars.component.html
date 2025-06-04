@@ -29,7 +29,7 @@
                     <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary"
                             routerLink="/admin/car/update/{{car.id}}">Modifier</button>
                     <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary" nzGhost
-                            (click)="hideShowCar(car.id)">{{car.available ? 'Afficher' : 'Cacher'}}</button>
+                            (click)="hideShowCar(car.id)">{{car.available ? 'Cacher' : 'Afficher'}}</button>
 
                     <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary" nzDanger
                             (click)="deleteCar(car.id)">Supprimer</button>

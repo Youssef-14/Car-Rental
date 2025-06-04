@@ -42,6 +42,12 @@ export class GetCarBookingsComponent implements OnInit {
   }
 
   changeBookingStatus(bookingId: number, status: string) {
+
+    // message confirmation before changing status
+    if (!window.confirm(`Voulez-vous vraiment changer le statut de la réservation ${bookingId} à ${status} ?`)) {
+      return
+    }
+
     this.adminService.changeBookingStatus(bookingId, status).subscribe(
       () => {
         this.getBookings()

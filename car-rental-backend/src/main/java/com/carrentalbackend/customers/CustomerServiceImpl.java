@@ -126,9 +126,11 @@ public class CustomerServiceImpl implements CustomerService {
             return List.of(); // Return an empty list if no favoris found
         }
 
-        return carFavorisList.stream()
+        List<CarDto> list = carFavorisList.stream()
                 .map(CarFavoris::getCar)
                 .map(Car::getCarDto)
                 .collect(Collectors.toList());
+
+        return list;
     }
 }

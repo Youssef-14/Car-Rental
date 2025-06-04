@@ -32,6 +32,14 @@ export class GetCarsComponent implements OnInit {
   }
 
   deleteCar(id: number) {
+
+    // afficher une boîte de dialogue de confirmation avant de supprimer la voiture
+    // message confirmation before changing status
+    if (!window.confirm(`Êtes-vous sûr de vouloir supprimer cette voiture,
+      cette action est irréversible ?`)) {
+      return
+    }
+
     this.adminService.deleteCar(id).subscribe(res => {
       this.cars = this.cars.filter(car => car.id !== id)
 
@@ -41,6 +49,13 @@ export class GetCarsComponent implements OnInit {
 
   hideShowCar(id: number) {
     this.adminService.hideShowCar(id).subscribe(res => {
+
+      // message de confirmation avant de changer le statut de la voiture
+      if (!window.confirm(`Êtes-vous sûr de vouloir ${this.cars.find(car => car.id === id)?.available ? 'cacher' : 'afficher'} cette voiture ?
+      aucune réservation ne sera plus possible pour cette voiture si elle est cachée.`)) {
+        return
+      }
+
       const car = this.cars.find(car => car.id === id);
       if (car) {
         car.available = !car.available;
