@@ -28,26 +28,23 @@ export class CarListComponent implements OnInit {
 
   ngOnInit() {
     this.getAllCars()
-    this.getCarFavorisByUserId()
   }
 
-  getCarFavorisByUserId() {
-    this.service.getCarFavorisByUserId().subscribe(res => {
-      StorageService.addFavorites(res.map((car: any) => car.id))
-      res.forEach((car: any) => {
-        car.processedImage = `data:image/jpeg;base64,${car.returnedImage}`
-        car.isFavoris = true
-
-        this.cars.push(car)
-      })
-    }
-    )
-  }
   getAllCars() {
     this.service.getAllCars().subscribe(res => {
       res.forEach((car: any) => {
         car.processedImage = `data:image/jpeg;base64,${car.returnedImage}`
+        this.service.getCarFavorisByUserId().subscribe(favoris => {
+          StorageService.addFavorites(res.map((car: any) => car.id))
+          car.isFavoris = favoris.some((fav: any) => fav.id === car.id)
 
+          if (car.isFavoris) {
+            car.favorisIcon = 'ant-design:heart-filled'
+          } else {
+            car.favorisIcon = 'ant-design:heart-outlined'
+          }
+        }
+        )
         this.cars.push(car)
       })
     })

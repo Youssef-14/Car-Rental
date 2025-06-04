@@ -18,8 +18,8 @@ export class PostCarComponent implements OnInit{
   listOfOption: Array<{ label: string; value: string }> = []
   listOfBrands = ['Toyota', 'Honda', 'BMW', 'Mercedes', 'Audi', 'Lexus', 'Lamborghini', 'Porche', 'Ford', 'Fiat', 'Other']
   listOfType = ['Hyper Car','Sports Car','Luxury Car', 'Suv', 'Sedan','Diesel', 'Crossover']
-  listOfColor = ['Red', 'Blue', 'Brown', 'Green', 'Black', 'White', 'Silver', 'Other']
-  listOfTransmission = ['Manual', 'Automatic']
+  listOfColor = ['Rouge', 'Bleu', 'Vert', 'Jaune', 'Orange', 'Violet', 'Noir', 'Blanc', 'Gris', 'Autre']
+  listOfTransmission = ['Manual', 'Automatique', 'Semi-automatique']
 
   constructor(
     private fb: FormBuilder,
@@ -43,6 +43,46 @@ export class PostCarComponent implements OnInit{
 
   postCar() {
     this.isSpinning = true
+
+    // Valider chaque champ du formulaire
+
+    for (const i in this.postCarForm.controls) {
+      this.postCarForm.controls[i].markAsDirty()
+      this.postCarForm.controls[i].updateValueAndValidity()
+    }
+
+    if (this.postCarForm.invalid || !this.selectedFile) {
+      this.isSpinning = false
+      this.message.error('Sil vous plaît, remplissez tous les champs du formulaire et sélectionnez une image.', { nzDuration: 3000 })
+      return
+    }
+
+    // validation du year , price , nom , description
+
+    if (this.postCarForm.value.year < 1900 || this.postCarForm.value.year > new Date().getFullYear()) {
+      this.isSpinning = false
+      this.message.error('L\'année doit être entre 1900 et l\'année en cours.', { nzDuration: 3000 })
+      return
+    }
+
+    if (this.postCarForm.value.price <= 0) {
+      this.isSpinning = false
+      this.message.error('Le prix doit être supérieur à 0.', { nzDuration: 3000 })
+      return
+    }
+
+    if (this.postCarForm.value.name.trim() === '') {
+      this.isSpinning = false
+      this.message.error('Le nom de la voiture ne peut pas être vide.', { nzDuration: 3000 })
+      return
+    }
+
+    if (this.postCarForm.value.description.trim() === '') {
+      this.isSpinning = false
+      this.message.error('La description de la voiture ne peut pas être vide.', { nzDuration: 3000 })
+      return
+    }
+
 
     const formData: FormData = new FormData()
     formData.append('image', this.selectedFile as Blob)

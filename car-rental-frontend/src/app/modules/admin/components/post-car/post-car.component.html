@@ -18,7 +18,7 @@
         <div>
           <nz-form-item>
             <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="This Input Is Required">
-              <nz-select formControlName="brand" nzShowSearch nzAllowClear nzPlaceHolder="Select a Brand">
+              <nz-select formControlName="brand" nzShowSearch nzAllowClear nzPlaceHolder="Brand">
                 <nz-option *ngFor="let brand of listOfBrands" nzLabel="{{brand}}" nzValue="{{brand}}"></nz-option>
               </nz-select>
             </nz-form-control>
@@ -27,7 +27,7 @@
 
         <div>
           <nz-form-item>
-            <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="This Input Is Required">
+            <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="champ est requis">
               <input nz-input placeholder="Name" formControlName="name" />
             </nz-form-control>
           </nz-form-item>
@@ -36,7 +36,7 @@
         <div>
           <nz-form-item>
             <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="This Input Is Required">
-              <nz-select formControlName="type" nzShowSearch nzAllowClear nzPlaceHolder="Select a Type">
+              <nz-select formControlName="type" nzShowSearch nzAllowClear nzPlaceHolder="Type">
                 <nz-option *ngFor="let type of listOfType" nzLabel="{{type}}" nzValue="{{type}}"></nz-option>
               </nz-select>
             </nz-form-control>
@@ -46,7 +46,7 @@
         <div>
           <nz-form-item>
             <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="This Input Is Required">
-              <nz-select formControlName="transmission" nzShowSearch nzAllowClear nzPlaceHolder="Select a Transmission">
+              <nz-select formControlName="transmission" nzShowSearch nzAllowClear nzPlaceHolder="Transmission">
                 <nz-option *ngFor="let transmission of listOfTransmission" nzLabel="{{transmission}}"
                   nzValue="{{transmission}}"></nz-option>
               </nz-select>
@@ -57,7 +57,7 @@
         <div>
           <nz-form-item>
             <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="This Input Is Required">
-              <nz-select formControlName="color" nzShowSearch nzAllowClear nzPlaceHolder="Select a Color">
+              <nz-select formControlName="color" nzShowSearch nzAllowClear nzPlaceHolder="Couleur">
                 <nz-option *ngFor="let color of listOfColor" nzLabel="{{color}}" nzValue="{{color}}"></nz-option>
               </nz-select>
             </nz-form-control>
@@ -66,23 +66,23 @@
 
         <div>
           <nz-form-item>
-            <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="This Input Is Required">
-              <input formControlName="year" nz-input placeholder="Modal Year" />
+            <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="Champ numérique requis">
+              <input formControlName="year" nz-input placeholder="Année" type="number" />
             </nz-form-control>
           </nz-form-item>
         </div>
 
         <div>
           <nz-form-item>
-            <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="This Input Is Required">
-              <input formControlName="price" nz-input placeholder="Price" />
+            <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="Champ numérique requis">
+              <input formControlName="price" nz-input placeholder="Prix Par Jour" type="number" />
             </nz-form-control>
           </nz-form-item>
         </div>
 
         <div>
           <nz-form-item>
-            <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="This Input Is Required">
+            <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="Champ réquis">
               <textarea formControlName="description" rows="1" nz-input placeholder="Description"></textarea>
             </nz-form-control>
           </nz-form-item>

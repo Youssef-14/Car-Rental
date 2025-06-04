@@ -59,7 +59,7 @@ export class GetCarsComponent implements OnInit {
       const car = this.cars.find(car => car.id === id);
       if (car) {
         car.available = !car.available;
-        this.message.success(`Voiture ${car.available ? 'cachée' : 'visible'} avec succès`, { nzDuration: 3000 });
+        this.message.success(`Voiture ${car.available ? 'visible' : 'cachée'} avec succès`, { nzDuration: 3000 });
       }
     })
   }

@@ -29,7 +29,7 @@ export class CarFavorisListComponent {
   }
 
   getCarsFavoris() {
-    this.service.getCarsFavoris().subscribe(res => {
+    this.service.getCarFavorisByUserId().subscribe(res => {
       res.forEach((car: any) => {
         car.processedImage = `data:image/jpeg;base64,${car.returnedImage}`
         this.cars.push(car)

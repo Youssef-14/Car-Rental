@@ -50,8 +50,8 @@ export class AdminDashboardComponent implements OnInit {
   getBookingsCount(): any {
     this.adminService.getTotalBookingsCountByStatus("PENDING").subscribe(
       (response: number) => {
-        this.stats.bookings_this_week = response;
-        console.log('Bookings count:', this.stats.bookings_this_week);
+        this.stats.pending_bookings = response;
+        console.log('Bookings count:', this.stats.pending_bookings);
       },
       (error) => {
         console.error('Error fetching bookings count:', error);
@@ -75,8 +75,8 @@ export class AdminDashboardComponent implements OnInit {
   getTotalBookingsCountThisMonth(): any {
     this.adminService.getTotalBookingsCountThisMonth().subscribe(
       (response: number) => {
-        this.stats.pending_bookings = response;
-        console.log('Pending bookings count:', this.stats.pending_bookings);
+        this.stats.bookings_this_week = response;
+        console.log('Pending bookings count:', this.stats.bookings_this_week);
       },
       (error) => {
         console.error('Error fetching pending bookings count:', error);
