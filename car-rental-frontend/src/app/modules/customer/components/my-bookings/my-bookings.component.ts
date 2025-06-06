@@ -1,7 +1,5 @@
 import { Component } from '@angular/core'
 import { CustomerService } from '../../services/customer.service'
-import { ActivatedRoute } from '@angular/router'
-import { StorageService } from '../../../../auth/components/services/storage/storage.service'
 
 @Component({
     selector: 'app-my-bookings',
@@ -33,5 +31,15 @@ export class MyBookingsComponent {
         this.isSpinning = false
       }
     )
+  }
+
+  visible = false;
+
+  open(): void {
+    this.visible = true;
+  }
+
+  close(): void {
+    this.visible = false;
   }
 }

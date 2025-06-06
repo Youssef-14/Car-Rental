@@ -94,4 +94,16 @@ export class CustomerService {
       `Bearer ${StorageService.getToken()}`
     )
   }
+
+  getProfile(id: number): Observable<any> {
+    return this.http.get(`${BASIC_URL}/customer/profile/${id}`, {
+      headers: this.createAuthorizationHeader()
+    })
+  }
+
+  updateProfile(profile: any): Observable<any> {
+    return this.http.put(`${BASIC_URL}/customer/update-profile`, profile, {
+      headers: this.createAuthorizationHeader()
+    })
+  }
 }

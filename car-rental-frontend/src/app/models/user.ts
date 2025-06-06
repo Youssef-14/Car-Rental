@@ -6,4 +6,6 @@ export interface User {
   number: string
   createdAt: Date
   updatedAt: Date
+  driverLicenseNumber: string
+  driverLicenseImageUrl: string | ArrayBuffer | null
 }

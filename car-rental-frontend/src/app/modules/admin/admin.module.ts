@@ -19,6 +19,9 @@ import {G2MiniBarComponent} from '@delon/chart/mini-bar';
 import {QuickMenuComponent} from '@delon/abc/quick-menu';
 import {G2BarComponent} from '@delon/chart/bar';
 import {G2TimelineComponent} from '@delon/chart/timeline';
+import {NzDescriptionsComponent, NzDescriptionsItemComponent} from "ng-zorro-antd/descriptions";
+import {NzDividerComponent} from "ng-zorro-antd/divider";
+import {NzDrawerComponent, NzDrawerContentDirective} from "ng-zorro-antd/drawer";
 
 @NgModule({
   declarations: [AdminDashboardComponent, PostCarComponent, UpdateCarComponent, GetBookingsComponent, SearchCarComponent, GetCarsComponent],
@@ -39,7 +42,12 @@ import {G2TimelineComponent} from '@delon/chart/timeline';
     G2MiniBarComponent,
     QuickMenuComponent,
     G2BarComponent,
-    G2TimelineComponent
+    G2TimelineComponent,
+    NzDescriptionsComponent,
+    NzDescriptionsItemComponent,
+    NzDividerComponent,
+    NzDrawerComponent,
+    NzDrawerContentDirective
   ]
 })
 export class AdminModule {}

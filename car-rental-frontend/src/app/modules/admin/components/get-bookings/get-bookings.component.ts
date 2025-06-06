@@ -50,4 +50,14 @@ export class GetBookingsComponent implements OnInit {
       this.isSpinning = false
     })
   }
+
+  visible = false;
+
+  openUser(): void {
+    this.visible = true;
+  }
+
+  closeUser(): void {
+    this.visible = false;
+  }
 }

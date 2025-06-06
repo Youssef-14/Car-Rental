@@ -11,6 +11,7 @@ import { AuthService } from '../services/auth/auth.service';
 import {jwtDecode} from "jwt-decode";
 import {catchError, of} from "rxjs";
 import { NzMessageService } from 'ng-zorro-antd/message';
+import {CustomerService} from '../../../modules/customer/services/customer.service';
 
 export interface MyJwtPayload {
   role: string;
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private customerService: CustomerService,
     private message: NzMessageService,
     private router: Router,
   ) {}
@@ -80,6 +82,17 @@ export class LoginComponent implements OnInit {
 
         StorageService.saveUser(user);
         StorageService.saveToken(res.access_token);
+
+        if(StorageService.isCustomerLoggedIn()) {
+          this.customerService.getProfile(id).subscribe({
+            next: (profile) => {
+              StorageService.saveProfile(profile);
+            },
+            error: (error) => {
+              console.error('Error fetching profile:', error);
+            }
+          })
+        }
 
         if (StorageService.isAdminLoggedIn()) {
           this.router.navigateByUrl('/admin/dashboard');

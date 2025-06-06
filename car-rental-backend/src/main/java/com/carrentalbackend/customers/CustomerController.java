@@ -4,6 +4,8 @@ import com.carrentalbackend.booking.AddBookACarDto;
 import com.carrentalbackend.booking.BookACarDto;
 import com.carrentalbackend.carfavoris.AddCarFavorisDto;
 import com.carrentalbackend.cars.CarDto;
+import com.carrentalbackend.customers.dto.UpdateProfileDto;
+import com.carrentalbackend.users.dto.UserDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -32,6 +34,27 @@ public class CustomerController {
 
         if (isSuccessful) {
             return ResponseEntity.status(HttpStatus.CREATED).build();
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    @GetMapping("/profile/{userId}")
+    public ResponseEntity<UserDto> getProfile(@PathVariable Long userId) {
+        UserDto userDto = customerService.getProfile(userId);
+
+        if (userDto != null) {
+            return ResponseEntity.ok(userDto);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    // update profile
+    @PutMapping("/update-profile")
+    public ResponseEntity<Void> updateProfile(@ModelAttribute UpdateProfileDto updateProfileDto) {
+        boolean isUpdated = customerService.updateProfile(updateProfileDto);
+
+        if (isUpdated) {
+            return ResponseEntity.ok().build();
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }

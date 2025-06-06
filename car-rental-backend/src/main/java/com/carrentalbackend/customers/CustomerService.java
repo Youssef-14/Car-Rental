@@ -5,6 +5,8 @@ import com.carrentalbackend.booking.AddBookACarDto;
 import com.carrentalbackend.booking.BookACarDto;
 import com.carrentalbackend.carfavoris.AddCarFavorisDto;
 import com.carrentalbackend.cars.CarDto;
+import com.carrentalbackend.customers.dto.UpdateProfileDto;
+import com.carrentalbackend.users.dto.UserDto;
 
 import java.util.List;
 
@@ -12,6 +14,10 @@ public interface CustomerService {
     List<CarDto> getAllCars();
 
     boolean bookACar(AddBookACarDto bookACarDto);
+
+    boolean updateProfile(UpdateProfileDto updateProfileDto);
+
+    UserDto getProfile(Long userId);
 
     CarDto getCarById(Long id);
 

@@ -27,12 +27,18 @@ public class User implements UserDetails {
   private String email;
   private String password;
   private String number;
+  private String address;
+  @Column(name = "license_number")
+  private String licenseNumber;
   @CreationTimestamp
   @Column(name = "created_at", updatable = false)
   private Date createdAt;
   @UpdateTimestamp
   @Column(name = "updated_at")
   private Date updatedAt;
+
+  @Column(columnDefinition = "bytea")
+  private byte[] licenseImage;
 
   @Enumerated(EnumType.STRING)
   private Role role;
@@ -66,6 +72,9 @@ public class User implements UserDetails {
         userDto.setNumber(number);
         userDto.setCreatedAt(createdAt);
         userDto.setUpdatedAt(updatedAt);
+        userDto.setLicenseNumber(licenseNumber);
+        userDto.setAddress(address);
+        userDto.setLicenseImage(licenseImage);
         return userDto;
     }
 
@@ -107,6 +116,32 @@ public class User implements UserDetails {
   public Role getRole() {
     return role;
   }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+            this.address = address;
+        }
+
+    public byte[] getLicenseImage() {
+
+        return licenseImage;
+    }
+
+    public void setLicenseImage(byte[] licenseImage) {
+        this.licenseImage = licenseImage;
+    }
+
+    public String getLicenseNumber() {
+        return licenseNumber;
+    }
+
+    public void setLicenseNumber(String licenseNumber) {
+        this.licenseNumber = licenseNumber;
+    }
+
 
   @Override
   public String getPassword() {

@@ -1,0 +1,21 @@
+.profile-container {
+  max-width: 500px;
+  margin: auto;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #f7f7f7;
+}
+
+label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="file"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+}

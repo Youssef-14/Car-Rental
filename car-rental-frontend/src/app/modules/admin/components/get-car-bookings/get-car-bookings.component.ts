@@ -9,6 +9,9 @@ import {AdminService} from '../../services/admin.service';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {Booking} from '../../../../models/booking';
 import {ActivatedRoute} from '@angular/router';
+import {NzDescriptionsComponent, NzDescriptionsItemComponent} from 'ng-zorro-antd/descriptions';
+import {NzDividerComponent} from 'ng-zorro-antd/divider';
+import {NzDrawerComponent, NzDrawerContentDirective} from 'ng-zorro-antd/drawer';
 
 @Component({
   selector: 'app-get-car-bookings',
@@ -20,7 +23,12 @@ import {ActivatedRoute} from '@angular/router';
     NzRowDirective,
     NzSpinComponent,
     NzTableComponent,
-    NzWaveDirective
+    NzWaveDirective,
+    NzDescriptionsComponent,
+    NzDescriptionsItemComponent,
+    NzDividerComponent,
+    NzDrawerComponent,
+    NzDrawerContentDirective
   ],
   templateUrl: './get-car-bookings.component.html',
   styleUrl: './get-car-bookings.component.scss'
@@ -68,6 +76,16 @@ export class GetCarBookingsComponent implements OnInit {
       console.log(bookings);
       this.isSpinning = false
     })
+  }
+
+  visible = false;
+
+  openUser(): void {
+    this.visible = true;
+  }
+
+  closeUser(): void {
+    this.visible = false;
   }
 
 }

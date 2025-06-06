@@ -7,8 +7,10 @@ import com.carrentalbackend.carfavoris.CarFavorisRepository;
 import com.carrentalbackend.cars.Car;
 import com.carrentalbackend.cars.CarDto;
 import com.carrentalbackend.cars.CarRepository;
+import com.carrentalbackend.customers.dto.UpdateProfileDto;
 import com.carrentalbackend.users.User;
 import com.carrentalbackend.users.UserRepository;
+import com.carrentalbackend.users.dto.UserDto;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -30,6 +32,40 @@ public class CustomerServiceImpl implements CustomerService {
         this.userRepository = userRepository;
         this.bookACarRepository = bookACarRepository;
         this.carFavorisRepository = carFavorisRepository;
+    }
+
+    @Override
+    public boolean updateProfile(UpdateProfileDto updateProfileDto) {
+        Optional<User> optionalUser = userRepository.findById(updateProfileDto.getId());
+
+        try {
+            if (optionalUser.isPresent()) {
+                User user = optionalUser.get();
+                user.setFirstname(updateProfileDto.getFirstName());
+                user.setLastname(updateProfileDto.getLastName());
+                user.setNumber(updateProfileDto.getPhoneNumber());
+                user.setAddress(updateProfileDto.getAddress());
+                user.setLicenseNumber(updateProfileDto.getLicenseNumber());
+
+                if (updateProfileDto.getLicenseImage() != null) {
+                    user.setLicenseImage(updateProfileDto.getLicenseImage().getBytes());
+                }
+
+                userRepository.save(user);
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public UserDto getProfile(Long userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        return optionalUser.map(User::getUserDto).orElse(null);
     }
 
     @Override

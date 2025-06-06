@@ -1,5 +1,7 @@
 package com.carrentalbackend.users.dto;
 
+import jakarta.persistence.Column;
+
 import java.util.Date;
 
 public class UserDto {
@@ -10,11 +12,14 @@ public class UserDto {
     private String number;
     private Date createdAt;
     private Date updatedAt;
+    private String licenseNumber;
+    private String address;
+    private byte[] licenseImage;
 
     public UserDto() {
     }
 
-    public UserDto(Long id, String firstname, String lastname, String email, String number, Date createdAt, Date updatedAt) {
+    public UserDto(Long id, String firstname, String lastname, String email, String number, Date createdAt, Date updatedAt, String licenseNumber, String address, byte[] licenseImage) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -22,6 +27,9 @@ public class UserDto {
         this.number = number;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.licenseNumber = licenseNumber;
+        this.address = address;
+        this.licenseImage = licenseImage;
     }
 
     public Long getId() {
@@ -54,6 +62,30 @@ public class UserDto {
 
     public Date getCreatedAt() {
         return createdAt;
+    }
+
+    public String getLicenseNumber() {
+        return licenseNumber;
+    }
+
+    public void setLicenseNumber(String licenseNumber) {
+        this.licenseNumber = licenseNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public byte[] getLicenseImage() {
+        return licenseImage;
+    }
+
+    public void setLicenseImage(byte[] licenseImage) {
+        this.licenseImage = licenseImage;
     }
 
     public void setCreatedAt(Date createdAt) {

@@ -4,6 +4,7 @@ const PREFIX_TOKEN_KEY = 'car_rental'
 
 const TOKEN = `${PREFIX_TOKEN_KEY}.token`
 const USER = `${PREFIX_TOKEN_KEY}.user`
+const PROFILE = `${PREFIX_TOKEN_KEY}.profile`
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +22,21 @@ export class StorageService {
     localStorage.setItem(USER, JSON.stringify(user))
   }
 
+  static saveProfile(profile: any) {
+    localStorage.removeItem(PROFILE)
+    localStorage.setItem(PROFILE, JSON.stringify(profile))
+  }
+
   static getToken(): string | null {
     return localStorage.getItem(TOKEN)
   }
 
   static getUser(): any {
     return JSON.parse(localStorage.getItem(USER) || '{}')
+  }
+
+  static getProfile(): any {
+    return JSON.parse(localStorage.getItem(PROFILE) || '{}')
   }
 
   static getUserId(): string {
