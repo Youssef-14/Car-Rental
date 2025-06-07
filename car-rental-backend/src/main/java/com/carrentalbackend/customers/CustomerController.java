@@ -96,4 +96,21 @@ public class CustomerController {
         List<CarDto> favoris = customerService.getCarFavorisByUserId(userId);
         return ResponseEntity.ok(favoris);
     }
+
+    @GetMapping("/car/available/count")
+    public ResponseEntity<Integer> getTotalCarAvailableCount() {
+        int count = customerService.getTotalCarAvailableCount();
+        return ResponseEntity.ok(count);
+    }
+
+    // cancel booking
+    @PutMapping("/car/cancel-booking/{bookingId}")
+    public ResponseEntity<Void> cancelBooking(@PathVariable Long bookingId) {
+        boolean isCancelled = customerService.cancelBooking(bookingId);
+
+        if (isCancelled) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
 }

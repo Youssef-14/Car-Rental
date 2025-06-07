@@ -155,6 +155,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public int getTotalCarAvailableCount() {
+        return (int) carRepository.countByAvailableTrue(); // Count the total number of available cars
+    }
+
+    @Override
     public List<CarDto> getCarFavorisByUserId(Long userId) {
         List<CarFavoris> carFavorisList = carFavorisRepository.findFavorisByUserId(userId);
 
@@ -168,5 +173,17 @@ public class CustomerServiceImpl implements CustomerService {
                 .collect(Collectors.toList());
 
         return list;
+    }
+
+    @Override
+    public boolean cancelBooking(Long bookingId) {
+        Optional<BookACar> optionalBooking = bookACarRepository.findById(bookingId);
+        if (optionalBooking.isPresent()) {
+            BookACar booking = optionalBooking.get();
+            booking.setBookCarStatus(BookCarStatus.CANCELED);
+            bookACarRepository.save(booking);
+            return true;
+        }
+        return false;
     }
 }

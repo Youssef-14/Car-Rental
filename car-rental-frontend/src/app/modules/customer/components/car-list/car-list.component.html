@@ -27,14 +27,14 @@
 
         <div style="float: right;">
           <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary"
-                  routerLink="/customer/book/{{car.id}}">Book</button>
+                  routerLink="/customer/book/{{car.id}}">Réserver</button>
         </div>
 
         <div style="float: left;">
           <!-- add an  add or delete to favoris icon -->
           <button nzSize="small" nz-button nzType="default" (click)="toggleFavoris(car)">
             <i class="anticon" [ngClass]="car.isFavoris ? 'anticon-heart' : 'anticon-heart-o'"></i>
-            {{ car.isFavoris ? 'Remove from Favoris' : 'Add to Favoris' }}
+            {{ car.isFavoris ? 'Retirer des Favoris' : 'Ajouter aux Favoris' }}
           </button>
         </div>
 

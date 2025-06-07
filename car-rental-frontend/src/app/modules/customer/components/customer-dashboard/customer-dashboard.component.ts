@@ -17,6 +17,8 @@ export class CustomerDashboardComponent {
     this.getBookingsCountByUserIdAndPending();
 
     this.getBookingsCountByUserIdAndCancelled();
+
+    this.getAvailableCarsCount();
   }
 
   stats = {
@@ -58,13 +60,28 @@ export class CustomerDashboardComponent {
   }
 
   getBookingsCountByUserIdAndCancelled(): number {
-    this.customerService.getBookingsCountByUserIdAndStatus("CANCELLED").subscribe(
+    this.customerService.getBookingsCountByUserIdAndStatus("CANCELED").subscribe(
       (response: number) => {
         this.stats.reservations_annulees = response;
         console.log('Cancelled bookings count:', this.stats.reservations_annulees);
       },
       (error) => {
         console.error('Error fetching bookings count:', error);
+      }
+    );
+    return 0; // Placeholder return value
+  }
+
+
+
+  getAvailableCarsCount(): number {
+    this.customerService.getAllCars().subscribe(
+      (response: any[]) => {
+        this.stats.voitures_disponibles = response.length;
+        console.log('Available cars count:', this.stats.voitures_disponibles);
+      },
+      (error) => {
+        console.error('Error fetching available cars count:', error);
       }
     );
     return 0; // Placeholder return value

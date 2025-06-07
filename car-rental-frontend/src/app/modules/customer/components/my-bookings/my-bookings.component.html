@@ -15,6 +15,7 @@
             <th>Jusqu'à</th>
             <th>Nombre de Jours</th>
             <th>Prix Total</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -26,6 +27,12 @@
             <td>{{ booking.toDate | date: 'dd-MM-yyyy' }}</td>
             <td>{{ booking.days }}</td>
             <td>{{ booking.price }}</td>
+            <td>
+              @if (isCancelable(booking)) {
+                <button nz-button nzType="primary" (click)="cancelBooking(booking.id)">
+                    <i nz-icon nzType="check"></i> Annuler
+                </button>
+              }
         </tr>
         </tbody>
     </nz-table>

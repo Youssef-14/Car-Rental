@@ -106,4 +106,16 @@ export class CustomerService {
       headers: this.createAuthorizationHeader()
     })
   }
+
+  getTotalCarsAvailable(): Observable<any> {
+    return this.http.get(`${BASIC_URL}/customer/car/available/count`, {
+      headers: this.createAuthorizationHeader()
+    })
+  }
+
+  cancelBooking(id: number): Observable<any> {
+    return this.http.put(`${BASIC_URL}/customer/car/cancel-booking/${id}`, {
+      headers: this.createAuthorizationHeader()
+    })
+  }
 }

@@ -32,6 +32,10 @@ public interface CustomerService {
 
     void addCarToFavoris(AddCarFavorisDto addCarFavorisDto);
 
+    int getTotalCarAvailableCount();
+
+    boolean cancelBooking(Long bookingId);
+
     /*int getCarFavorisCount(Long userId);
 
     void removeCarFromFavoris(Long userId, Long carId);*/

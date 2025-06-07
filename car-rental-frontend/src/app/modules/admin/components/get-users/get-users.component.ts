@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NzDescriptionsComponent, NzDescriptionsItemComponent, NzDescriptionsModule} from 'ng-zorro-antd/descriptions';
 import {NzDividerComponent, NzDividerModule} from 'ng-zorro-antd/divider';
 import {NzDrawerComponent, NzDrawerContentDirective, NzDrawerModule} from 'ng-zorro-antd/drawer';
@@ -16,7 +16,7 @@ import {
 import { User } from '../../../../models/user';
 import {AdminService} from '../../services/admin.service';
 import {NzMessageService} from 'ng-zorro-antd/message';
-import {DatePipe} from '@angular/common';
+import {DatePipe, NgIf} from '@angular/common';
 
 
 interface ColumnItem {
@@ -29,11 +29,15 @@ interface ColumnItem {
 
 @Component({
   selector: 'app-get-users',
-  imports: [NzButtonModule, NzTableModule, NzDescriptionsComponent, NzDescriptionsItemComponent, NzDrawerComponent, NzDividerComponent, NzDrawerContentDirective, DatePipe],
+  imports: [NzButtonModule, NzTableModule, NzDescriptionsComponent, NzDescriptionsItemComponent, NzDrawerComponent, NzDividerComponent, NzDrawerContentDirective, DatePipe, NgIf],
   styleUrl: './get-users.component.scss',
   templateUrl: './get-users.component.html',
 })
 export class GetUsersComponent{
+  @Input() profile: any;
+
+  driverLicenseImageUrl: string | null = null;
+
   listOfData: User[] = [ ];
   constructor(private adminService: AdminService,
               private message: NzMessageService) {
@@ -50,18 +54,18 @@ export class GetUsersComponent{
 
   listOfColumns: ColumnItem[] = [
     {
+      name: 'ID',
+      sortOrder: null,
+      sortFn: (a: User, b: User) => a.id - b.id,
+      listOfFilter: [],
+      filterFn: null
+    },
+    {
       name: 'Email',
       sortOrder: null,
       sortFn: (a: User, b: User) => a.email.localeCompare(b.email),
       listOfFilter: [],
       filterFn: (list: string[], item: User) => list.some(name => item.email.indexOf(name) !== -1)
-    },
-    {
-      name: 'Number',
-      sortOrder: null,
-      sortFn: null,
-      listOfFilter: [],
-      filterFn: null
     },
     {
       name: 'Date Inscription',
@@ -115,8 +119,15 @@ export class GetUsersComponent{
 
   visible = false;
 
-  open(): void {
+  open(user: any): void {
+    this.driverLicenseImageUrl = null;
     this.visible = true;
+    this.profile = user;
+    if (this.profile?.licenseImage) {
+      this.driverLicenseImageUrl = this.profile.licenseImage.startsWith('data:image')
+        ? this.profile.licenseImage
+        : `data:image/jpeg;base64,${this.profile.licenseImage}`;
+    }
   }
 
   close(): void {
