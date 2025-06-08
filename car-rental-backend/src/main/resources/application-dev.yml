@@ -15,6 +15,18 @@ spring:
     show-sql: true
     open-in-view: false
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: "verifmail797@gmail.com"
+    password: "ftpy nfsy vvze uzmk"  # use App Password if 2FA is enabled
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 #logging:
 #  threshold:
 #    console: warn

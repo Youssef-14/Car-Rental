@@ -24,9 +24,6 @@ import {NzDrawerComponent, NzDrawerContentDirective} from 'ng-zorro-antd/drawer'
     NzSpinComponent,
     NzTableComponent,
     NzWaveDirective,
-    NzDescriptionsComponent,
-    NzDescriptionsItemComponent,
-    NzDividerComponent,
     NzDrawerComponent,
     NzDrawerContentDirective
   ],
@@ -64,7 +61,7 @@ export class GetCarBookingsComponent implements OnInit {
       () => {
         this.getBookings()
 
-        this.message.success('Booking status changed successfully')
+        this.message.success('La réservation a été mise à jour avec succès')
       },
       error => {
         this.message.error('Error changing booking status')

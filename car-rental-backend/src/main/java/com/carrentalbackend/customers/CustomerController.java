@@ -6,6 +6,7 @@ import com.carrentalbackend.carfavoris.AddCarFavorisDto;
 import com.carrentalbackend.cars.CarDto;
 import com.carrentalbackend.customers.dto.UpdateProfileDto;
 import com.carrentalbackend.users.dto.UserDto;
+import jakarta.mail.MessagingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -104,7 +105,7 @@ public class CustomerController {
     }
 
     // cancel booking
-    @PutMapping("/car/cancel-booking/{bookingId}")
+    @PutMapping("/booking/cancel-booking/{bookingId}")
     public ResponseEntity<Void> cancelBooking(@PathVariable Long bookingId) {
         boolean isCancelled = customerService.cancelBooking(bookingId);
 
@@ -112,5 +113,26 @@ public class CustomerController {
             return ResponseEntity.status(HttpStatus.OK).build();
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    // generate  mail verification token
+    @PostMapping("/generate-verification-token/{userId}")
+    public ResponseEntity<String> generateVerificationToken(@PathVariable Long userId) throws MessagingException {
+        if( customerService.generateVerificationToken(userId) ) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
+    @GetMapping("/verification-token/{userId}/{token}")
+    public ResponseEntity<String> verifyUserActivationToken(@PathVariable Long userId, @PathVariable String token) {
+        boolean isVerified = customerService.verifyUserActivationToken(userId, token);
+
+        if (isVerified) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 }

@@ -15,11 +15,12 @@ public class UserDto {
     private String licenseNumber;
     private String address;
     private byte[] licenseImage;
+    private Boolean isVerified;
 
     public UserDto() {
     }
 
-    public UserDto(Long id, String firstname, String lastname, String email, String number, Date createdAt, Date updatedAt, String licenseNumber, String address, byte[] licenseImage) {
+    public UserDto(Long id, String firstname, String lastname, String email, String number, Date createdAt, Date updatedAt, String licenseNumber, String address, byte[] licenseImage, Boolean isVerified) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -30,6 +31,7 @@ public class UserDto {
         this.licenseNumber = licenseNumber;
         this.address = address;
         this.licenseImage = licenseImage;
+        this.isVerified = isVerified;
     }
 
     public Long getId() {
@@ -110,5 +112,13 @@ public class UserDto {
 
     public Date getUpdatedAt() {
         return updatedAt;
+    }
+
+    public Boolean getIsVerified() {
+        return isVerified;
+    }
+
+    public void setIsVerified(Boolean isVerified) {
+        this.isVerified = isVerified;
     }
 }

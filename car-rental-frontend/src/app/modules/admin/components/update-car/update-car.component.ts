@@ -29,8 +29,8 @@ export class UpdateCarComponent {
   listOfOption: Array<{ label: string; value: string }> = []
   listOfBrands = ['Toyota', 'Honda', 'BMW', 'Mercedes', 'Audi', 'Lexus', 'Lamborghini', 'Porche', 'Ford', 'Fiat', 'Other']
   listOfType = ['Hyper Car','Sports Car','Luxury Car', 'Suv', 'Sedan','Diesel', 'Crossover']
-  listOfColor = ['Red', 'Blue', 'Brown', 'Green', 'Black', 'White', 'Silver', 'Other']
-  listOfTransmission = ['Manual', 'Automatic']
+  listOfColor = ['Rouge', 'Bleu', 'Vert', 'Jaune', 'Orange', 'Violet', 'Noir', 'Blanc', 'Gris', 'Autre']
+  listOfTransmission = ['Manual', 'Automatique', 'Semi-automatique']
 
   ngOnInit() {
     this.carId = this.activatedRoute.snapshot.params['id']

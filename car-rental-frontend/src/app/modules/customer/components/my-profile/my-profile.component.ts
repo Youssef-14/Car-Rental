@@ -5,6 +5,8 @@ import {NgIf} from '@angular/common';
 import {CustomerService} from '../../services/customer.service';
 import {NzButtonComponent} from 'ng-zorro-antd/button';
 import {NzWaveDirective} from 'ng-zorro-antd/core/wave';
+import {Router} from '@angular/router';
+import {NzMessageService} from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-my-profile',
@@ -13,7 +15,6 @@ import {NzWaveDirective} from 'ng-zorro-antd/core/wave';
     NgIf,
     NzButtonComponent,
     NzWaveDirective
-
   ],
   templateUrl: './my-profile.component.html',
   styleUrl: './my-profile.component.scss'
@@ -22,30 +23,33 @@ export class MyProfileComponent implements OnInit {
   profileForm: FormGroup;
   driverLicenseImageUrl: string | null = null;
   selectedFile: File | null = null;
+  profile : any = null;
 
-  constructor(private fb: FormBuilder,private customerService: CustomerService,) {
+  constructor(private fb: FormBuilder,private customerService: CustomerService, private router: Router, private message: NzMessageService) {
     this.profileForm = this.fb.group({
       lastname: ['', Validators.required],
       firstname: ['', Validators.required],
       number: ['', [Validators.required, Validators.pattern('^[0-9]{10,15}$')]],
       licenseNumber: ['', Validators.required],
+      address: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {
-    const profile = StorageService.getProfile();
-    if (profile) {
+    this.profile = StorageService.getProfile();
+    if (this.profile) {
       this.profileForm.patchValue({
-        lastname: profile.lastname,
-        firstname: profile.firstname,
-        number: profile.number,
-        licenseNumber: profile.licenseNumber,
+        lastname: this.profile.lastname,
+        firstname: this.profile.firstname,
+        number: this.profile.number,
+        licenseNumber: this.profile.licenseNumber,
+        address: this.profile.address
       });
 
-      if (profile.licenseImage) {
-        this.driverLicenseImageUrl = profile.licenseImage.startsWith('data:image')
-          ? profile.licenseImage
-          : `data:image/jpeg;base64,${profile.licenseImage}`;
+      if (this.profile.licenseImage) {
+        this.driverLicenseImageUrl = this.profile.licenseImage.startsWith('data:image')
+          ? this.profile.licenseImage
+          : `data:image/jpeg;base64,${this.profile.licenseImage}`;
 
       }
     }
@@ -65,13 +69,6 @@ export class MyProfileComponent implements OnInit {
     }
   }
 
-  getDriverLicenseImageUrl(): string | null {
-    console.log('Driver License Image URL:', this.driverLicenseImageUrl);
-    return this.driverLicenseImageUrl
-      ? `data:image/jpeg;base64,${this.driverLicenseImageUrl}`
-      : null;
-  }
-
   onSubmit(): void {
     const formData : FormData = new FormData()
 
@@ -84,6 +81,7 @@ export class MyProfileComponent implements OnInit {
     formData.append('firstName', this.profileForm.value.firstname);
     formData.append('phoneNumber', this.profileForm.value.number);
     formData.append('licenseNumber', this.profileForm.value.licenseNumber);
+    formData.append('address', this.profileForm.value.address);
 
 
     StorageService.saveProfile({
@@ -91,6 +89,7 @@ export class MyProfileComponent implements OnInit {
       firstname: this.profileForm.value.firstname,
       number: this.profileForm.value.number,
       licenseNumber: this.profileForm.value.licenseNumber,
+      address: this.profileForm.value.address,
       driverLicenseImageBase64: this.driverLicenseImageUrl ? this.driverLicenseImageUrl.split(',')[1] : null
     });
 
@@ -102,5 +101,21 @@ export class MyProfileComponent implements OnInit {
         console.error('Error updating profile', error);
       }
     });
+  }
+
+  VerifyMail() {
+
+    this.customerService.generateVerificationCode().subscribe({
+      next: (response) => {
+        this.message.success('Le code de vérification a été envoyé à votre adresse e-mail. Veuillez vérifier votre boîte de réception.');
+        console.log('Email verification sent successfully', response);
+      },
+      error: (error) => {
+        console.error('Error sending email verification', error);
+      }
+    });
+
+    // redirect to verify email page
+    this.router.navigate(['/customer/verify-email']);
   }
 }

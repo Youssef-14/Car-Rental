@@ -37,7 +37,7 @@ export class GetBookingsComponent implements OnInit {
       () => {
         this.getBookings()
 
-        this.message.success('Booking status changed successfully')
+        this.message.success('La réservation a été mise à jour avec succès')
       },
       error => {
         this.message.error('Error changing booking status')

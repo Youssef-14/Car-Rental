@@ -3,6 +3,7 @@ package com.carrentalbackend.users;
 
 import com.carrentalbackend.authentification.Token;
 import com.carrentalbackend.authentification.enums.Role;
+import com.carrentalbackend.customers.VerificationToken;
 import com.carrentalbackend.users.dto.UserDto;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -46,6 +47,14 @@ public class User implements UserDetails {
   @OneToMany(mappedBy = "user")
   private List<Token> tokens;
 
+  // mail verifié
+    @Column(name = "is_verified", columnDefinition = "boolean default false")
+    private boolean isVerified = false;
+
+    // verification token class VerificationToken one to one
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private VerificationToken verificationToken;
+
   public User(Long id, String firstname, String lastname, String email, String password, String number, Role role, List<Token> tokens, Date createdAt, Date updatedAt) {
     this.id = id;
     this.firstname = firstname;
@@ -75,6 +84,7 @@ public class User implements UserDetails {
         userDto.setLicenseNumber(licenseNumber);
         userDto.setAddress(address);
         userDto.setLicenseImage(licenseImage);
+        userDto.setIsVerified(isVerified);
         return userDto;
     }
 
@@ -233,6 +243,22 @@ public class User implements UserDetails {
     this.updatedAt = updatedAt;
   }
 
+    public boolean isVerified() {
+        return isVerified;
+    }
+
+    public void setVerified(boolean verified) {
+        isVerified = verified;
+    }
+
+    public VerificationToken getVerificationToken() {
+        return verificationToken;
+    }
+
+    public void setVerificationToken(VerificationToken verificationToken) {
+        this.verificationToken = verificationToken;
+    }
+
   public boolean equals(final Object o) {
     if (o == this) return true;
     if (!(o instanceof User)) return false;
@@ -363,5 +389,6 @@ public class User implements UserDetails {
     public String toString() {
       return "User.UserBuilder(id=" + this.id + ", firstname=" + this.firstname + ", lastname=" + this.lastname + ", email=" + this.email + ", password=" + this.password + ", number=" + this.number + ", role=" + this.role + ", tokens=" + this.tokens + ")";
     }
+
   }
 }

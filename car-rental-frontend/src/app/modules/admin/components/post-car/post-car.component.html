@@ -5,9 +5,9 @@
 
       <form nz-form [formGroup]="postCarForm">
         <div class="pb-6">
-          <div class="profile-badge">
-            <label for="upload_profile_image" class="upload-label" *ngIf="selectedFile">
-              <img class="profile" [src]="imagePreview" alt="profile" />
+          <div class="profile-badge" style="display: flex; justify-content: center; align-items: center;">
+            <label for="upload_profile_image" class="upload-label" *ngIf="selectedFile" style="cursor: pointer;">
+              <img class="profile" [src]="imagePreview" alt="profile" width="200" height="150" />
             </label>
 
             <input type="file" nz-button nzType="primary" id="upload_profile_image" (change)="onFileSelected($event)"
@@ -89,7 +89,7 @@
         </div>
 
         <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" (click)="postCar()">
-          Post Car
+          Ajouter une Voiture
         </button>
       </form>
     </div>

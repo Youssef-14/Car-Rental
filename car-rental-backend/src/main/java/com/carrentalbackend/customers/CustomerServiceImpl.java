@@ -11,6 +11,8 @@ import com.carrentalbackend.customers.dto.UpdateProfileDto;
 import com.carrentalbackend.users.User;
 import com.carrentalbackend.users.UserRepository;
 import com.carrentalbackend.users.dto.UserDto;
+import jakarta.mail.MessagingException;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -18,6 +20,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,12 +29,14 @@ public class CustomerServiceImpl implements CustomerService {
     private final UserRepository userRepository;
     private final BookACarRepository bookACarRepository;
     private final CarFavorisRepository carFavorisRepository;
+    private final EmailService emailService;
 
-    public CustomerServiceImpl(CarRepository carRepository, UserRepository userRepository, BookACarRepository bookACarRepository, CarFavorisRepository carFavorisRepository) {
+    public CustomerServiceImpl(CarRepository carRepository, UserRepository userRepository, BookACarRepository bookACarRepository, CarFavorisRepository carFavorisRepository, EmailService emailService) {
         this.carRepository = carRepository;
         this.userRepository = userRepository;
         this.bookACarRepository = bookACarRepository;
         this.carFavorisRepository = carFavorisRepository;
+        this.emailService = emailService;
     }
 
     @Override
@@ -183,6 +188,53 @@ public class CustomerServiceImpl implements CustomerService {
             booking.setBookCarStatus(BookCarStatus.CANCELED);
             bookACarRepository.save(booking);
             return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean generateVerificationToken(Long userId) throws MessagingException {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            String tokenValue = UUID.randomUUID().toString();
+            VerificationToken token = user.getVerificationToken();
+            if (token == null) {
+                token = new VerificationToken();
+                token.setUser(user);
+            }
+            token.setToken(tokenValue);
+            token.setExpiryDate(Date.from(LocalDate.now().plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+
+            user.setVerificationToken(token);
+            userRepository.save(user);
+
+            emailService.sendEmail(
+                    user.getEmail(),
+                    user.getName(),
+                    EmailTemplateName.ACTIVATE_ACCOUNT,
+                    tokenValue,
+                    "Account activation"
+            );
+
+            userRepository.save(user);
+            return true;
+        } else {
+            throw new IllegalArgumentException("User not found");
+        }
+    }
+
+    @Override
+    public boolean verifyUserActivationToken(Long userId, String token) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            VerificationToken verificationToken = user.getVerificationToken();
+            if (verificationToken != null && verificationToken.getToken().equals(token) && verificationToken.getExpiryDate().after(new Date())) {
+                user.setVerified(true);
+                userRepository.save(user);
+                return true;
+            }
         }
         return false;
     }

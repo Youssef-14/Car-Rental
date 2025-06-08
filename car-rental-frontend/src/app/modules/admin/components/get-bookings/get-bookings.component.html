@@ -9,7 +9,7 @@
             <div nz-col nzSpan="20">
               <h2 style="cursor: pointer; color: #108ee9;">Status: <b>{{data.bookCarStatus}}</b></h2>
               <h5>Reservé par:
-              <b>{{data.user?.firstname}} {{data.user?.lastname}}</b>
+              <b>{{data.user!.firstname}} {{data.user!.lastname}}</b>
                 <button style="margin-left: 10px;" nz-button nzType="primary" (click)="openUser(data.user)">
                  Voir le profile
                 </button>
@@ -22,12 +22,12 @@
             <div *ngIf="data.bookCarStatus == 'PENDING'">
               <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary"
                       (click)="changeBookingStatus(data.id, 'Approve')">
-                Approve
+                Accepter
               </button>
 
               <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary" nzDanger
                       (click)="changeBookingStatus(data.id, 'Reject')">
-                Reject
+                Rejecter
               </button>
             </div>
           </div>
@@ -42,26 +42,26 @@
 <nz-drawer [nzVisible]="visible" [nzWidth]="640" [nzClosable]="false" (nzOnClose)="closeUser()">
   <ng-container *nzDrawerContent>
     <p class="title">User Profile</p>
-    <div class="view-profile">
+    <div class="view-profile" *ngIf="profile">
 
       <div class="field">
         <strong>Nom :</strong>
-        <span>{{ profile?.lastname }}</span>
+        <span>{{ profile!.lastname }}</span>
       </div>
 
       <div class="field">
         <strong>Prénom :</strong>
-        <span>{{ profile?.firstname }}</span>
+        <span>{{ profile!.firstname }}</span>
       </div>
 
       <div class="field">
         <strong>Téléphone :</strong>
-        <span>{{ profile?.number }}</span>
+        <span>{{ profile!.number }}</span>
       </div>
 
       <div class="field">
         <strong>Numéro de permis :</strong>
-        <span>{{ profile?.licenseNumber }}</span>
+        <span>{{ profile!.licenseNumber }}</span>
       </div>
 
       <div class="field" *ngIf="driverLicenseImageUrl">

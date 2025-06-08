@@ -45,6 +45,21 @@ export class BookCarComponent {
   }
 
   onSubmit(){
+
+    // Check if the user profile is complete
+    const profile = StorageService.getProfile()
+    if (!profile || !profile.licenseImage || !profile.licenseNumber || !profile.address || !profile.firstname || !profile.lastname || !profile.number) {
+      this.message.error('Veuillez compléter votre profil avant de réserver une voiture')
+      this.router.navigate(['/customer/profile'])
+      return
+    }
+
+    if (!profile.isVerified) {
+      this.message.error('Veuillez vérifier votre adresse e-mail avant de réserver une voiture')
+      this.router.navigate(['/customer/profile'])
+      return
+    }
+
     this.isSpinning = true
 
     let bookACarDto = {

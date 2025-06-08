@@ -1,0 +1,32 @@
+<!-- form pour la vérification de l'email -->
+
+<ng-container>
+  <p class="title">Vérification de l'email</p>
+  <div class="verify-mail-container">
+    <h2>Vérifiez votre email</h2>
+    <form [formGroup]="verifyMailForm">
+      <div>
+        <label for="code">Code de vérification</label>
+        <input
+          id="code"
+          type="text"
+          formControlName="code"
+          placeholder="Entrez le code de vérification"
+          nz-input
+          [nzSize]="'large'"
+        />
+      </div>
+
+      <button type="submit" nzSize="large" nz-button nzType="primary" (click)="onVerifyEmail()">
+        Vérifier l'email
+      </button>
+    </form>
+  </div>
+  <div class="resend-link">
+    <p>Vous n'avez pas reçu l'email ?</p>
+    <button nz-button nzType="link" (click)="onResendEmail()">Renvoyer l'email de vérification</button>
+  </div>
+  <div class="back-link">
+    <button nz-button nzType="link" (click)="onBack()">Retour</button>
+  </div>
+</ng-container>

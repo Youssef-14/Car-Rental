@@ -29,7 +29,7 @@ interface ColumnItem {
 
 @Component({
   selector: 'app-get-users',
-  imports: [NzButtonModule, NzTableModule, NzDescriptionsComponent, NzDescriptionsItemComponent, NzDrawerComponent, NzDividerComponent, NzDrawerContentDirective, DatePipe, NgIf],
+  imports: [NzButtonModule, NzTableModule, NzDrawerComponent, NzDrawerContentDirective, DatePipe, NgIf],
   styleUrl: './get-users.component.scss',
   templateUrl: './get-users.component.html',
 })

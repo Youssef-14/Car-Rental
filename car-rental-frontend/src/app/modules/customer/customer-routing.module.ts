@@ -6,6 +6,7 @@ import { MyBookingsComponent } from './components/my-bookings/my-bookings.compon
 import {MyProfileComponent} from './components/my-profile/my-profile.component';
 import {CarListComponent} from './components/car-list/car-list.component';
 import {CarFavorisListComponent} from './components/car-favoris-list/car-favoris-list.component';
+import {VerifyMailComponent} from './components/verify-mail/verify-mail.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'book/:id' , component:  BookCarComponent},
   { path: 'my-bookings', component: MyBookingsComponent },
   { path: 'profile', component: MyProfileComponent },
+  { path: 'verify-email', component : VerifyMailComponent },
 ]
 
 @NgModule({

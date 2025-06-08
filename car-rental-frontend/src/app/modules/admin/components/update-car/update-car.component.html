@@ -13,8 +13,8 @@
             </label>
 
             <div *ngIf="imagePreview" class="image-preview">
-              <div class="circle-image">
-                <img [src]="imagePreview" alt="imagePreview" class="preview-image" />
+              <div class="circle-image" style="display: flex; justify-content: center; align-items: center;">
+                <img [src]="imagePreview" alt="imagePreview" class="preview-image" width="200" height="150" />
               </div>
             </div>
 
@@ -100,7 +100,7 @@
         </div>
 
         <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" (click)="updateCar()">
-          Update
+          Modifier
         </button>
       </form>
     </div>

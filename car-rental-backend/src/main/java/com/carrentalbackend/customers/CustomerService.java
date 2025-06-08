@@ -7,6 +7,7 @@ import com.carrentalbackend.carfavoris.AddCarFavorisDto;
 import com.carrentalbackend.cars.CarDto;
 import com.carrentalbackend.customers.dto.UpdateProfileDto;
 import com.carrentalbackend.users.dto.UserDto;
+import jakarta.mail.MessagingException;
 
 import java.util.List;
 
@@ -35,6 +36,10 @@ public interface CustomerService {
     int getTotalCarAvailableCount();
 
     boolean cancelBooking(Long bookingId);
+
+    boolean generateVerificationToken(Long userId) throws MessagingException;
+
+    boolean verifyUserActivationToken(Long userId, String token);
 
     /*int getCarFavorisCount(Long userId);
 

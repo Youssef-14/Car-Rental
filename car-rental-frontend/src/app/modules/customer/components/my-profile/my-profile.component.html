@@ -2,7 +2,12 @@
   <p class="title">User Profile</p><div class="profile-container">
   <h2>Mon Profil</h2>
   <div class="profile-container">
-    <h2>Mon Profil</h2>
+    @if (profile.isVerified){
+      <p class="verified">Votre adresse email est vérifiée</p>
+    } @else {
+      <p class="not-verified">Votre adresse email n'est pas vérifiée</p>
+      <button nz-button nzType="primary" (click)="VerifyMail()">Vérifier mon email</button>
+    }
     <form [formGroup]="profileForm">
       <div>
         <label>Nom:</label>
@@ -17,6 +22,12 @@
       <div>
         <label>Téléphone:</label>
         <input type="tel" formControlName="number" />
+      </div>
+
+      <!-- adresse -->
+      <div>
+        <label>Adresse:</label>
+        <input type="text" formControlName="address" />
       </div>
 
       <div>

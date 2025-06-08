@@ -27,6 +27,15 @@ export class StorageService {
     localStorage.setItem(PROFILE, JSON.stringify(profile))
   }
 
+  static verifyUserActivationToken() {
+    // update profile with isVerified true
+    const profile = this.getProfile()
+    if (profile) {
+      profile.isVerified = true
+      this.saveProfile(profile)
+    }
+  }
+
   static getToken(): string | null {
     return localStorage.getItem(TOKEN)
   }
@@ -80,6 +89,8 @@ export class StorageService {
   static logout() {
     localStorage.removeItem(TOKEN)
     localStorage.removeItem(USER)
+    localStorage.removeItem(PROFILE)
+    localStorage.removeItem(`${PREFIX_TOKEN_KEY}.favorites`)
   }
 
   static addFavorites(carIds: number[]) {

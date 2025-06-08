@@ -75,8 +75,6 @@ export class LoginComponent implements OnInit {
       const decodedToken: MyJwtPayload = jwtDecode(res.access_token);
       const { role, id } = decodedToken;
 
-      console.log(decodedToken);
-
       if (id != null) {
         const user = { id: id, role: role };
 

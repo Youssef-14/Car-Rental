@@ -114,8 +114,34 @@ export class CustomerService {
   }
 
   cancelBooking(id: number): Observable<any> {
-    return this.http.put(`${BASIC_URL}/customer/car/cancel-booking/${id}`, {
+    return this.http.put(`${BASIC_URL}/customer/booking/cancel-booking/${id}`, {
       headers: this.createAuthorizationHeader()
     })
+  }
+
+  generateVerificationCode(): Observable<any> {
+    const userId = StorageService.getUserId()
+      ? Number(StorageService.getUserId())
+      : 0
+
+    return this.http.post(
+      `${BASIC_URL}/customer/generate-verification-token/${userId}`,
+      {},
+      {
+        headers: this.createAuthorizationHeader()
+      }
+    )
+  }
+
+  verifyUserActivationToken(token: string): Observable<any> {
+    const userId = StorageService.getUserId()
+      ? Number(StorageService.getUserId())
+      : 0
+    return this.http.get(
+      `${BASIC_URL}/customer/verification-token/${userId}/${token}`,
+      {
+        headers: this.createAuthorizationHeader()
+      }
+    )
   }
 }
