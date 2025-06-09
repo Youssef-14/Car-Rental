@@ -30,6 +30,11 @@ export class VerifyMailComponent {
   // Method to handle form submission or verification logic can be added here
   onVerifyEmail(): void {
 
+    if (this.verifyMailForm.invalid) {
+      this.message.error('Veuillez entrer un code de vérification valide.');
+      return;
+    }
+
     this.customerService.verifyUserActivationToken(this.verifyMailForm.value.code).subscribe({
       next: (response) => {
         console.log('Email verification sent successfully', response);
