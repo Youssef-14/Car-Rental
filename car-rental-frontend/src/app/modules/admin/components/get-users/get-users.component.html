@@ -59,9 +59,9 @@
         <span>{{ profile?.licenseNumber }}</span>
       </div>
 
-      <div class="field" *ngIf="driverLicenseImageUrl">
+      <div class="field" *ngIf="licenseImage">
         <strong>Permis de conduire :</strong><br />
-        <img [src]="driverLicenseImageUrl" alt="Permis de conduire" width="200" />
+        <img [src]="licenseImage" alt="Permis de conduire" width="200" />
       </div>
     </div>
   </ng-container>

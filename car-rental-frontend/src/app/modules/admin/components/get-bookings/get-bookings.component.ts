@@ -17,7 +17,7 @@ export class GetBookingsComponent implements OnInit {
 
   @Input() profile: any;
 
-  driverLicenseImageUrl: string | null = null;
+  licenseImage: string | null = null;
 
   bookings: Booking[] = []
   isSpinning = false
@@ -58,11 +58,11 @@ export class GetBookingsComponent implements OnInit {
   visible = false;
 
   openUser(user: any): void {
-    this.driverLicenseImageUrl = null;
+    this.licenseImage = null;
     this.visible = true;
     this.profile = user;
     if (this.profile?.licenseImage) {
-      this.driverLicenseImageUrl = this.profile.licenseImage.startsWith('data:image')
+      this.licenseImage = this.profile.licenseImage.startsWith('data:image')
         ? this.profile.licenseImage
         : `data:image/jpeg;base64,${this.profile.licenseImage}`;
     }

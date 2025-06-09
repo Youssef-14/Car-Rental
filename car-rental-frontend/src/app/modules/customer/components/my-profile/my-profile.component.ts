@@ -7,6 +7,9 @@ import {NzButtonComponent} from 'ng-zorro-antd/button';
 import {NzWaveDirective} from 'ng-zorro-antd/core/wave';
 import {Router} from '@angular/router';
 import {NzMessageService} from 'ng-zorro-antd/message';
+import {NzInputDirective} from 'ng-zorro-antd/input';
+import {NzFormControlComponent} from 'ng-zorro-antd/form';
+import {NzColDirective} from 'ng-zorro-antd/grid';
 
 @Component({
   selector: 'app-my-profile',
@@ -14,14 +17,16 @@ import {NzMessageService} from 'ng-zorro-antd/message';
     ReactiveFormsModule,
     NgIf,
     NzButtonComponent,
-    NzWaveDirective
+    NzWaveDirective,
+    NzFormControlComponent,
+    NzColDirective
   ],
   templateUrl: './my-profile.component.html',
   styleUrl: './my-profile.component.scss'
 })
 export class MyProfileComponent implements OnInit {
   profileForm: FormGroup;
-  driverLicenseImageUrl: string | null = null;
+  licenseImage: string | null = null;
   selectedFile: File | null = null;
   profile : any = null;
 
@@ -29,7 +34,7 @@ export class MyProfileComponent implements OnInit {
     this.profileForm = this.fb.group({
       lastname: ['', Validators.required],
       firstname: ['', Validators.required],
-      number: ['', [Validators.required, Validators.pattern('^[0-9]{10,15}$')]],
+      number: ['', Validators.required],
       licenseNumber: ['', Validators.required],
       address: ['', Validators.required],
     });
@@ -46,8 +51,12 @@ export class MyProfileComponent implements OnInit {
         address: this.profile.address
       });
 
+      console.log('Profile loaded from storage:', this.profile);
+
+      console.log('License Image:', this.profile.licenseImage);
+
       if (this.profile.licenseImage) {
-        this.driverLicenseImageUrl = this.profile.licenseImage.startsWith('data:image')
+        this.licenseImage = this.profile.licenseImage.startsWith('data:image')
           ? this.profile.licenseImage
           : `data:image/jpeg;base64,${this.profile.licenseImage}`;
 
@@ -63,13 +72,20 @@ export class MyProfileComponent implements OnInit {
 
       const reader = new FileReader();
       reader.onload = () => {
-        this.driverLicenseImageUrl = reader.result as string;
+        this.licenseImage = reader.result as string;
       };
       reader.readAsDataURL(file);
     }
   }
 
   onSubmit(): void {
+
+    if (this.profileForm.invalid) {
+      this.message.error('Veuillez remplir tous les champs correctement.');
+      return;
+    }
+
+
     const formData : FormData = new FormData()
 
     formData.append('id', StorageService.getUserId() || '0');
@@ -90,7 +106,7 @@ export class MyProfileComponent implements OnInit {
       number: this.profileForm.value.number,
       licenseNumber: this.profileForm.value.licenseNumber,
       address: this.profileForm.value.address,
-      driverLicenseImageBase64: this.driverLicenseImageUrl ? this.driverLicenseImageUrl.split(',')[1] : null
+      licenseImage: this.licenseImage ? this.licenseImage.split(',')[1] : null
     });
 
     this.customerService.updateProfile(formData).subscribe({
