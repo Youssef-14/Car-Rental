@@ -7,6 +7,6 @@ export interface User {
   createdAt: Date
   updatedAt: Date
   driverLicenseNumber: string
-  driverLicenseImageUrl: string | ArrayBuffer | null
+  licenseImage: string | ArrayBuffer | null
   isVerified: boolean
 }

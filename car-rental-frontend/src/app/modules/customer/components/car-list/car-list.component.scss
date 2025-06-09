@@ -1,0 +1,119 @@
+:host {
+  display: block;
+  background-color: #f8f8f8;
+  min-height: 91vh;
+  padding: 24px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  > button[nz-button][nzType="primary"][nzSize="large"] {
+    margin-bottom: 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  .child {
+    margin-top: 16px;
+
+    [nz-row] {
+      background-color: #fff;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      transition: box-shadow 0.3s ease;
+
+      &:hover {
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      nz-col[nzSpan="8"] {
+        img.profile {
+          width: 100%;
+          max-width: 220px;
+          height: 130px;
+          border-radius: 12px;
+          object-fit: cover;
+          border: 1px solid #e8e8e8;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+          transition: transform 0.3s ease;
+
+          &:hover {
+            transform: scale(1.05);
+          }
+        }
+      }
+
+      nz-col[nzSpan="16"] {
+        flex: 1;
+
+        h2 {
+          cursor: pointer;
+          color: #108ee9;
+          font-weight: 700;
+          margin: 0 0 12px 0;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+        p {
+          font-size: 15px;
+          color: #444;
+          line-height: 1.4;
+          margin-bottom: 20px;
+        }
+
+        hr {
+          border: none;
+          border-top: 1px solid #eee;
+          margin: 12px 0;
+        }
+
+        h5 {
+          font-weight: 600;
+          color: #333;
+
+          b {
+            color: #108ee9;
+          }
+        }
+
+        > div {
+          &::after {
+            content: "";
+            display: block;
+            clear: both;
+          }
+        }
+
+        div[style*="float: right"] {
+          button[nz-button] {
+            border-radius: 6px;
+            font-weight: 600;
+            margin-left: 10px;
+          }
+        }
+
+        div[style*="float: left"] {
+          button[nz-button] {
+            border-radius: 6px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+
+            i.anticon {
+              margin-right: 6px;
+              font-size: 16px;
+              color: #ff4d4f;
+              vertical-align: middle;
+            }
+          }
+        }
+      }
+    }
+  }
+}

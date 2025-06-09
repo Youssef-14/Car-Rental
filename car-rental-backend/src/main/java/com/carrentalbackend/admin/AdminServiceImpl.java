@@ -252,4 +252,31 @@ public class AdminServiceImpl implements AdminService {
             throw new IOException("Car not found with id: " + id);
         }
     }
+
+    @Override
+    public int getTotalRevenue() {
+        List<BookACar> bookings = bookACarRepository.findAllByBookCarStatus(BookCarStatus.APPROVED);
+
+        return bookings.stream()
+                .mapToInt(booking -> Math.toIntExact(booking.getCar().getPrice())) // Sum the prices of all approved bookings
+                .sum();
+    }
+
+    @Override
+    public int getTotalRevenueThisMonth() {
+        List<BookACar> bookings = bookACarRepository.findBookingsThisMonthByStatus(BookCarStatus.APPROVED);
+
+        return bookings.stream()
+                .mapToInt(booking -> Math.toIntExact(booking.getCar().getPrice())) // Sum the prices of all approved bookings for the current month
+                .sum();
+    }
+
+    @Override
+    public int getTotalRevenueThisWeek() {
+        List<BookACar> bookings = bookACarRepository.findBookingsThisWeekByStatus(BookCarStatus.APPROVED); // Get the total revenue for the current week
+
+        return bookings.stream()
+                .mapToInt(booking -> Math.toIntExact(booking.getCar().getPrice())) // Sum the prices of all approved bookings for the current week
+                .sum();
+    }
 }

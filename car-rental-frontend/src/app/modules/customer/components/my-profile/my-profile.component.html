@@ -11,28 +11,38 @@
     <form [formGroup]="profileForm">
       <div>
         <label>Nom:</label>
-        <input type="text" formControlName="lastname" />
+        <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="Champ requis">
+          <input type="text" formControlName="lastname" />
+        </nz-form-control>
       </div>
 
       <div>
         <label>Prénom:</label>
-        <input type="text" formControlName="firstname" />
+        <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="Champ requis">
+          <input type="text" formControlName="firstname" />
+        </nz-form-control>
       </div>
 
       <div>
         <label>Téléphone:</label>
-        <input type="tel" formControlName="number" />
+        <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="Champ requis">
+          <input type="text" formControlName="number" />
+        </nz-form-control>
       </div>
 
       <!-- adresse -->
       <div>
         <label>Adresse:</label>
-        <input type="text" formControlName="address" />
+        <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="Champ requis">
+          <input type="text" formControlName="address" />
+        </nz-form-control>
       </div>
 
       <div>
         <label>Numéro de permis:</label>
-        <input type="text" formControlName="licenseNumber" />
+        <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="Champ requis">
+          <input type="text" formControlName="licenseNumber" />
+        </nz-form-control>
       </div>
 
       <div>
@@ -40,7 +50,7 @@
         <input type="file" accept="image/*" (change)="onFileSelected($event)" />
       </div>
 
-      <img *ngIf="driverLicenseImageUrl" [src]="driverLicenseImageUrl" alt="Permis de conduire" width="200" />
+      <img *ngIf="licenseImage" [src]="licenseImage" alt="Permis de conduire" width="200" />
 
 
       <button type="submit" nzSize="large" nz-button nzType="primary" (click)="onSubmit()">Mettre à jour</button>

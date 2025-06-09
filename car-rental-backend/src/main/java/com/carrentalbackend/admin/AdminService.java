@@ -53,4 +53,10 @@ public interface AdminService {
     int getTotalCarsCount();
 
     int getTotalBookingsCountThisMonth();
+
+    int getTotalRevenue();
+
+    int getTotalRevenueThisMonth();
+
+    int getTotalRevenueThisWeek();
 }

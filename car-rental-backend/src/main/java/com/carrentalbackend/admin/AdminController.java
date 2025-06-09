@@ -171,4 +171,19 @@ public class AdminController {
         return ResponseEntity.ok(adminService.getTotalBookingsCountThisMonth());
     }
 
+    @GetMapping("/revenue/total")
+    public ResponseEntity<Integer> getTotalRevenue() {
+        return ResponseEntity.ok(adminService.getTotalRevenue());
+    }
+
+    @GetMapping("/revenue/this_month")
+    public ResponseEntity<Integer> getTotalRevenueThisMonth() {
+        return ResponseEntity.ok(adminService.getTotalRevenueThisMonth());
+    }
+
+    @GetMapping("/revenue/this_week")
+    public ResponseEntity<Integer> getTotalRevenueThisWeek() {
+        return ResponseEntity.ok(adminService.getTotalRevenueThisWeek());
+    }
+
 }
