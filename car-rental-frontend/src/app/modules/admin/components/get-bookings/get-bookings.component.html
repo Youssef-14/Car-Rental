@@ -41,3 +41,37 @@
     </tbody>
   </nz-table>
 </nz-spin>
+
+<nz-drawer [nzVisible]="visible" [nzWidth]="640" [nzClosable]="false" (nzOnClose)="closeUser()">
+  <ng-container *nzDrawerContent>
+    <p class="title">User Profile</p>
+    <div class="view-profile" *ngIf="profile">
+
+      <div class="field">
+        <strong>Nom :</strong>
+        <span>{{ profile!.lastname }}</span>
+      </div>
+
+      <div class="field">
+        <strong>Prénom :</strong>
+        <span>{{ profile!.firstname }}</span>
+      </div>
+
+      <div class="field">
+        <strong>Téléphone :</strong>
+        <span>{{ profile!.number }}</span>
+      </div>
+
+      <div class="field">
+        <strong>Numéro de permis :</strong>
+        <span>{{ profile!.licenseNumber }}</span>
+      </div>
+
+      <div class="field" *ngIf="licenseImage">
+        <strong>Permis de conduire :</strong><br />
+        <img [src]="licenseImage" alt="Permis de conduire" width="200" />
+      </div>
+    </div>
+
+  </ng-container>
+</nz-drawer>

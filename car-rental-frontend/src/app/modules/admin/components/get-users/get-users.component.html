@@ -92,8 +92,14 @@
         <img [src]="licenseImage" alt="Permis de conduire" class="license-image" />
       </div>
 
+
       <div class="drawer-footer">
         <button nz-button nzType="default" (click)="close()">Fermer</button>
+      </div>
+
+      <div class="field" *ngIf="licenseImage">
+        <strong>Permis de conduire :</strong><br />
+        <img [src]="licenseImage" alt="Permis de conduire" width="200" />
       </div>
     </div>
   </ng-container>
