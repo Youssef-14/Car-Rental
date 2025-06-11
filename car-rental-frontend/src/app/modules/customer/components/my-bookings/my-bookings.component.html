@@ -1,53 +1,52 @@
 <div style="background-color: #f8f8f8; min-height: 91vh; padding: 24px;">
   <nz-spin [nzSpinning]="isSpinning">
     <div style="background-color: #fff; padding: 24px; border-radius: 10px;">
-      <nz-table
-        [nzData]="bookings"
-        [nzBordered]="true"
-        [nzSize]="'middle'"
-        [nzScroll]="{ x: '1000px' }"
-        [nzPageSize]="5"
-      >
-        <thead>
-        <tr>
-          <th>Status</th>
-          <th>Booking ID</th>
-          <th>Véhicule</th>
-          <th>Depuis</th>
-          <th>Jusqu'à</th>
-          <th>Nombre de Jours</th>
-          <th>Prix Total</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let booking of bookings">
-          <td>
-            <span style="color: #108ee9; cursor: pointer;">{{ booking.bookCarStatus }}</span>
-          </td>
-          <td>{{ booking.id }}</td>
-          <td>
-            <button nz-button nzType="primary" (click)="open()">{{ booking.car.name }}</button>
-          </td>
-          <td>{{ booking.fromDate | date: 'dd-MM-yyyy' }}</td>
-          <td>{{ booking.toDate | date: 'dd-MM-yyyy' }}</td>
-          <td>{{ booking.days }}</td>
-          <td>{{ booking.price }} €</td>
-          <td>
-            <ng-container *ngIf="isCancelable(booking)">
-              <button nz-button nzType="primary" (click)="cancelBooking(booking.id)">
-                <nz-icon nzType="close-circle" nzTheme="twotone" style="margin-right: 5px;"></nz-icon>
-                Annuler
-              </button>
-            </ng-container>
-          </td>
-        </tr>
-        </tbody>
-      </nz-table>
+      <!-- CARDS LIST VIEW -->
+      <div class="booking-card-container">
+        <div
+          class="booking-card"
+          *ngFor="let booking of bookings"
+        >
+          <div class="booking-header">
+            <div class="booking-status">
+              <span class="status-label">{{ booking.bookCarStatus }}</span>
+            </div>
+            <div class="booking-id">
+              <strong>ID:</strong> {{ booking.id }}
+            </div>
+          </div>
+
+          <div class="booking-body">
+            <p><strong>Véhicule :</strong> {{ booking.car.name }}</p>
+            <p><strong>Depuis :</strong> {{ booking.fromDate | date: 'dd-MM-yyyy' }}</p>
+            <p><strong>Jusqu'à :</strong> {{ booking.toDate | date: 'dd-MM-yyyy' }}</p>
+            <p><strong>Nombre de jours :</strong> {{ booking.days }}</p>
+            <p><strong>Prix total :</strong> {{ booking.price }} €</p>
+          </div>
+
+          <div class="booking-actions">
+            <button nz-button nzType="primary" (click)="open()">
+              Voir Profil
+            </button>
+            <button
+              *ngIf="isCancelable(booking)"
+              nz-button
+              nzType="default"
+              (click)="cancelBooking(booking.id)"
+              style="margin-left: 8px;"
+            >
+              <nz-icon nzType="close-circle" nzTheme="twotone" style="margin-right: 5px;"></nz-icon>
+              Annuler
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </nz-spin>
+
 </div>
 
+<!-- Updated Profile Drawer with detailed static content -->
 <nz-drawer
   [nzVisible]="visible"
   [nzWidth]="640"
@@ -56,41 +55,39 @@
   [nzBodyStyle]="{ background: '#f8f8f8', padding: '24px' }"
 >
   <ng-container *nzDrawerContent>
-    <p class="title" style="font-size: 20px; font-weight: bold;">User Profile</p>
+    <p class="title" style="font-size: 20px; font-weight: bold;">Profil de l'utilisateur</p>
 
     <nz-descriptions [nzColumn]="2" nzTitle="Personal">
-      <nz-descriptions-item nzTitle="Full Name">Lily</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Account">AntDesign&#64;example.com</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="City">HangZhou</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Country">China 🇨🇳</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Birthday">February 2, 1900</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Website">-</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Message" [nzSpan]="2">
-        Make things as simple as possible but no simpler.
-      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Nom">Dupont</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Prénom">Jean</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Téléphone">+33 6 12 34 56 78</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Numéro de permis">AB1234567</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Adresse">10 rue des Fleurs</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Ville">Paris</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Pays">France 🇫🇷</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Date de naissance">12-04-1980</nz-descriptions-item>
     </nz-descriptions>
 
     <nz-divider></nz-divider>
 
-    <nz-descriptions [nzColumn]="2" nzTitle="Company">
-      <nz-descriptions-item nzTitle="Position">Programmer</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Responsibilities">Coding</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Department">AFX</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Supervisor">Lin</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Skills" [nzSpan]="2">
-        C / C++, data structures, software engineering, operating systems, computer networks, databases, compiler
-        theory, computer architecture, Microcomputer Interface Tech, Java, ASP, etc.
-      </nz-descriptions-item>
+    <nz-descriptions [nzColumn]="2" nzTitle="Professionnel">
+      <nz-descriptions-item nzTitle="Superviseur">M. Martin</nz-descriptions-item>
+
     </nz-descriptions>
 
     <nz-divider></nz-divider>
 
-    <nz-descriptions [nzColumn]="2" nzTitle="Contacts">
-      <nz-descriptions-item nzTitle="Email">AntDesign&#64;example.com</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Phone Number">+86 181 0000 0000</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Github" [nzSpan]="2">
-        <a href="https://github.com/NG-ZORRO/ng-zorro-antd" target="_blank">github.com/NG-ZORRO/ng-zorro-antd</a>
-      </nz-descriptions-item>
-    </nz-descriptions>
+
+
+    <nz-divider></nz-divider>
+
+    <div style="margin-top: 16px;">
+      <strong>Permis de conduire :</strong><br />
+      <img src="assets/license-image.jpg" alt="Permis de conduire" style="width: 100%; max-width: 400px; border-radius: 8px;" />
+    </div>
+
+    <div style="margin-top: 24px; text-align: right;">
+      <button nz-button nzType="default" (click)="close()">Fermer</button>
+    </div>
   </ng-container>
 </nz-drawer>
