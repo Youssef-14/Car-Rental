@@ -1,40 +1,50 @@
-<div style="background-color: #f8f8f8; min-height: 91vh; padding: 24px;">
-    <div style="padding-top: 10px;"></div>
-    <button nzSize="large" nz-button nzType="primary" routerLink="/admin/car/add">Add New Car</button>
-    <div style="margin-top: 10px;" class="child" *ngFor="let car of cars">
-        <div nz-row style="background-color: #ccc; padding: 24px;">
-            <div nz-col nzSpan="8">
-                <img class="profile" style="height: 130px; border-radius: 10px; object-fit: cover;" [src]="car.processedImage"
-                     alt="profile">
-            </div>
+<div class="car-management-container">
+  <div class="car-actions">
+    <button nz-button nzType="primary" nzSize="large" routerLink="/admin/car/add">
+      Ajouter un véhicule
+    </button>
+  </div>
 
-            <div nz-col nzSpan="16">
-                <h2 style="cursor: pointer; color: #108ee9;">{{car.brand}} - {{car.name}}</h2>
-                <br/>
+  <div class="car-card" *ngFor="let car of cars">
+    <div nz-row class="car-row">
+      <div nz-col nzSpan="6">
+        <img class="car-image" [src]="car.processedImage" alt="Voiture" />
+      </div>
 
-                <p>{{car.description}}</p>
+      <div nz-col nzSpan="18" class="car-details">
+        <h2 class="car-title">{{ car.brand }} — {{ car.name }}</h2>
 
-                <hr>
+        <p class="car-description">{{ car.description }}</p>
+        <hr />
 
-                <h5>Prix ParJour: <b> {{car.price}}  €</b> - Couleur : <b>{{car.color}}</b> - Transmission : <b>{{car.transmission}}</b> -
-                    Type : <b>{{car.type}}</b> - Année : <b>{{car.year}}</b>
-                </h5>
-                <br/>
-              <div style="float: left;">
-                <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary"
-                        routerLink="/admin/car/bookings/{{car.id}}">Liste de Reservations</button>
-              </div>
-
-                <div style="float: right;">
-                    <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary"
-                            routerLink="/admin/car/update/{{car.id}}">Modifier</button>
-                    <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary" nzGhost
-                            (click)="hideShowCar(car.id)">{{car.available ? 'Cacher' : 'Afficher'}}</button>
-
-                    <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary" nzDanger
-                            (click)="deleteCar(car.id)">Supprimer</button>
-                </div>
-            </div>
+        <div class="car-info">
+          <div><b>Prix / Jour :</b> {{ car.price }} €</div>
+          <div><b>Couleur :</b> {{ car.color }}</div>
+          <div><b>Transmission :</b> {{ car.transmission }}</div>
+          <div><b>Type :</b> {{ car.type }}</div>
+          <div><b>Année :</b> {{ car.year }}</div>
         </div>
+
+        <div class="car-actions-bar">
+          <div class="left-actions">
+            <button nz-button nzType="default" nzSize="small" [routerLink]="'/admin/car/bookings/' + car.id">
+              Réservations
+            </button>
+          </div>
+
+          <div class="right-actions">
+            <button nz-button nzType="primary" nzSize="small" [routerLink]="'/admin/car/update/' + car.id">
+              Modifier
+            </button>
+            <button nz-button nzType="default" nzGhost nzSize="small" (click)="hideShowCar(car.id)">
+              {{ car.available ? 'Cacher' : 'Afficher' }}
+            </button>
+            <button nz-button nzType="default" nzDanger nzSize="small" (click)="deleteCar(car.id)">
+              Supprimer
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

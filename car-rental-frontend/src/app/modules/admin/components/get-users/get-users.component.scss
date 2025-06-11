@@ -1,0 +1,101 @@
+  .table-operations {
+    margin-bottom: 16px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .styled-table {
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+    th {
+      background-color: #f0f2f5 !important;
+      font-weight: 600;
+    }
+
+    td {
+      vertical-align: middle;
+    }
+
+    button {
+      border-radius: 6px;
+    }
+  }
+
+  .drawer-header {
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 20px;
+
+    h3 {
+      margin: 0;
+      font-weight: 600;
+    }
+  }
+
+  .drawer-content {
+    .profile-field {
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+
+      .label {
+        font-weight: 600;
+        color: #888;
+      }
+
+      .value {
+        color: #333;
+        font-size: 16px;
+      }
+    }
+
+    .license-image {
+      margin-top: 8px;
+      width: 100%;
+      max-width: 300px;
+      border-radius: 8px;
+      border: 1px solid #eee;
+    }
+
+    .drawer-footer {
+      margin-top: 24px;
+      text-align: right;
+    }
+  }
+  .user-card {
+    background-color: #f9f9f9;
+    margin: 12px 0;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .user-row {
+    padding: 24px;
+    background-color: #fff;
+    border-left: 4px solid #108ee9;
+    align-items: center;
+  }
+
+  .user-details p {
+    margin: 6px 0;
+    font-weight: 400;
+
+    strong {
+      color: #333;
+    }
+  }
+
+  .user-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

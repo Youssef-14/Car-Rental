@@ -1,33 +1,38 @@
 <nz-spin [nzSpinning]="isSpinning">
   <nz-table #sortTable [nzData]="bookings" nzTableLayout="fixed">
-    <thead>
-    </thead>
+    <thead></thead>
     <tbody>
       @for (data of sortTable.data; track data) {
-        <div style="margin-top: 10px;" class="child">
-          <div nz-row style="background-color: #ccc; padding: 24px;">
-            <div nz-col nzSpan="20">
-              <h2 style="cursor: pointer; color: #108ee9;">Status: <b>{{data.bookCarStatus}}</b></h2>
-              <h5>Reservé par:
-              <b>{{data.user!.firstname}} {{data.user!.lastname}}</b>
-                <button style="margin-left: 10px;" nz-button nzType="primary" (click)="openUser(data.user)">
-                 Voir le profile
-                </button>
+        <div class="booking-card">
+          <div nz-row class="booking-row">
+            <div nz-col nzSpan="20" class="booking-details">
+              <h2 class="status">Status: <b>{{ data.bookCarStatus }}</b></h2>
+
+              <h5>
+                Reservé par: <b>{{ data.user!.firstname }} {{ data.user!.lastname }}</b>
+                <button nz-button nzType="primary" (click)="openUser(data.user)">Voir le profil</button>
               </h5>
-              <h5>Vehicule: <b>{{data.car!.name}}</b> - Car Model: <b>{{data.car!.brand}}</b></h5>
-              <h5>De: <b>{{data.fromDate | date: 'dd-MM-yyyy'}}</b> - Au: <b>{{data.toDate | date: 'dd-MM-yyyy'}}</b> - No of Days: <b>{{data.days}}</b></h5>
-              <h5></h5>
-              <h5>Prix Totale: <b>{{data.price}} €</b></h5>
+
+              <h5>
+                Véhicule: <b>{{ data.car!.name }}</b> — Modèle: <b>{{ data.car!.brand }}</b>
+              </h5>
+
+              <h5>
+                De: <b>{{ data.fromDate | date: 'dd-MM-yyyy' }}</b> — Au:
+                <b>{{ data.toDate | date: 'dd-MM-yyyy' }}</b> — Jours: <b>{{ data.days }}</b>
+              </h5>
+
+              <h5>Prix total: <b>{{ data.price }} €</b></h5>
             </div>
-            <div *ngIf="data.bookCarStatus == 'PENDING'">
-              <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary"
+
+            <div nz-col nzSpan="4" class="booking-actions" *ngIf="data.bookCarStatus == 'PENDING'">
+              <button nz-button nzType="primary" nzSize="small"
                       (click)="changeBookingStatus(data.id, 'Approve')">
                 Accepter
               </button>
-
-              <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary" nzDanger
+              <button nz-button nzType="default" nzDanger nzSize="small"
                       (click)="changeBookingStatus(data.id, 'Reject')">
-                Rejecter
+                Rejeter
               </button>
             </div>
           </div>
@@ -35,9 +40,7 @@
       }
     </tbody>
   </nz-table>
-
 </nz-spin>
-
 
 <nz-drawer [nzVisible]="visible" [nzWidth]="640" [nzClosable]="false" (nzOnClose)="closeUser()">
   <ng-container *nzDrawerContent>

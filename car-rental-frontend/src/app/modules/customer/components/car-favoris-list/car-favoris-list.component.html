@@ -1,29 +1,29 @@
-<div style="background-color: #f8f8f8; min-height: 91vh; padding: 24px;">
-  <div style="padding-top: 10px;"></div>
+<div class="favorites-container">
+  <h1 class="favorites-title">Ma liste de favoris</h1>
 
-  <h1 style="text-align: left; ">Ma liste de favoris</h1>
-
-  <div style="margin-top: 10px;" class="child" *ngFor="let car of cars">
-    <div nz-row style="background-color: #ccc; padding: 24px;">
+  <div class="car-card" *ngFor="let car of cars">
+    <div nz-row class="car-row">
       <div nz-col nzSpan="8">
-        <img class="profile" style="height: 130px; border-radius: 10px; object-fit: cover;" [src]="car.processedImage"
-             alt="profile">
+        <img class="car-image" [src]="car.processedImage" alt="profile" />
       </div>
+      <div nz-col nzSpan="16" class="car-details">
+        <h2 class="car-title">{{ car.brand }} - {{ car.name }}</h2>
 
-      <div nz-col nzSpan="16">
-        <h2 style="cursor: pointer; color: #108ee9;">{{car.brand}} - {{car.name}}</h2>
+        <p class="car-description">{{ car.description }}</p>
+        <hr />
 
-        <p>{{car.description}}</p>
+        <div class="car-info">
+          Prix Par Jour: <b>{{ car.price }} €</b>
+          <span>Couleur : <b>{{ car.color }}</b></span>
+          <span>Transmission : <b>{{ car.transmission }}</b></span>
+          <span>Type : <b>{{ car.type }}</b></span>
+          <span>Année : <b>{{ car.year }}</b></span>
+        </div>
 
-        <hr>
-
-        <h5>Prix par jour: <b>{{car.price}} €</b> - Coleur : <b>{{car.color}}</b> - Transmission : <b>{{car.transmission}}</b> -
-          Type : <b>{{car.type}}</b> - Année : <b>{{car.year}}</b>
-        </h5>
-
-        <div style="float: right;">
-          <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary"
-                  routerLink="/customer/book/{{car.id}}">Réserver</button>
+        <div class="car-actions-bar" style="justify-content: flex-end; margin-top: 15px;">
+          <button nz-button nzType="primary" nzSize="small" [routerLink]="'/customer/book/' + car.id">
+            Réserver
+          </button>
         </div>
       </div>
     </div>

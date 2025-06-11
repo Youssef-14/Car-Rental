@@ -1,35 +1,45 @@
-<div class="login-container">
-  <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
-    <div class="login-title">
-      <h2>Connexion</h2>
+<nz-row class="desktop-layout" [nzGutter]="0">
+  <!-- Branding Section -->
+  <nz-col [nzSpan]="12" class="left-section">
+    <div class="bubbles">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
     </div>
-    <nz-form-item>
-        <nz-form-control nzErrorTip="Please input your email!">
+
+    <div class="branding">
+      <img src="assets/logo.png" alt="AutoDrive Logo" class="logo" />
+      <h1 class="slogan">Car Rental</h1>
+      <p class="tagline">Louez une voiture en toute simplicité.</p>
+      <img src="assets/car-banner.png" alt="Car Banner" class="car-image" />
+    </div>
+  </nz-col>
+
+  <!-- Login Form Section -->
+  <nz-col [nzSpan]="12" class="right-section">
+    <div class="login-container">
+      <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+        <div class="login-title">
+          <h2>Connexion à votre espace</h2>
+        </div>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Veuillez saisir votre email.">
             <nz-input-group nzPrefixIcon="user">
-                <input type="text" nz-input formControlName="email" placeholder="Email" />
+              <input type="text" nz-input formControlName="email" placeholder="Adresse email" />
             </nz-input-group>
-        </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-        <nz-form-control nzErrorTip="Please input your Password!">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Veuillez saisir votre mot de passe.">
             <nz-input-group nzPrefixIcon="lock">
-                <input type="password" nz-input formControlName="password" placeholder="Password" />
+              <input type="password" nz-input formControlName="password" placeholder="Mot de passe" />
             </nz-input-group>
-        </nz-form-control>
-    </nz-form-item>
-    <!--<div nz-row class="login-form-margin">
-        <div nz-col [nzSpan]="12">
-            <label nz-checkbox >
-                <span>Remember me</span>
-            </label>
-        </div>
-        <div nz-col [nzSpan]="12">
-            <a class="login-form-forgot">Forgot password</a>
-        </div>
-    </div>-->
-    <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" >Log in</button>
-    <p class="login-form-text">
-      Vous n'avez pas de compte? <a routerLink="/register">Inscrivez-vous maintenant!</a>
-    </p>
-  </form>
-</div>
+          </nz-form-control>
+        </nz-form-item>
+        <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Se connecter</button>
+        <p class="login-form-text">
+          Pas encore de compte ? <a routerLink="/register">Inscrivez-vous</a>
+        </p>
+      </form>
+    </div>
+  </nz-col>
+</nz-row>
