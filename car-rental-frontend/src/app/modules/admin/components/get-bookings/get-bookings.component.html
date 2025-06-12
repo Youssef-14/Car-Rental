@@ -42,36 +42,49 @@
   </nz-table>
 </nz-spin>
 
-<nz-drawer [nzVisible]="visible" [nzWidth]="640" [nzClosable]="false" (nzOnClose)="closeUser()">
+<nz-drawer
+  [nzVisible]="visible"
+  [nzWidth]="500"
+  [nzClosable]="false"
+  (nzOnClose)="closeUser()"
+  [nzBodyStyle]="{ padding: '24px' }"
+>
   <ng-container *nzDrawerContent>
-    <p class="title">User Profile</p>
-    <div class="view-profile" *ngIf="profile">
-
-      <div class="field">
-        <strong>Nom :</strong>
-        <span>{{ profile!.lastname }}</span>
+    <div class="user-profile-drawer">
+      <div class="drawer-header">
+        <h3>Profil de l'utilisateur</h3>
       </div>
 
-      <div class="field">
-        <strong>Prénom :</strong>
-        <span>{{ profile!.firstname }}</span>
-      </div>
+      <div class="drawer-content">
+        <div class="profile-field" *ngIf="profile?.lastname">
+          <span class="label">Nom :</span>
+          <span class="value">{{ profile.lastname }}</span>
+        </div>
 
-      <div class="field">
-        <strong>Téléphone :</strong>
-        <span>{{ profile!.number }}</span>
-      </div>
+        <div class="profile-field">
+          <span class="label">Prénom :</span>
+          <span class="value">{{ profile.firstname }}</span>
+        </div>
 
-      <div class="field">
-        <strong>Numéro de permis :</strong>
-        <span>{{ profile!.licenseNumber }}</span>
-      </div>
+        <div class="profile-field">
+          <span class="label">Téléphone :</span>
+          <span class="value">{{ profile.number }}</span>
+        </div>
 
-      <div class="field" *ngIf="licenseImage">
-        <strong>Permis de conduire :</strong><br />
-        <img [src]="licenseImage" alt="Permis de conduire" width="200" />
+        <div class="profile-field">
+          <span class="label">Numéro de permis :</span>
+          <span class="value">{{ profile.licenseNumber }}</span>
+        </div>
+
+        <div class="profile-field" *ngIf="licenseImage">
+          <span class="label">Permis de conduire :</span>
+          <img [src]="licenseImage" alt="Permis de conduire" class="license-image" />
+        </div>
+
+        <div class="drawer-footer">
+          <button nz-button nzType="default" (click)="closeUser()">Fermer</button>
+        </div>
       </div>
     </div>
-
   </ng-container>
 </nz-drawer>

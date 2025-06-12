@@ -1,96 +1,86 @@
-<div style="margin-top: 50px; padding: 40px;">
+<div class="post-car-container">
   <nz-spin [nzSpinning]="isSpinning" [nzSize]="'large'" nzTip="Working...">
-    <div class="flex flex-col items-center">
-      <h1 class="text-xl font-bold text-gray-800 mb-4 text-center">Post Car</h1>
+    <div class="form-wrapper">
+      <h1 class="form-title">Post Car</h1>
 
       <form nz-form [formGroup]="postCarForm">
-        <div class="pb-6">
-          <div class="profile-badge" style="display: flex; justify-content: center; align-items: center;">
-            <label for="upload_profile_image" class="upload-label" *ngIf="selectedFile" style="cursor: pointer;">
-              <img class="profile" [src]="imagePreview" alt="profile" width="200" height="150" />
-            </label>
-
-            <input type="file" nz-button nzType="primary" id="upload_profile_image" (change)="onFileSelected($event)"
-              accept="image/*" />
-          </div>
+        <!-- Image Upload -->
+        <div class="image-upload-section">
+          <label *ngIf="selectedFile" for="upload_profile_image" class="upload-label">
+            <img class="car-preview" [src]="imagePreview" alt="profile" />
+          </label>
+          <input
+            type="file"
+            nz-button
+            nzType="primary"
+            id="upload_profile_image"
+            (change)="onFileSelected($event)"
+            accept="image/*"
+          />
         </div>
 
-        <div>
+        <!-- Form Fields (unchanged, just stylized) -->
+        <div class="form-grid">
           <nz-form-item>
-            <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="This Input Is Required">
+            <nz-form-control nzHasFeedback nzErrorTip="This Input Is Required">
               <nz-select formControlName="brand" nzShowSearch nzAllowClear nzPlaceHolder="Brand">
-                <nz-option *ngFor="let brand of listOfBrands" nzLabel="{{brand}}" nzValue="{{brand}}"></nz-option>
+                <nz-option *ngFor="let brand of listOfBrands" [nzLabel]="brand" [nzValue]="brand"></nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>
-        </div>
 
-        <div>
           <nz-form-item>
-            <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="champ est requis">
+            <nz-form-control nzHasFeedback nzErrorTip="champ est requis">
               <input nz-input placeholder="Name" formControlName="name" />
             </nz-form-control>
           </nz-form-item>
-        </div>
 
-        <div>
           <nz-form-item>
-            <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="This Input Is Required">
+            <nz-form-control nzHasFeedback nzErrorTip="This Input Is Required">
               <nz-select formControlName="type" nzShowSearch nzAllowClear nzPlaceHolder="Type">
-                <nz-option *ngFor="let type of listOfType" nzLabel="{{type}}" nzValue="{{type}}"></nz-option>
+                <nz-option *ngFor="let type of listOfType" [nzLabel]="type" [nzValue]="type"></nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>
-        </div>
 
-        <div>
           <nz-form-item>
-            <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="This Input Is Required">
+            <nz-form-control nzHasFeedback nzErrorTip="This Input Is Required">
               <nz-select formControlName="transmission" nzShowSearch nzAllowClear nzPlaceHolder="Transmission">
-                <nz-option *ngFor="let transmission of listOfTransmission" nzLabel="{{transmission}}"
-                  nzValue="{{transmission}}"></nz-option>
+                <nz-option *ngFor="let transmission of listOfTransmission" [nzLabel]="transmission" [nzValue]="transmission"></nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>
-        </div>
 
-        <div>
           <nz-form-item>
-            <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="This Input Is Required">
+            <nz-form-control nzHasFeedback nzErrorTip="This Input Is Required">
               <nz-select formControlName="color" nzShowSearch nzAllowClear nzPlaceHolder="Couleur">
-                <nz-option *ngFor="let color of listOfColor" nzLabel="{{color}}" nzValue="{{color}}"></nz-option>
+                <nz-option *ngFor="let color of listOfColor" [nzLabel]="color" [nzValue]="color"></nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>
-        </div>
 
-        <div>
           <nz-form-item>
-            <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="Champ numérique requis">
+            <nz-form-control nzHasFeedback nzErrorTip="Champ numérique requis">
               <input formControlName="year" nz-input placeholder="Année" type="number" />
             </nz-form-control>
           </nz-form-item>
-        </div>
 
-        <div>
           <nz-form-item>
-            <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="Champ numérique requis">
+            <nz-form-control nzHasFeedback nzErrorTip="Champ numérique requis">
               <input formControlName="price" nz-input placeholder="Prix Par Jour" type="number" />
             </nz-form-control>
           </nz-form-item>
-        </div>
 
-        <div>
           <nz-form-item>
-            <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="Champ réquis">
-              <textarea formControlName="description" rows="1" nz-input placeholder="Description"></textarea>
+            <nz-form-control nzHasFeedback nzErrorTip="Champ réquis">
+              <textarea formControlName="description" rows="3" nz-input placeholder="Description"></textarea>
             </nz-form-control>
           </nz-form-item>
         </div>
 
-        <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" (click)="postCar()">
-          Ajouter une Voiture
-        </button>
+        <div class="form-action">
+          <button nz-button nzType="primary" (click)="postCar()">Ajouter une Voiture</button>
+        </div>
       </form>
     </div>
   </nz-spin>
