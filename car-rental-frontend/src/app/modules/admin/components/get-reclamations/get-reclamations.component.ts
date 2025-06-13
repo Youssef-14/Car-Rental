@@ -1,15 +1,31 @@
-import {Component, Input, OnInit} from '@angular/core'
-import { AdminService } from '../../services/admin.service'
-import { NzMessageService } from 'ng-zorro-antd/message'
-import {Booking} from '../../../../models/booking';
+import {Component, Input} from '@angular/core';
+import {DatePipe, NgIf} from '@angular/common';
+import {NzButtonComponent} from 'ng-zorro-antd/button';
+import {NzColDirective, NzRowDirective} from 'ng-zorro-antd/grid';
+import {NzDrawerComponent} from 'ng-zorro-antd/drawer';
+import {NzSpinComponent} from 'ng-zorro-antd/spin';
+import {NzTableComponent} from 'ng-zorro-antd/table';
+import {NzWaveDirective} from 'ng-zorro-antd/core/wave';
+import {AdminService} from '../../services/admin.service';
+import {NzMessageService} from 'ng-zorro-antd/message';
 
 @Component({
-    selector: 'app-get-bookings',
-    templateUrl: './get-bookings.component.html',
-    styleUrl: './get-bookings.component.scss',
-    standalone: false
+  selector: 'app-get-reclamations',
+  imports: [
+    DatePipe,
+    NgIf,
+    NzButtonComponent,
+    NzColDirective,
+    NzDrawerComponent,
+    NzRowDirective,
+    NzSpinComponent,
+    NzTableComponent,
+    NzWaveDirective
+  ],
+  templateUrl: './get-reclamations.component.html',
+  styleUrl: './get-reclamations.component.scss'
 })
-export class GetBookingsComponent implements OnInit {
+export class GetReclamationsComponent {
   constructor(
     private adminService: AdminService,
     private message: NzMessageService
@@ -22,11 +38,11 @@ export class GetBookingsComponent implements OnInit {
   licenseImage: string | null = null;
   carImage: string | null = null;
 
-  bookings: Booking[] = []
+  reclamations: any[] = []
   isSpinning = false
 
   ngOnInit() {
-    this.getBookings()
+    this.getReclamations()
   }
 
   changeBookingStatus(bookingId: number, status: string) {
@@ -38,7 +54,7 @@ export class GetBookingsComponent implements OnInit {
 
     this.adminService.changeBookingStatus(bookingId, status).subscribe(
       () => {
-        this.getBookings()
+        this.getReclamations()
 
         this.message.success('La réservation a été mise à jour avec succès')
       },
@@ -48,12 +64,12 @@ export class GetBookingsComponent implements OnInit {
     )
   }
 
-  private getBookings() {
+  private getReclamations() {
     this.isSpinning = true
 
-    this.adminService.getCarBookingsByStatus("PENDING").subscribe(bookings => {
-      this.bookings = bookings
-      console.log(bookings);
+    this.adminService.getReclamations().subscribe(reclamations => {
+      this.reclamations = reclamations
+      console.log(reclamations);
       this.isSpinning = false
     })
   }
@@ -91,4 +107,5 @@ export class GetBookingsComponent implements OnInit {
   closeCar(): void {
     this.visibleCar = false;
   }
+
 }

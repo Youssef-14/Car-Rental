@@ -1,4 +1,4 @@
-package com.carrentalbackend.carfavoris;
+package com.carrentalbackend.carfavoris.dto;
 
 public class AddCarFavorisDto {
     private Long userId;

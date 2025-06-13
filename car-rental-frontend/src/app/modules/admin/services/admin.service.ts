@@ -121,7 +121,7 @@ export class AdminService {
   }
 
   getTotalRevenue(): Observable<number> {
-    return this.http.get<number>(`${BASIC_URL}/admin/revenue`, {
+    return this.http.get<number>(`${BASIC_URL}/admin/revenue/total`, {
       headers: this.createAuthorizationHeader()
     });
   }
@@ -136,5 +136,11 @@ export class AdminService {
     return this.http.get<number>(`${BASIC_URL}/admin/revenue/this_week`, {
       headers: this.createAuthorizationHeader()
     });
+  }
+
+  getReclamations(): Observable<any> {
+    return this.http.get(`${BASIC_URL}/admin/reclamations`, {
+      headers: this.createAuthorizationHeader()
+    })
   }
 }

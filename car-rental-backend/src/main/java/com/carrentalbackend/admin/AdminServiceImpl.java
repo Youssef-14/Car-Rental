@@ -9,6 +9,8 @@ import com.carrentalbackend.booking.BookCarStatus;
 import com.carrentalbackend.cars.*;
 import com.carrentalbackend.cars.dto.CarDtoListDto;
 import com.carrentalbackend.cars.dto.SearchCarDto;
+import com.carrentalbackend.reclamations.DTOs.GetReclamationDto;
+import com.carrentalbackend.reclamations.ReclamationRepository;
 import com.carrentalbackend.users.User;
 import com.carrentalbackend.users.UserRepository;
 import com.carrentalbackend.users.dto.UserDto;
@@ -27,11 +29,13 @@ public class AdminServiceImpl implements AdminService {
     private final CarRepository carRepository;
     private final BookACarRepository bookACarRepository;
     private final UserRepository userRepository;
+    private final ReclamationRepository reclamationRepository;
 
-    public AdminServiceImpl(CarRepository carRepository, BookACarRepository bookACarRepository, UserRepository userRepository) {
+    public AdminServiceImpl(CarRepository carRepository, BookACarRepository bookACarRepository, UserRepository userRepository, ReclamationRepository reclamationRepository) {
         this.carRepository = carRepository;
         this.bookACarRepository = bookACarRepository;
         this.userRepository = userRepository;
+        this.reclamationRepository = reclamationRepository;
     }
 
     @Override
@@ -278,5 +282,18 @@ public class AdminServiceImpl implements AdminService {
         return bookings.stream()
                 .mapToInt(booking -> Math.toIntExact(booking.getCar().getPrice())) // Sum the prices of all approved bookings for the current week
                 .sum();
+    }
+
+    // get all reclamations
+    @Override
+    public List<GetReclamationDto> getAllReclamations() {
+        return reclamationRepository.findAll()
+                .stream()
+                .map(reclamation -> new GetReclamationDto(
+                        reclamation.getId(),
+                        reclamation.getDescription(),
+                        reclamation.getBookACar().getBookACarDto(),
+                        reclamation.getReclamationDate()))
+                .collect(Collectors.toList());
     }
 }

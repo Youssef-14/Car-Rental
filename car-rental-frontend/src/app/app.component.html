@@ -47,6 +47,10 @@
       <li *ngIf="isAdminLoggedIn" nz-menu-item nzMatchRouter>
         <a  routerLink="/admin/bookings" routerLinkActive="active"  > Demandes des Reservations </a>
       </li>
+      <li *ngIf="isAdminLoggedIn" nz-menu-item nzMatchRouter>
+        <a  routerLink="/admin/reclamations" routerLinkActive="active"  > Réclamations </a>
+      </li>
+
 
       <!-- Customer Menu Items -->
       <li *ngIf="isCustomerLoggedIn" nz-menu-item nzMatchRouter>

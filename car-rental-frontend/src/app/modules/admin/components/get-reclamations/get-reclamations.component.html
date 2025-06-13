@@ -1,8 +1,8 @@
 <nz-spin [nzSpinning]="isSpinning">
-  <nz-table #sortTable [nzData]="bookings" nzTableLayout="fixed">
+  <nz-table #sortTable [nzData]="reclamations" nzTableLayout="fixed">
     <thead></thead>
     <tbody>
-    <tr *ngIf="bookings.length === 0">
+    <tr *ngIf="reclamations.length === 0">
       <td colspan="1">
         <div class="empty-list-message">La liste est vide.</div>
       </td>
@@ -12,24 +12,24 @@
         <div class="booking-card">
           <div nz-row class="booking-row">
             <div nz-col nzSpan="20" class="booking-details">
-              <h2 class="status">Status: <b>{{ data.bookCarStatus }}</b></h2>
+              <h2 class="status">Date de la réclamation: {{ data.reclamationDate | date: 'dd-MM-yyyy' }}</h2>
+
+              <!-- detail de la Reclamation-->
+              <h3 class="status">Détail de la réclamation: {{ data.description }}</h3>
 
               <h5>
-                Reservé par: <b>{{ data.user!.firstname }} {{ data.user!.lastname }}</b>
-                <button nz-button nzType="primary" (click)="openUser(data.user)">Voir le profil</button>
+                Reservé par: <b>{{ data.bookACarDto.user!.firstname }} {{ data.bookACarDto.user!.lastname }}</b>
+                <button nz-button nzType="primary" (click)="openUser(data.bookACarDto.user)">Voir le profil</button>
               </h5>
 
               <h5>
-                Véhicule: <b>{{ data.car!.name }}</b> — Modèle: <b>{{ data.car!.brand }}</b>
-                <button nz-button nzType="primary" (click)="openCar(data.car)">Voir les détails</button>
+                Véhicule: <b>{{ data.bookACarDto.car!.name }}</b> — Modèle: <b>{{ data.bookACarDto.car!.brand }}</b>
+                <button nz-button nzType="primary" (click)="openCar(data.bookACarDto.car)">Voir les détails</button>
               </h5>
 
               <h5>
-                De: <b>{{ data.fromDate | date: 'dd-MM-yyyy' }}</b> — Au:
-                <b>{{ data.toDate | date: 'dd-MM-yyyy' }}</b> — Jours: <b>{{ data.days }}</b>
+                Loué le : <b>{{ data.reclamationDate | date: 'dd-MM-yyyy' }}</b> — Au:
               </h5>
-
-              <h5>Prix total: <b>{{ data.price }} €</b></h5>
             </div>
 
             <div nz-col nzSpan="4" class="booking-actions" *ngIf="data.bookCarStatus == 'PENDING'">

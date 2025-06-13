@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Router, RouterLink, RouterOutlet} from '@angular/router';
+import {NavigationEnd, Router, RouterLink, RouterOutlet} from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -14,13 +14,21 @@ import {NgIf} from '@angular/common';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+  isCollapsed = true;
 
   isLoggedIn: boolean = StorageService.isLoggedIn()
   isCustomerLoggedIn: boolean = StorageService.isCustomerLoggedIn()
   isAdminLoggedIn: boolean = StorageService.isAdminLoggedIn()
 
-  constructor(private router: Router) {}
-  isCollapsed = false;
+  constructor(private router: Router) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        const url = event.urlAfterRedirects;
+        this.isCollapsed = url.includes('/login') || url.includes('/register');
+      }
+    });
+  }
+
   ngOnInit() {
     this.router.events.subscribe(event => {
       if (event.constructor.name === 'NavigationEnd') {

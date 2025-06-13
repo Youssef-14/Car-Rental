@@ -1,6 +1,12 @@
 <div class="favorites-container">
   <h1 class="favorites-title">Ma liste de favoris</h1>
 
+  <tr *ngIf="cars.length === 0">
+    <td colspan="1">
+      <div class="empty-list-message">La liste est vide.</div>
+    </td>
+  </tr>
+
   <div class="car-card" *ngFor="let car of cars">
     <div nz-row class="car-row">
       <div nz-col nzSpan="8">

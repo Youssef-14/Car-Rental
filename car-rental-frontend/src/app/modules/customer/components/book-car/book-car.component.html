@@ -22,7 +22,7 @@
 
     <div class="booking-form">
       <form (ngSubmit)="onSubmit()">
-        <input
+        <!--<input
           type="date"
           id="from_date"
           name="from_date"
@@ -37,7 +37,26 @@
           [(ngModel)]="date_to"
           placeholder="to_date"
           required
-        />
+        />-->
+
+        <nz-date-picker
+          id="from_date"
+          name="from_date"
+          [(ngModel)]="date_from"
+          [nzDisabledDate]="disableUnavailableDates"
+          placeholder="Date de début"
+          required
+        ></nz-date-picker>
+
+        <nz-date-picker
+          [(ngModel)]="date_to"
+          [nzDisabledDate]="disableUnavailableDates"
+          id="to_date"
+          name="to_date"
+          placeholder="Date de fin"
+          required
+        ></nz-date-picker>
+
         <button type="submit" nzSize="small" nz-button nzType="primary">
           Réserver la voiture
         </button>

@@ -3,6 +3,11 @@
     <div style="background-color: #fff; padding: 24px; border-radius: 10px;">
       <!-- CARDS LIST VIEW -->
       <div class="booking-card-container">
+        <tr *ngIf="bookings.length === 0">
+          <td colspan="1">
+            <div class="empty-list-message">La liste est vide.</div>
+          </td>
+        </tr>
         <div
           class="booking-card"
           *ngFor="let booking of bookings"
@@ -25,9 +30,14 @@
           </div>
 
           <div class="booking-actions">
-            <button nz-button nzType="primary" (click)="open()">
-              Voir Profil
+            <button nz-button nzType="primary" (click)="openCar(booking.car)">
+              Détails de la véhicule
             </button>
+
+            <button nz-button nzType="primary" (click)="openPopUpReclamation(booking.id)">
+              Ajouter une Réclamation
+            </button>
+
             <button
               *ngIf="isCancelable(booking)"
               nz-button
@@ -48,46 +58,67 @@
 
 <!-- Updated Profile Drawer with detailed static content -->
 <nz-drawer
-  [nzVisible]="visible"
-  [nzWidth]="640"
+  [nzVisible]="visibleCar"
+  [nzWidth]="500"
   [nzClosable]="false"
-  (nzOnClose)="close()"
-  [nzBodyStyle]="{ background: '#f8f8f8', padding: '24px' }"
+  (nzOnClose)="closeCar()"
+  [nzBodyStyle]="{ padding: '24px' }"
 >
   <ng-container *nzDrawerContent>
-    <p class="title" style="font-size: 20px; font-weight: bold;">Profil de l'utilisateur</p>
+    <div class="user-profile-drawer">
+      <div class="drawer-header">
+        <h3>Détails du véhicule</h3>
+      </div>
 
-    <nz-descriptions [nzColumn]="2" nzTitle="Personal">
-      <nz-descriptions-item nzTitle="Nom">Dupont</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Prénom">Jean</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Téléphone">+33 6 12 34 56 78</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Numéro de permis">AB1234567</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Adresse">10 rue des Fleurs</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Ville">Paris</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Pays">France 🇫🇷</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Date de naissance">12-04-1980</nz-descriptions-item>
-    </nz-descriptions>
+      <div class="drawer-content">
+        <div class="profile-field" *ngIf="car?.brand">
+          <span class="label">Brand :</span>
+          <span class="value">{{ car?.brand }}</span>
+        </div>
 
-    <nz-divider></nz-divider>
+        <div class="profile-field">
+          <span class="label">Nom :</span>
+          <span class="value">{{ car?.name }}</span>
+        </div>
 
-    <nz-descriptions [nzColumn]="2" nzTitle="Professionnel">
-      <nz-descriptions-item nzTitle="Superviseur">M. Martin</nz-descriptions-item>
+        <div class="profile-field">
+          <span class="label">Année :</span>
+          <span class="value">{{ car?.year }}</span>
+        </div>
 
-    </nz-descriptions>
+        <div class="profile-field">
+          <span class="label">Transmission :</span>
+          <span class="value">{{ car?.transmission }}</span>
+        </div>
 
-    <nz-divider></nz-divider>
+        <div class="profile-field" *ngIf="carImage">
+          <span class="label">Image de la véhicule :</span>
+          <img [src]="carImage" alt="Image de la véhicule" class="license-image" />
+        </div>
 
-
-
-    <nz-divider></nz-divider>
-
-    <div style="margin-top: 16px;">
-      <strong>Permis de conduire :</strong><br />
-      <img src="assets/license-image.jpg" alt="Permis de conduire" style="width: 100%; max-width: 400px; border-radius: 8px;" />
-    </div>
-
-    <div style="margin-top: 24px; text-align: right;">
-      <button nz-button nzType="default" (click)="close()">Fermer</button>
+        <div class="drawer-footer">
+          <button nz-button nzType="default" (click)="closeCar()">Fermer</button>
+        </div>
+      </div>
     </div>
   </ng-container>
 </nz-drawer>
+
+
+<nz-modal
+  [(nzVisible)]="isModalVisible"
+  nzTitle="Ajouter une Réclamation"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzOkDisabled]="!reclamationDescription || !reclamationDescription.trim().length"
+
+>
+  <textarea
+    *nzModalContent
+    rows="4"
+    [(ngModel)]="reclamationDescription"
+    style="width: 100%; resize: vertical; padding: 8px; border: 1px solid #d9d9d9; border-radius: 4px;"
+    placeholder="Décrivez votre problème ici..."
+  ></textarea>
+
+</nz-modal>

@@ -41,6 +41,9 @@ export class GetCarBookingsComponent implements OnInit {
 
   licenseImage: string | null = null;
 
+  carName: string = '';
+  carBrand: string = '';
+
   bookings: Booking[] = []
   isSpinning = false
   carId!: number
@@ -74,6 +77,8 @@ export class GetCarBookingsComponent implements OnInit {
 
     this.adminService.getCarBookingsByCar(this.carId).subscribe(bookings => {
       this.bookings = bookings
+      this.carBrand = this.bookings[0]?.car?.brand || '';
+      this.carName = this.bookings[0]?.car?.name || '';
       console.log(bookings);
       this.isSpinning = false
     })

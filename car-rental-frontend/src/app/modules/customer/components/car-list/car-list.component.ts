@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NgClass, NgForOf} from "@angular/common";
+import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {NzWaveDirective} from "ng-zorro-antd/core/wave";
@@ -17,6 +17,7 @@ import {StorageService} from '../../../../auth/components/services/storage/stora
     NzWaveDirective,
     RouterLink,
     NgClass,
+    NgIf,
   ],
   templateUrl: './car-list.component.html',
   styleUrl: './car-list.component.scss'

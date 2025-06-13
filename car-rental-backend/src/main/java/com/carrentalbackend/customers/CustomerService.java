@@ -3,9 +3,10 @@ package com.carrentalbackend.customers;
 
 import com.carrentalbackend.booking.AddBookACarDto;
 import com.carrentalbackend.booking.BookACarDto;
-import com.carrentalbackend.carfavoris.AddCarFavorisDto;
+import com.carrentalbackend.carfavoris.dto.AddCarFavorisDto;
 import com.carrentalbackend.cars.CarDto;
 import com.carrentalbackend.customers.dto.UpdateProfileDto;
+import com.carrentalbackend.reclamations.DTOs.AddReclamationDto;
 import com.carrentalbackend.users.dto.UserDto;
 import jakarta.mail.MessagingException;
 
@@ -26,7 +27,7 @@ public interface CustomerService {
 
     int getBookingsCountByUserIdAndStatus(Long userId, String status);
 
-    List<BookACarDto> getCarDisponibility(Long carId);
+    List<String> getCarIndisponibility(Long carId);
 
 
     List<CarDto> getCarFavorisByUserId(Long userId);
@@ -44,5 +45,8 @@ public interface CustomerService {
     /*int getCarFavorisCount(Long userId);
 
     void removeCarFromFavoris(Long userId, Long carId);*/
+
+    // add reclamation
+    boolean addReclamation(AddReclamationDto addReclamationDto);
 
 }

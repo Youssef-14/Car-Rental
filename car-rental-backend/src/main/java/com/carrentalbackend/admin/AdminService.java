@@ -5,6 +5,7 @@ import com.carrentalbackend.booking.BookACarDto;
 import com.carrentalbackend.cars.CarDto;
 import com.carrentalbackend.cars.dto.CarDtoListDto;
 import com.carrentalbackend.cars.dto.SearchCarDto;
+import com.carrentalbackend.reclamations.DTOs.GetReclamationDto;
 import com.carrentalbackend.users.dto.UserDto;
 
 import java.io.IOException;
@@ -59,4 +60,7 @@ public interface AdminService {
     int getTotalRevenueThisMonth();
 
     int getTotalRevenueThisWeek();
+
+    // get all reclamations
+    List<GetReclamationDto> getAllReclamations();
 }

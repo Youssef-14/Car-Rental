@@ -2,9 +2,10 @@ package com.carrentalbackend.customers;
 
 import com.carrentalbackend.booking.AddBookACarDto;
 import com.carrentalbackend.booking.BookACarDto;
-import com.carrentalbackend.carfavoris.AddCarFavorisDto;
+import com.carrentalbackend.carfavoris.dto.AddCarFavorisDto;
 import com.carrentalbackend.cars.CarDto;
 import com.carrentalbackend.customers.dto.UpdateProfileDto;
+import com.carrentalbackend.reclamations.DTOs.AddReclamationDto;
 import com.carrentalbackend.users.dto.UserDto;
 import jakarta.mail.MessagingException;
 import org.springframework.http.HttpStatus;
@@ -82,8 +83,8 @@ public class CustomerController {
     }
 
     @GetMapping("/car/car_disponibility/{carId}")
-    public ResponseEntity<List<BookACarDto>> getCarDisponibility(@PathVariable Long carId) {
-        return ResponseEntity.ok(customerService.getCarDisponibility(carId));
+    public ResponseEntity<List<String>> getCarIndisponibility(@PathVariable Long carId) {
+        return ResponseEntity.ok(customerService.getCarIndisponibility(carId));
     }
 
     @PostMapping("/car/favoris")
@@ -134,5 +135,16 @@ public class CustomerController {
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+    }
+
+    // add reclamation
+    @PostMapping("/reclamation")
+    public ResponseEntity<Void> addReclamation(@RequestBody AddReclamationDto addReclamationDto) {
+        boolean isAdded = customerService.addReclamation(addReclamationDto);
+
+        if (isAdded) {
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 }

@@ -106,7 +106,8 @@ export class MyProfileComponent implements OnInit {
       number: this.profileForm.value.number,
       licenseNumber: this.profileForm.value.licenseNumber,
       address: this.profileForm.value.address,
-      licenseImage: this.licenseImage ? this.licenseImage.split(',')[1] : null
+      licenseImage: this.licenseImage ? this.licenseImage.split(',')[1] : null,
+      isVerified: this.profile?.isVerified || false
     });
 
     this.customerService.updateProfile(formData).subscribe({

@@ -36,5 +36,13 @@ public interface BookACarRepository extends JpaRepository<BookACar, Long> {
             "AND b.bookCarStatus = :status")
     List<BookACar> findBookingsThisWeekByStatus(@Param("status") BookCarStatus status);
 
+    // list of bookings this next two months by status and car id
+    @Query("SELECT b FROM BookACar b " +
+            "WHERE MONTH(b.fromDate) IN (MONTH(CURRENT_DATE), MONTH(CURRENT_DATE) + 1) " +
+            "AND YEAR(b.fromDate) = YEAR(CURRENT_DATE) " +
+            "AND b.bookCarStatus = :status " +
+            "AND b.car.id = :carId")
+    List<BookACar> findBookingsNextTwoMonthsByStatusAndCarId(@Param("status") BookCarStatus status, @Param("carId") Long carId);
+
     int countByUserId(Long userId);
 }

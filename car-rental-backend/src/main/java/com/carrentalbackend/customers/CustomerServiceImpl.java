@@ -1,18 +1,20 @@
 package com.carrentalbackend.customers;
 
 import com.carrentalbackend.booking.*;
-import com.carrentalbackend.carfavoris.AddCarFavorisDto;
+import com.carrentalbackend.carfavoris.dto.AddCarFavorisDto;
 import com.carrentalbackend.carfavoris.CarFavoris;
 import com.carrentalbackend.carfavoris.CarFavorisRepository;
 import com.carrentalbackend.cars.Car;
 import com.carrentalbackend.cars.CarDto;
 import com.carrentalbackend.cars.CarRepository;
 import com.carrentalbackend.customers.dto.UpdateProfileDto;
+import com.carrentalbackend.reclamations.DTOs.AddReclamationDto;
+import com.carrentalbackend.reclamations.Reclamation;
+import com.carrentalbackend.reclamations.ReclamationRepository;
 import com.carrentalbackend.users.User;
 import com.carrentalbackend.users.UserRepository;
 import com.carrentalbackend.users.dto.UserDto;
 import jakarta.mail.MessagingException;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -30,13 +32,15 @@ public class CustomerServiceImpl implements CustomerService {
     private final BookACarRepository bookACarRepository;
     private final CarFavorisRepository carFavorisRepository;
     private final EmailService emailService;
+    private final ReclamationRepository reclamationRepository;
 
-    public CustomerServiceImpl(CarRepository carRepository, UserRepository userRepository, BookACarRepository bookACarRepository, CarFavorisRepository carFavorisRepository, EmailService emailService) {
+    public CustomerServiceImpl(CarRepository carRepository, UserRepository userRepository, BookACarRepository bookACarRepository, CarFavorisRepository carFavorisRepository, EmailService emailService, ReclamationRepository reclamationRepository) {
         this.carRepository = carRepository;
         this.userRepository = userRepository;
         this.bookACarRepository = bookACarRepository;
         this.carFavorisRepository = carFavorisRepository;
         this.emailService = emailService;
+        this.reclamationRepository = reclamationRepository;
     }
 
     @Override
@@ -129,9 +133,22 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<BookACarDto> getCarDisponibility(Long carId) {
-        // Get all bookings for the car for the next three months
-        return bookACarRepository.findAllByCarId(carId).stream().map(BookACar::getBookACarDto).toList().stream().filter(bookACarDto -> bookACarDto.getToDate().after(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()))).collect(Collectors.toList());
+    public List<String> getCarIndisponibility(Long carId) {
+        Optional<Car> optionalCar = carRepository.findById(carId);
+        if (optionalCar.isPresent()) {
+            // liste des indisponibilités pour la voiture pour les prochaines 30 jours
+            List<BookACar> bookings = bookACarRepository.findBookingsNextTwoMonthsByStatusAndCarId(
+                    BookCarStatus.APPROVED, carId);
+            // Convert bookings to a list of all date of indisponibility ( string)
+            return bookings.stream()
+                    .flatMap(booking -> {
+                        LocalDate startDate = booking.getFromDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        LocalDate endDate = booking.getToDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        return startDate.datesUntil(endDate.plusDays(1)).map(LocalDate::toString);
+                    })
+                    .collect(Collectors.toList());
+        }
+        return List.of(); // Return an empty list if the car is not found
     }
 
     @Override
@@ -235,6 +252,22 @@ public class CustomerServiceImpl implements CustomerService {
                 userRepository.save(user);
                 return true;
             }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean addReclamation(AddReclamationDto addReclamationDto) {
+        Optional<BookACar> optionalBooking = bookACarRepository.findById(addReclamationDto.getBookACarId());
+        if (optionalBooking.isPresent()) {
+            BookACar booking = optionalBooking.get();
+            Reclamation reclamation = new Reclamation();
+            reclamation.setDescription(addReclamationDto.getDescription());
+            reclamation.setBookACar(booking);
+            reclamation.setReclamationDate(new Date());
+
+            reclamationRepository.save(reclamation);
+            return true;
         }
         return false;
     }

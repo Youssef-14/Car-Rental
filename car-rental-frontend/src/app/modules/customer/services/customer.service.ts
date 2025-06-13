@@ -144,4 +144,16 @@ export class CustomerService {
       }
     )
   }
+
+  getCarIndisponibleDates(carId: number): Observable<any> {
+    return this.http.get(`${BASIC_URL}/customer/car/car_disponibility/${carId}`, {
+      headers: this.createAuthorizationHeader()
+    })
+  }
+
+  addReclamation(reclamation: any): Observable<any> {
+    return this.http.post(`${BASIC_URL}/customer/reclamation`, reclamation, {
+      headers: this.createAuthorizationHeader()
+    })
+  }
 }

@@ -3,6 +3,7 @@ package com.carrentalbackend.admin;
 import com.carrentalbackend.booking.BookACarDto;
 import com.carrentalbackend.cars.CarDto;
 import com.carrentalbackend.cars.dto.SearchCarDto;
+import com.carrentalbackend.reclamations.DTOs.GetReclamationDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -185,5 +186,14 @@ public class AdminController {
     public ResponseEntity<Integer> getTotalRevenueThisWeek() {
         return ResponseEntity.ok(adminService.getTotalRevenueThisWeek());
     }
+
+    // get all reclamations
+    @GetMapping("/reclamations")
+    public ResponseEntity<List<GetReclamationDto>> getAllReclamations() {
+        List<GetReclamationDto> reclamations = adminService.getAllReclamations();
+        return ResponseEntity.ok(reclamations);
+    }
+
+
 
 }

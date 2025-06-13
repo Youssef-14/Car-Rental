@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {CustomerService} from '../../services/customer.service';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {NzButtonComponent} from 'ng-zorro-antd/button';
 import {NzColDirective, NzRowDirective} from 'ng-zorro-antd/grid';
 import {NzWaveDirective} from 'ng-zorro-antd/core/wave';
@@ -14,7 +14,8 @@ import {RouterLink} from '@angular/router';
     NzColDirective,
     NzRowDirective,
     NzWaveDirective,
-    RouterLink
+    RouterLink,
+    NgIf
   ],
   templateUrl: './car-favoris-list.component.html',
   styleUrl: './car-favoris-list.component.scss'

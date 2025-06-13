@@ -34,8 +34,37 @@ export class BookCarComponent {
 
 
     this.carId = Number(this.activeRoute.snapshot.params['id'])
+
+    this.getCarIndiponibleDates(this.carId)
     this.getCarById()
   }
+
+  unavailableDates: string[] = [
+  ];
+
+  getCarIndiponibleDates (carId: number) {
+    this.service.getCarIndisponibleDates(carId).subscribe(
+      (res: string[]) => {
+        this.unavailableDates = res;
+      },
+      (error) => {
+        console.error('Error fetching unavailable dates:', error);
+      }
+    );
+
+  }
+
+  isDateUnavailable = (dateStr: string): boolean => {
+    return this.unavailableDates.includes(dateStr);
+  };
+
+  disableUnavailableDates = (current: Date): boolean => {
+    const formatted = current.toISOString().slice(0, 10); // 'YYYY-MM-DD'
+    return this.unavailableDates.includes(formatted);
+  };
+
+
+
 
   private getCarById() {
     this.service.getCarById(this.carId).subscribe(res => {

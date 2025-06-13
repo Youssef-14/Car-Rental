@@ -8,6 +8,7 @@ import { SearchCarComponent } from './components/search-car/search-car.component
 import {GetCarsComponent} from "./components/get-cars/get-cars.component";
 import {GetUsersComponent} from './components/get-users/get-users.component';
 import {GetCarBookingsComponent} from './components/get-car-bookings/get-car-bookings.component';
+import {GetReclamationsComponent} from './components/get-reclamations/get-reclamations.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: AdminDashboardComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'car/update/:id', component: UpdateCarComponent },
   { path: 'car/bookings/:id', component: GetCarBookingsComponent},
   { path: 'bookings', component: GetBookingsComponent },
+  { path: 'reclamations', component: GetReclamationsComponent },
   { path: 'users', component: GetUsersComponent },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: 'dashboard' } // Wildcard route for a 404 page

@@ -154,3 +154,57 @@ nz-drawer {
   display: flex;
   justify-content: flex-end;
 }
+
+.user-profile-drawer {
+  .drawer-header {
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 20px;
+
+    h3 {
+      margin: 0;
+      font-weight: 600;
+      font-size: 20px;
+      color: #1f1f1f;
+    }
+  }
+
+  .drawer-content {
+    .profile-field {
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+
+      .label {
+        font-weight: 600;
+        color: #888;
+        margin-bottom: 4px;
+        font-size: 14px;
+      }
+
+      .value {
+        color: #333;
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      .license-image {
+        margin-top: 8px;
+        width: 100%;
+        max-width: 300px;
+        border-radius: 8px;
+        border: 1px solid #eee;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+    }
+
+    .drawer-footer {
+      margin-top: 24px;
+      text-align: right;
+
+      button {
+        border-radius: 6px;
+      }
+    }
+  }
+}
+
