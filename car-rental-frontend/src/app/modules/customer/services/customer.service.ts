@@ -156,4 +156,10 @@ export class CustomerService {
       headers: this.createAuthorizationHeader()
     })
   }
+
+  getMostBookedCar(): Observable<any> {
+    return this.http.get(`${BASIC_URL}/customer/car/most-booked`, {
+      headers: this.createAuthorizationHeader()
+    })
+  }
 }

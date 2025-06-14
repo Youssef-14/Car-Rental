@@ -49,4 +49,7 @@ public interface CustomerService {
     // add reclamation
     boolean addReclamation(AddReclamationDto addReclamationDto);
 
+    // get most booked car
+    CarDto getMostBookedCar();
+
 }

@@ -28,6 +28,8 @@ export interface MyJwtPayload {
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit {
+  logoPath: string = 'images/logo-bg.png';
+  logoPath2: string = 'images/logo2-bg.png';
   isSpinning: boolean = false
   validateForm!: FormGroup
 

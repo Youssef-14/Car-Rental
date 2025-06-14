@@ -19,6 +19,8 @@ export class CustomerDashboardComponent {
     this.getBookingsCountByUserIdAndCancelled();
 
     this.getAvailableCarsCount();
+
+    this.getMostBookedCar();
   }
 
   stats = {
@@ -27,6 +29,18 @@ export class CustomerDashboardComponent {
     reservations_annulees: 0,
     voitures_disponibles: 0,
   };
+
+  car :any = {
+    id: 0,
+    brand: '',
+    model: '',
+    year: 0,
+    pricePerDay: 0,
+    imageUrl: '',
+    description: '',
+    isAvailable: false,
+    processedImage: ''
+  }
 
   constructor(
     private customerService: CustomerService,
@@ -86,4 +100,18 @@ export class CustomerDashboardComponent {
     );
     return 0; // Placeholder return value
   }
+
+  getMostBookedCar(): void {
+    this.customerService.getMostBookedCar().subscribe(
+      (response: any) => {
+        console.log('Most booked car ID:', response);
+        this.car = response;
+        this.car.processedImage = `data:image/jpeg;base64,${this.car.returnedImage}`
+      },
+      (error) => {
+        console.error('Error fetching most booked car:', error);
+      }
+    );
+  }
+
 }
