@@ -271,4 +271,21 @@ public class CustomerServiceImpl implements CustomerService {
         }
         return false;
     }
+
+    @Override
+    public CarDto getMostBookedCar(){
+        List<BookACar> bookings = bookACarRepository.findAllByBookCarStatus(BookCarStatus.APPROVED);
+        if (bookings.isEmpty()) {
+            return null; // No bookings found
+        }
+
+        // Group bookings by car and count them
+        return bookings.stream()
+                .collect(Collectors.groupingBy(book -> book.getCar().getId(), Collectors.counting()))
+                .entrySet().stream()
+                .max((entry1, entry2) -> entry1.getValue().compareTo(entry2.getValue()))
+                .map(entry -> carRepository.findById(entry.getKey()).orElse(null))
+                .map(Car::getCarDto)
+                .orElse(null);
+    }
 }

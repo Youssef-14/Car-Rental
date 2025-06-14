@@ -19,6 +19,7 @@ export class AppComponent {
   isLoggedIn: boolean = StorageService.isLoggedIn()
   isCustomerLoggedIn: boolean = StorageService.isCustomerLoggedIn()
   isAdminLoggedIn: boolean = StorageService.isAdminLoggedIn()
+  logoPath2: string = 'images/logo2.png';
 
   constructor(private router: Router) {
     this.router.events.subscribe(event => {

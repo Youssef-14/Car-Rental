@@ -147,4 +147,17 @@ public class CustomerController {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
+
+    // get most booked car
+    @GetMapping("/car/most-booked")
+    public ResponseEntity<CarDto> getMostBookedCar() {
+        CarDto mostBookedCar = customerService.getMostBookedCar();
+        
+        if (mostBookedCar != null) {
+            return ResponseEntity.ok(mostBookedCar);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+
 }
