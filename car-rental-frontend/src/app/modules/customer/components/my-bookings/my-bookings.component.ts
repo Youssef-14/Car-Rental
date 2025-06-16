@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core'
 import { CustomerService } from '../../services/customer.service'
 import {NzMessageService} from 'ng-zorro-antd/message';
+import {TextTranslator} from '../../../../shared/utils/text-translator';
 
 @Component({
     selector: 'app-my-bookings',
@@ -154,4 +155,5 @@ export class MyBookingsComponent {
     this.isModalVisible = false;
   }
 
+  protected readonly TextTranslator = TextTranslator;
 }

@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {DatePipe, NgIf} from '@angular/common';
 import {NzButtonComponent} from 'ng-zorro-antd/button';
 import {NzColDirective, NzRowDirective} from 'ng-zorro-antd/grid';
-import {NzDrawerComponent} from 'ng-zorro-antd/drawer';
+import {NzDrawerComponent, NzDrawerContentDirective} from 'ng-zorro-antd/drawer';
 import {NzSpinComponent} from 'ng-zorro-antd/spin';
 import {NzTableComponent} from 'ng-zorro-antd/table';
 import {NzWaveDirective} from 'ng-zorro-antd/core/wave';
@@ -20,7 +20,8 @@ import {NzMessageService} from 'ng-zorro-antd/message';
     NzRowDirective,
     NzSpinComponent,
     NzTableComponent,
-    NzWaveDirective
+    NzWaveDirective,
+    NzDrawerContentDirective
   ],
   templateUrl: './get-reclamations.component.html',
   styleUrl: './get-reclamations.component.scss'

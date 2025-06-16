@@ -106,7 +106,7 @@ public class CustomerController {
     }
 
     // cancel booking
-    @PutMapping("/booking/cancel-booking/{bookingId}")
+    @GetMapping("/cancel-booking/{bookingId}")
     public ResponseEntity<Void> cancelBooking(@PathVariable Long bookingId) {
         boolean isCancelled = customerService.cancelBooking(bookingId);
 

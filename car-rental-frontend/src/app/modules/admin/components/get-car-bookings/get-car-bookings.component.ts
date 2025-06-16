@@ -12,6 +12,7 @@ import {ActivatedRoute} from '@angular/router';
 import {NzDescriptionsComponent, NzDescriptionsItemComponent} from 'ng-zorro-antd/descriptions';
 import {NzDividerComponent} from 'ng-zorro-antd/divider';
 import {NzDrawerComponent, NzDrawerContentDirective} from 'ng-zorro-antd/drawer';
+import {TextTranslator} from '../../../../shared/utils/text-translator';
 
 @Component({
   selector: 'app-get-car-bookings',
@@ -101,4 +102,5 @@ export class GetCarBookingsComponent implements OnInit {
     this.visible = false;
   }
 
+  protected readonly TextTranslator = TextTranslator;
 }

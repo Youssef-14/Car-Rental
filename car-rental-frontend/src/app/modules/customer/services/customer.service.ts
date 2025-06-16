@@ -114,7 +114,7 @@ export class CustomerService {
   }
 
   cancelBooking(id: number): Observable<any> {
-    return this.http.put(`${BASIC_URL}/customer/booking/cancel-booking/${id}`, {
+    return this.http.get(`${BASIC_URL}/customer/cancel-booking/${id}`, {
       headers: this.createAuthorizationHeader()
     })
   }
