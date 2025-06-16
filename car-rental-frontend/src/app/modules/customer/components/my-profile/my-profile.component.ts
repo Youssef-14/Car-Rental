@@ -53,7 +53,6 @@ export class MyProfileComponent implements OnInit {
 
       console.log('Profile loaded from storage:', this.profile);
 
-      console.log('License Image:', this.profile.licenseImage);
 
       if (this.profile.licenseImage) {
         this.licenseImage = this.profile.licenseImage.startsWith('data:image')

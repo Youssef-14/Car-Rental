@@ -65,7 +65,7 @@
               <img [src]="car.processedImage" alt="car" class="w-full h-32 object-cover object-center">
             </div>
             <div nz-col nzSpan="10">
-              <h2 style="cursor: pointer; color: #108ee9;">Booking Status: {{car.bookCarStatus}}</h2>
+              <h2 style="cursor: pointer; color: #108ee9;">Booking Status: {{ TextTranslator.translateText(car.bookCarStatus)}}</h2>
               <h5>Name: <b>{{car.name}}</b></h5>
               <h5>Brand <b>{{car.brand}}</b></h5>
               <h5>Type <b>{{car.type}}</b> </h5>

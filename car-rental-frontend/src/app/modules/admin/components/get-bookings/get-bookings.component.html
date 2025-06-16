@@ -12,7 +12,7 @@
         <div class="booking-card">
           <div nz-row class="booking-row">
             <div nz-col nzSpan="20" class="booking-details">
-              <h2 class="status">Status: <b>{{ data.bookCarStatus }}</b></h2>
+              <h2 class="status">Status: <b>{{ TextTranslator.translateText(data.bookCarStatus) }}</b></h2>
 
               <h5>
                 Reservé par: <b>{{ data.user!.firstname }} {{ data.user!.lastname }}</b>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
 import { AdminService } from '../../services/admin.service'
+import {TextTranslator} from '../../../../shared/utils/text-translator';
 
 @Component({
     selector: 'app-search-car',
@@ -50,4 +51,6 @@ export class SearchCarComponent {
       }
     )
   }
+
+  protected readonly TextTranslator = TextTranslator;
 }

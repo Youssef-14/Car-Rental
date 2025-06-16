@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core'
 import { AdminService } from '../../services/admin.service'
 import { NzMessageService } from 'ng-zorro-antd/message'
 import {Booking} from '../../../../models/booking';
+import {TextTranslator} from '../../../../shared/utils/text-translator';
 
 @Component({
     selector: 'app-get-bookings',
@@ -91,4 +92,6 @@ export class GetBookingsComponent implements OnInit {
   closeCar(): void {
     this.visibleCar = false;
   }
+
+  protected readonly TextTranslator = TextTranslator;
 }
