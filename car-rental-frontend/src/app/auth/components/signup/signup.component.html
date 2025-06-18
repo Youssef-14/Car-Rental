@@ -1,34 +1,56 @@
-<div class="login-container">
-  <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
-    <div class="login-title">
-      <h2>Inscription</h2>
+<div class="desktop-layout">
+  <div class="left-section">
+    <div class="branding">
+      <img src="images/logo-bg.png" alt="Logo" class="logo" />
+      <h1 class="slogan">Bienvenue sur notre plateforme</h1>
+      <p class="tagline">Louez, gérez et profitez de la liberté sur la route</p>
+      <p class="tagline2">Une solution simple et intuitive pour tous</p>
+      <img src="images/logo2-bg.png" alt="Car" class="car-image" />
     </div>
-    <nz-form-item>
-        <nz-form-control nzErrorTip="Please input your email!">
+    <div class="bubbles">
+      <span *ngFor="let _ of [].constructor(10)"></span>
+    </div>
+  </div>
+
+  <div class="right-section">
+    <div class="login-container">
+      <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+        <div class="login-title">
+          <h2 class="pulse">Inscription</h2>
+        </div>
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Veuillez saisir votre email !">
             <nz-input-group nzPrefixIcon="user">
-                <input type="text" nz-input formControlName="email" placeholder="Email" />
+              <input type="text" nz-input formControlName="email" placeholder="Email" />
             </nz-input-group>
-        </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-        <nz-form-control nzErrorTip="Please input your Password!">
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Veuillez saisir votre mot de passe !">
             <nz-input-group nzPrefixIcon="lock">
-                <input type="password" nz-input formControlName="password" placeholder="Mot de passe" />
+              <input type="password" nz-input formControlName="password" placeholder="Mot de passe" />
             </nz-input-group>
-        </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-control nzErrorTip="Please input your Password!">
-          <nz-input-group nzPrefixIcon="lock">
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Veuillez confirmer votre mot de passe !">
+            <nz-input-group nzPrefixIcon="lock">
               <input type="password" nz-input formControlName="confirmPassword" placeholder="Confirmation du mot de passe" />
-          </nz-input-group>
-      </nz-form-control>
-  </nz-form-item>
-    <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" >
-      S'inscrire
-    </button>
-    <p class="login-form-text">
-      Déjà inscrit? <a routerLink="/login">Connectez-vous maintenant!</a>
-    </p>
-  </form>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">
+          S'inscrire
+        </button>
+
+        <p class="login-form-text">
+          Déjà inscrit ? <a routerLink="/login">Connectez-vous maintenant !</a>
+        </p>
+      </form>
+    </div>
+  </div>
 </div>
