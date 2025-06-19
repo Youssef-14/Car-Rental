@@ -1,33 +1,176 @@
-.login-form {
-  max-width: 300px;
+.desktop-layout {
+  height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+}
+
+.left-section, .right-section {
+  position: relative;
+  overflow: hidden;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  height: 100vh;
+}
+
+.left-section {
+  background: linear-gradient(to bottom right, #002140, #1890ff);
+  color: white;
+  text-align: center;
+  z-index: 0;
+
+  .branding {
+    max-width: 400px;
+    z-index: 1;
+  }
+
+  .logo {
+    width: 100px;
+  }
+
+  .slogan {
+    font-size: 36px;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  .tagline,
+  .tagline2 {
+    font-size: 18px;
+    opacity: 0.9;
+    margin-bottom: 30px;
+  }
+
+  .car-image {
+    width: 100%;
+    max-width: 300px;
+    margin-top: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+  }
+}
+
+.bubbles {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 0;
+  overflow: hidden;
+
+  span {
+    position: absolute;
+    bottom: -100px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    animation: rise linear infinite;
+    opacity: 0.7;
+  }
+
+  span:nth-child(1) { width: 40px; height: 40px; left: 10%; animation-delay: 0s; animation-duration: 12s; }
+  span:nth-child(2) { width: 60px; height: 60px; left: 20%; animation-delay: 3s; animation-duration: 15s; }
+  span:nth-child(3) { width: 25px; height: 25px; left: 35%; animation-delay: 5s; animation-duration: 10s; }
+  span:nth-child(4) { width: 50px; height: 50px; left: 50%; animation-delay: 2s; animation-duration: 14s; }
+  span:nth-child(5) { width: 30px; height: 30px; left: 65%; animation-delay: 7s; animation-duration: 13s; }
+  span:nth-child(6) { width: 45px; height: 45px; left: 75%; animation-delay: 4s; animation-duration: 16s; }
+  span:nth-child(7) { width: 35px; height: 35px; left: 80%; animation-delay: 6s; animation-duration: 12s; }
+  span:nth-child(8) { width: 55px; height: 55px; left: 90%; animation-delay: 1s; animation-duration: 15s; }
+  span:nth-child(9) { width: 20px; height: 20px; left: 95%; animation-delay: 8s; animation-duration: 11s; }
+  span:nth-child(10) { width: 40px; height: 40px; left: 30%; animation-delay: 9s; animation-duration: 14s; }
+}
+
+@keyframes rise {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-800px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+.right-section {
+  background: #ffffff;
+  flex-direction: column;
+  z-index: 0;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 360px;
+  background-color: #f9f9f9;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 2;
+}
+
+.login-title h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 24px;
+  font-weight: bold;
+  color: transparent;
+  background: linear-gradient(270deg, #b5c5d5, #0d1f32, #1890ff);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textGradientMove 4s ease infinite;
+}
+
+@keyframes textGradientMove {
+  0% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+  100% { background-position: 0% center; }
+}
+
+.login-form-button {
+  width: 100%;
+  background-color: #1890ff;
+  border-color: #1890ff;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #40a9ff;
+    border-color: #40a9ff;
+  }
 }
 
 .login-form-margin {
   margin-bottom: 16px;
 }
 
-.login-form-forgot {
-  float: right;
-}
-
-.login-form-button {
-  width: 100%;
-}
-
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%; /* Full viewport height */
-}
-
-.login-form {
-  width: 300px; /* Optional: control form width */
-}
-
-.login-title{
+.login-form-text {
   text-align: center;
-  margin-bottom: 20px;
-  font-size: xx-large;
-  font-weight: bold;
+  margin-top: 16px;
+  font-size: 14px;
+
+  a {
+    color: #1890ff;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .desktop-layout {
+    flex-direction: column;
+  }
+
+  .left-section, .right-section {
+    width: 100%;
+    height: auto;
+    padding: 24px;
+  }
+
+  .car-image {
+    max-width: 100%;
+  }
 }
